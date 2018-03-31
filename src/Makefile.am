@@ -1,2 +1,2 @@
 lib_LTLIBRARIES = libreducer.la
-libreducer_la_SOURCES = reducer.c
+libreducer_la_SOURCES = reducer.cpp
