@@ -26,40 +26,74 @@ namespace number {
 namespace reducer {
 
 /*
- * Based from Gosper (...)
+ * Number reducing atoms.
+ * Adapted from Bill Gosper's continued log idea (see README).
+ *
+ * Before any atom is known, a number is deemed to be completely unknown
+ * (i.e., ranges from negative infinity to positive infinity). The atom sequence
+ * of any given number is supposed to form a coherent list where the new value
+ * or range of an atom is within the resulting range left by applying the
+ * modifications of the previous atom. For instance, a PosTwo may follow a
+ * PosZero, but the reverse is invalid.
+ *
+ * The above constraint can be boiled down to the following protocol invariants:
+ * 1. An Inf-type atom is final, and all other types are not final.
+ * 2. A Neg-type atom may optionally happen only once as the first atom.
+ * 3. A Zero-type atom may optionally happen only once before any occurrence of
+ *    other Pos-type atoms.
+ * 4. PosInf cannot follow Two-type atoms.
+ *
+ * Examples:
+ * 0 = PosZero, PosInf.
+ * 0.5 = PosZero, PosTwo, PosOne, PosInf.
+ * -3.14 = NegTwo, PosOne, PosOne, PosOne, PosTwo, PosOne, PosOne, PosOne,
+ *         PosTwo, PosTwo, PosOne, PosOne, PosOne, PosOne, PosTwo, PosOne,
+ *         PosInf.
  */
 enum class Protocol {
 
-    /**
-     * I was a non positive number.
-     * I negativated myself; so now I am at least zero.
-     */
-    kNegativated,
-
-    /*
-     * I was at least zero and lesser than one.
-     * I reciprocated myself; so now I am at least one.
-     */
-    kReciprocated,
-
-    /*
-     * I was at least one and lesser than two.
-     * I subtracted one from myself; so now I am at least zero and lesser than
-     * one.
-     */
-    kSubtracted,
-
-    /*
-     * I was at least two.
-     * I halved myself; so now I am at least one.
-     */
-    kHalved,
-
     /*
      * I am positive infinity.
-     * There is no more information to extract from me.
      */
-    kInfinite,
+    kPosInf,
+
+    /*
+     * I was at least two; I halved myself.
+     */
+    kPosTwo,
+
+    /*
+     * I was at least one and lesser than two; I subtracted one from myself and
+     * then reciprocated myself.
+     */
+    kPosOne,
+
+    /*
+     * I was at least zero and lesser than one; I reciprocated myself.
+     */
+    kPosZero,
+
+    /* I was greater than minus one and lesser than zero; I negated myself and
+     * then reciprocated myself.
+     */
+    kNegZero,
+
+    /*
+     * I was greater than minus two and not greater than minus one; I negated
+     * myself, subtracted one from myself and reciprocated myself.
+     */
+    kNegOne,
+
+    /*
+     * I was not greater than minus two; I negated myself and then halved
+     * myself.
+     */
+    kNegTwo,
+
+    /*
+     * I am negative infinity.
+     */
+    kNegInf,
 }
 
 }  // namespace reducer
