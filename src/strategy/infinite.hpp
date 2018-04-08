@@ -40,7 +40,7 @@ class Infinite : public Strategy {
      */
     explicit Infinite(bool positive);
 
-    bool Reduce(Protocol* atom) override;
+    std::tuple<bool, Protocol> Reduce() override;
     std::unique_ptr<Strategy> GetNewStrategy() override;
 
  private:

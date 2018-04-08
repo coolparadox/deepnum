@@ -30,9 +30,9 @@ Infinite::Infinite(bool positive)
         : positive_(positive) {
 }
 
-bool Infinite::Reduce(Protocol* atom) {
-    *atom = positive_ ? Protocol::kPosInf : Protocol::kNegInf;
-    return true;
+std::tuple<bool, Protocol> Infinite::Reduce() {
+    return std::make_tuple(true,
+                           positive_ ? Protocol::kPosInf : Protocol::kNegInf);
 }
 
 std::unique_ptr<Strategy> Infinite::GetNewStrategy() {

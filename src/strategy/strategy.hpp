@@ -42,10 +42,10 @@ class Strategy {
      * \return If extraction was successful. On false, client must acquire
      *         another strategy through GetNewStrategy and use the new acquired
      *         strategy for resuming the reduction.
+     * \return Extracted atom, on successful extraction.
      * \see GetNewStrategy
-     * TODO(coolparadox): check how ISO C++ suggests declaring an output parameter.
      */
-    virtual bool Reduce(Protocol* atom) = 0;
+    virtual std::tuple<bool, Protocol> Reduce() = 0;
 
     /**
      * GetNewStrategy offers a strategy that knows how to resume reduction when
