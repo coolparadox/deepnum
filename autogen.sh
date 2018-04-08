@@ -20,4 +20,4 @@
 #
 
 set -x
-exec autoreconf --install --symlink
+exec autoreconf --install --symlink $*

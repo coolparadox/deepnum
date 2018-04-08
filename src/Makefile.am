@@ -18,5 +18,15 @@
 # along with coolparadox-number-reducer.  If not, see <http://www.gnu.org/licenses/>
 #
 
+AUTOMAKE_OPTIONS = subdir-objects
+
 lib_LTLIBRARIES = libreducer.la
-libreducer_la_SOURCES = reducer.cpp
+
+libreducer_la_SOURCES = \
+	strategy/infinite.cpp
+
+include_HEADERS = \
+	protocol.hpp \
+	strategy/infinite.hpp \
+	strategy/strategy.hpp
+
