@@ -27,3 +27,6 @@ unit_tests_SOURCES = \
 	unit_tests.cpp \
 	strategy/infinite_test.cpp
 
+check: @builddir@/unit_tests
+	@builddir@/unit_tests
+
