@@ -21,7 +21,8 @@
 AUTOMAKE_OPTIONS = subdir-objects
 
 bin_PROGRAMS = unit_tests
-unit_tests_LDADD = -lgtest
+unit_tests_CPPFLAGS = -I@srcdir@/../../src
+unit_tests_LDADD = @srcdir@/../../src/.libs/libreducer.la -lgtest
 unit_tests_SOURCES = \
 	unit_tests.cpp \
 	strategy/infinite_test.cpp

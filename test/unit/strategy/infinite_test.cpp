@@ -19,7 +19,7 @@
  */
 
 #include "gtest/gtest.h"
-// #include "strategy/strategy.hpp"
+#include "strategy/infinite.hpp"
 
 namespace coolparadox {
 namespace number {
@@ -27,7 +27,8 @@ namespace reducer {
 namespace strategy {
 
 TEST(InfiniteTest, Hello) {
-    std::cout << "Yo" << std::endl;
+    Infinite strategy(true);
+    strategy.Reduce();
 }
 
 }  // namespace strategy
