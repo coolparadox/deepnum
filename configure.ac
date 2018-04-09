@@ -40,5 +40,6 @@ AC_PROG_CXX
 # Checks for library functions.
 
 AC_CONFIG_FILES([Makefile
-                 src/Makefile])
+                 src/Makefile
+                 test/unit/Makefile])
 AC_OUTPUT

@@ -18,13 +18,11 @@
 # along with coolparadox-number-reducer.  If not, see <http://www.gnu.org/licenses/>
 #
 
-SUBDIRS = src test/unit
-dist_doc_DATA = README
+AUTOMAKE_OPTIONS = subdir-objects
 
-ACLOCAL_AMFLAGS = -I m4
+bin_PROGRAMS = unit_tests
+unit_tests_LDADD = -lgtest
+unit_tests_SOURCES = \
+	unit_tests.cpp \
+	strategy/infinite_test.cpp
 
-totalclean: maintainer-clean
-	-rm -f aclocal.m4 ar-lib compile config.guess config.h.in config.sub
-	-rm -f configure depcomp install-sh ltmain.sh missing Makefile.in
-	-rm -f src/Makefile.in test/unit/Makefile.in
-	-rm -rf m4/

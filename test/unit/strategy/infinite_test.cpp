@@ -18,38 +18,20 @@
  * along with coolparadox-number-reducer.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#ifndef SRC_STRATEGY_INFINITE_HPP_
-#define SRC_STRATEGY_INFINITE_HPP_
-
-#include "strategy/strategy.hpp"
+#include "gtest/gtest.h"
+// #include "strategy/strategy.hpp"
 
 namespace coolparadox {
 namespace number {
 namespace reducer {
 namespace strategy {
 
-/**
- * Infinite is a strategy that repeatedly tells the same Inf-type atom.
- * \see Protocol
- */
-class Infinite : public Strategy {
- public:
-    /**
-     * \param positive If true, PosInf is returned by Reduce; otherwise NegInf
-     *                 is returned.
-     */
-    explicit Infinite(bool positive);
-
-    std::tuple<bool, Protocol> Reduce() override;
-    std::unique_ptr<Strategy> GetNewStrategy() override;
-
- private:
-    bool positive_ = true;
-};
+TEST(InfiniteTest, Hello) {
+    std::cout << "Yo" << std::endl;
+}
 
 }  // namespace strategy
 }  // namespace reducer
 }  // namespace number
 }  // namespace coolparadox
 
-#endif  // SRC_STRATEGY_INFINITE_HPP_
