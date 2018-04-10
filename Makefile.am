@@ -18,8 +18,7 @@
 # along with coolparadox-number-reducer.  If not, see <http://www.gnu.org/licenses/>
 #
 
-SUBDIRS = src test/unit
-# SUBDIRS = src
+SUBDIRS = src @TEST_SUBDIR@
 dist_doc_DATA = README
 
 ACLOCAL_AMFLAGS = -I m4

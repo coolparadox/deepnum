@@ -30,6 +30,7 @@ AC_CONFIG_HEADERS([config.h])
 AM_PROG_AR
 LT_INIT
 AC_PROG_CXX
+AC_LANG([C++])
 
 # Checks for libraries.
 
@@ -38,6 +39,34 @@ AC_PROG_CXX
 # Checks for typedefs, structures, and compiler characteristics.
 
 # Checks for library functions.
+
+AC_MSG_CHECKING([whether to build unit tests])
+AC_ARG_ENABLE(
+    [check],
+    [AS_HELP_STRING([--enable-check], [build unit tests [default=no]])],
+    [ac_enable_check=$enableval],
+    [ac_enable_check=no]
+)
+AC_MSG_RESULT([$ac_enable_check])
+AS_VAR_IF([ac_enable_check], [yes], [
+    AC_SUBST([TEST_SUBDIR], [test/unit])
+])
+
+AC_CHECK_HEADER([gtest/gtest.h])
+AS_VAR_IF([ac_enable_check], [yes], [
+    AS_VAR_IF([ac_cv_header_gtest_gtest_h], [yes], [], [
+        AC_MSG_ERROR([unit tests require Google C++ testing framework])
+    ])
+])
+
+AC_CHECK_HEADER([gmock/gmock.h])
+AS_VAR_IF([ac_enable_check], [yes], [
+    AS_VAR_IF([ac_cv_header_gmock_gmock_h], [yes], [], [
+        AC_MSG_ERROR([unit tests require Google Mock])
+    ])
+])
+
+# AC_CHECK_LIB([gtest], [_ZN7testing14InitGoogleTestEPiPPc])
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile
