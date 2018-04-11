@@ -26,19 +26,19 @@ AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_CONFIG_SRCDIR([src/protocol.hpp])
 AC_CONFIG_HEADERS([config.h])
 
-# Checks for programs.
+AC_PROG_AWK
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_MAKE_SET
+
 AM_PROG_AR
 LT_INIT
 AC_PROG_CXX
 AC_LANG([C++])
 
-# Checks for libraries.
-
-# Checks for header files.
-
-# Checks for typedefs, structures, and compiler characteristics.
-
-# Checks for library functions.
+AC_CHECK_HEADER_STDBOOL
 
 AC_MSG_CHECKING([whether to build unit tests])
 AC_ARG_ENABLE(
@@ -48,25 +48,51 @@ AC_ARG_ENABLE(
     [ac_enable_check=no]
 )
 AC_MSG_RESULT([$ac_enable_check])
+
 AS_VAR_IF([ac_enable_check], [yes], [
     AC_SUBST([TEST_SUBDIR], [test/unit])
-])
 
-AC_CHECK_HEADER([gtest/gtest.h])
-AS_VAR_IF([ac_enable_check], [yes], [
-    AS_VAR_IF([ac_cv_header_gtest_gtest_h], [yes], [], [
-        AC_MSG_ERROR([unit tests require Google C++ testing framework])
+    AC_CHECK_HEADER([gtest/gtest.h], [], [
+        AC_MSG_ERROR([unit tests require Google Test])
     ])
-])
 
-AC_CHECK_HEADER([gmock/gmock.h])
-AS_VAR_IF([ac_enable_check], [yes], [
-    AS_VAR_IF([ac_cv_header_gmock_gmock_h], [yes], [], [
+    AC_MSG_CHECKING([for testing::InitGoogleTest in -lgtest])
+    LIBS_ORIG=$LIBS
+    LIBS="$LIBS -lgtest"
+    AC_LINK_IFELSE(
+        [AC_LANG_PROGRAM(
+            [[#include <gtest/gtest.h>]],
+            [[testing::InitGoogleTest(nullptr, static_cast<char**>(nullptr));]]
+        )],
+        [AC_MSG_RESULT([yes])],
+        [
+            AC_MSG_RESULT([no])
+            AC_MSG_ERROR([unit tests require Google Test])
+        ]
+    )
+    LIBS=$LIBS_ORIG
+
+    AC_CHECK_HEADER([gmock/gmock.h], [], [
         AC_MSG_ERROR([unit tests require Google Mock])
     ])
-])
 
-# AC_CHECK_LIB([gtest], [_ZN7testing14InitGoogleTestEPiPPc])
+    AC_MSG_CHECKING([for testing::InitGoogleMock in -lgmock])
+    LIBS_ORIG=$LIBS
+    LIBS="$LIBS -lgmock"
+    AC_LINK_IFELSE(
+        [AC_LANG_PROGRAM(
+            [[#include <gmock/gmock.h>]],
+            [[testing::InitGoogleMock(nullptr, static_cast<char**>(nullptr));]]
+        )],
+        [AC_MSG_RESULT([yes])],
+        [
+            AC_MSG_RESULT([no])
+            AC_MSG_ERROR([unit tests require Google Mock])
+        ]
+    )
+    LIBS=$LIBS_ORIG
+
+])
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile
