@@ -27,7 +27,7 @@ namespace reducer {
 namespace strategy {
 
 TEST(InfiniteTest, Hello) {
-    Infinite strategy(true);
+    Infinite strategy;
     strategy.Reduce();
 }
 

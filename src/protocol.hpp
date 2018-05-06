@@ -26,80 +26,60 @@ namespace number {
 namespace reducer {
 
 /**
- * Protocol tells what are the atoms of the number reducing protocol.
- * The set of reducing atoms is an adaptation from Bill Gosper's continued log
- * idea (see README).
+ * Protocol tells what are the messages of the number reducing protocol.
+ * The set of reducing messages is taken from Bill Gosper's continued log idea
+ * (see README).
  *
- * Before any atom is known, a number is deemed to be completely unknown
+ * Before any message is known, a number is deemed to be completely unknown
  * (i.e., it lies somewhere between negative infinity and positive infinity).
  *
- * The atom sequence of any given number is supposed to form a coherent list
- * where each atom subdivide the previously known range of the number, and
+ * The message sequence of any given number is supposed to form a coherent list
+ * where each message subdivide the previously known range of the number, and
  * causes a change of this range as a side effect. Moreover, the math must
- * converge in reducing the information of the number more and more until there
- * is no information left to be extracted.
+ * converge in gradually decreasing the "information pool" of the number until
+ * there is no information left to be extracted.
  *
  * The above constraints can be boiled down to the following protocol
  * invariants:
- * 1. An Inf-type atom is final.
- * 2. A not Inf-type atom is not final.
- * 3. A Neg-type atom may happen zero or one time as the first atom.
- * 4. A Zero-type atom may happen zero or one time before any occurrence of
- *    other Pos-type atoms.
- * 5. An Inf-type atom cannot follow a Two-type atom.
+ * 1. '$' is final.
+ * 2. Any message other than '$' is not final.
+ * 3. '-' may optionally happen only once as the first message.
+ * 4. '0' may optionally happen only once before any occurrence of other
+ *    messages besides '-'.
+ * 5. '$' cannot follow '2'.
  *
  * Samples:
- * 0 = PosZero, PosInf.
- * 0.5 = PosZero, PosTwo, PosOne, PosInf.
- * -3.14 = NegTwo, PosOne, PosOne, PosOne, PosTwo, PosOne, PosOne, PosOne,
- *         PosTwo, PosTwo, PosOne, PosOne, PosOne, PosOne, PosTwo, PosOne,
- *         PosInf.
+ * 0: 0$
+ * 0.5: 021$
+ * -3.14: -2111211122111121$
  */
 enum class Protocol {
 
     /**
-     * I am positive infinity.
+     * ('$') I am positive infinity.
      */
-    kPosInf,
+    kEnd,
 
     /**
-     * I was at least two; I halved myself.
+     * ('2') I was at least two; I halved myself.
      */
-    kPosTwo,
+    kTwo,
 
     /**
-     * I was at least one and lesser than two; I subtracted one from myself and
-     * then reciprocated myself.
+     * ('1') I was at least one and lesser than two; I subtracted one from
+     * myself and then reciprocated myself.
      */
-    kPosOne,
+    kOne,
 
     /**
-     * I was at least zero and lesser than one; I reciprocated myself.
+     * ('0') I was at least zero and lesser than one; I reciprocated myself.
      */
-    kPosZero,
+    kZero,
 
     /**
-     * I was greater than minus one and lesser than zero; I negated myself and
-     * then reciprocated myself.
+     * ('-') I was lesser than zero; I negated myself.
      */
-    kNegZero,
-
-    /**
-     * I was greater than minus two and not greater than minus one; I negated
-     * myself, subtracted one from myself and reciprocated myself.
-     */
-    kNegOne,
-
-    /**
-     * I was not greater than minus two; I negated myself and then halved
-     * myself.
-     */
-    kNegTwo,
-
-    /**
-     * I am negative infinity.
-     */
-    kNegInf,
+    kNeg,
 };
 
 }  // namespace reducer

@@ -26,13 +26,8 @@ namespace number {
 namespace reducer {
 namespace strategy {
 
-Infinite::Infinite(bool positive)
-        : positive_(positive) {
-}
-
 std::tuple<bool, Protocol> Infinite::Reduce() {
-    return std::make_tuple(true,
-                           positive_ ? Protocol::kPosInf : Protocol::kNegInf);
+    return std::make_tuple(true, Protocol::kEnd);
 }
 
 std::unique_ptr<Strategy> Infinite::GetNewStrategy() {

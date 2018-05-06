@@ -31,25 +31,27 @@ enum class Protocol;
 namespace strategy {
 
 /**
- * Strategy is an approach for reducing numbers to atoms.
+ * Strategy is an approach for reducing numbers to Protocol message sequences.
  * \see Protocol
  */
 class Strategy {
  public:
     /**
-     * Reduce extracts an atom.
-     * \param atom Placeholder for the extracted atom.
-     * \return If extraction was successful. On false, client must acquire
-     *         another strategy through GetNewStrategy and use the new acquired
-     *         strategy for resuming the reduction.
-     * \return Extracted atom, on successful extraction.
+     * Reduce takes out the next Procol message from the underlying number,
+     * which loses this information as a side effect.
+     * \return If extraction was successful. On false, caller must ignore the
+     *         returned message and acquire another strategy through
+     *         GetNewStrategy. The new acquired strategy can then be used to
+     *         resume the reduction.
+     * \return Extracted message (valid only on successful extraction).
      * \see GetNewStrategy
      */
     virtual std::tuple<bool, Protocol> Reduce() = 0;
 
     /**
-     * GetNewStrategy offers a strategy that knows how to resume reduction when
-     * this strategy halts in doing so.
+     * GetNewStrategy offers another strategy that knows how to resume reduction
+     * when this strategy ceases working.
+     * This method should be called after Reduce fails.
      * \see Reduce
      */
     virtual std::unique_ptr<Strategy> GetNewStrategy() = 0;
