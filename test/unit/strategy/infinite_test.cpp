@@ -18,7 +18,8 @@
  * along with coolparadox-number-reducer.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "gtest/gtest.h"
+#include <CppUTest/Utest.h>
+#include <CppUTest/UtestMacros.h>
 #include "strategy/infinite.hpp"
 
 namespace coolparadox {
@@ -26,9 +27,15 @@ namespace number {
 namespace reducer {
 namespace strategy {
 
-TEST(InfiniteTest, Hello) {
+TEST_GROUP(FirstTestGroup) {
+};
+
+TEST(FirstTestGroup, FirstTest) {
     Infinite strategy;
-    strategy.Reduce();
+    bool reduced;
+    Protocol atom;
+    std::tie(reduced, atom) = strategy.Reduce();
+    CHECK(reduced);
 }
 
 }  // namespace strategy

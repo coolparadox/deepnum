@@ -18,9 +18,8 @@
  * along with coolparadox-number-reducer.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "gtest/gtest.h"
+#include <CppUTest/CommandLineTestRunner.h>
 
 int main(int argc, char** argv) {
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+    return CommandLineTestRunner::RunAllTests(argc, argv);
 }
