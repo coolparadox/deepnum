@@ -51,47 +51,34 @@ AC_MSG_RESULT([$ac_enable_check])
 
 AS_VAR_IF([ac_enable_check], [yes], [
     AC_SUBST([TEST_SUBDIR], [test/unit])
-# 
-#     AC_CHECK_HEADER([gtest/gtest.h], [], [
-#         AC_MSG_ERROR([unit tests require Google Test])
-#     ])
-# 
-#     AC_MSG_CHECKING([for testing::InitGoogleTest in -lgtest])
-#     LIBS_ORIG=$LIBS
-#     LIBS="$LIBS -lgtest"
-#     AC_LINK_IFELSE(
-#         [AC_LANG_PROGRAM(
-#             [[#include <gtest/gtest.h>]],
-#             [[testing::InitGoogleTest(nullptr, static_cast<char**>(nullptr));]]
-#         )],
-#         [AC_MSG_RESULT([yes])],
-#         [
-#             AC_MSG_RESULT([no])
-#             AC_MSG_ERROR([unit tests require Google Test])
-#         ]
-#     )
-#     LIBS=$LIBS_ORIG
-# 
-#     AC_CHECK_HEADER([gmock/gmock.h], [], [
-#         AC_MSG_ERROR([unit tests require Google Mock])
-#     ])
-# 
-#     AC_MSG_CHECKING([for testing::InitGoogleMock in -lgmock])
-#     LIBS_ORIG=$LIBS
-#     LIBS="$LIBS -lgmock"
-#     AC_LINK_IFELSE(
-#         [AC_LANG_PROGRAM(
-#             [[#include <gmock/gmock.h>]],
-#             [[testing::InitGoogleMock(nullptr, static_cast<char**>(nullptr));]]
-#         )],
-#         [AC_MSG_RESULT([yes])],
-#         [
-#             AC_MSG_RESULT([no])
-#             AC_MSG_ERROR([unit tests require Google Mock])
-#         ]
-#     )
-#     LIBS=$LIBS_ORIG
-# 
+
+    AC_CHECK_HEADER([CppUTest/CommandLineTestRunner.h], [], [
+        AC_MSG_ERROR([unit tests require CppUTest])
+    ])
+
+    AC_CHECK_HEADER([CppUTest/Utest.h], [], [
+        AC_MSG_ERROR([unit tests require CppUTest])
+    ])
+
+    AC_CHECK_HEADER([CppUTest/UtestMacros.h], [], [
+        AC_MSG_ERROR([unit tests require CppUTest])
+    ])
+
+    AC_MSG_CHECKING([for CommandLineTestRunner::RunAllTests in -lCppUTest])
+    LIBS_ORIG=$LIBS
+    LIBS="$LIBS -lCppUTest"
+    AC_LINK_IFELSE(
+        [AC_LANG_PROGRAM(
+            [[#include <CppUTest/CommandLineTestRunner.h>]],
+            [[CommandLineTestRunner::RunAllTests(0, static_cast<char**>(nullptr));]]
+        )],
+        [AC_MSG_RESULT([yes])],
+        [
+            AC_MSG_RESULT([no])
+            AC_MSG_ERROR([unit tests require CppUTest])
+        ]
+    )
+    LIBS=$LIBS_ORIG
 ])
 
 AC_CONFIG_FILES([Makefile
