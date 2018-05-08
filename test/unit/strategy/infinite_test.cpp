@@ -20,6 +20,7 @@
 
 #include <CppUTest/Utest.h>
 #include <CppUTest/UtestMacros.h>
+#include "protocol.hpp"
 #include "strategy/infinite.hpp"
 
 namespace coolparadox {
@@ -27,15 +28,25 @@ namespace number {
 namespace reducer {
 namespace strategy {
 
-TEST_GROUP(FirstTestGroup) {
+TEST_GROUP(InfiniteStrategyTest) {
 };
 
-TEST(FirstTestGroup, FirstTest) {
+TEST(InfiniteStrategyTest, AlwaysReducesToInfinity) {
     Infinite strategy;
-    bool reduced;
-    Protocol atom;
-    std::tie(reduced, atom) = strategy.Reduce();
-    CHECK(reduced);
+    {
+        auto [ok, message] = strategy.Reduce();
+        CHECK(ok);
+        LONGS_EQUAL(Protocol::kEnd, message);
+    }
+    {
+        auto [ok, message] = strategy.Reduce();
+        CHECK(ok);
+        LONGS_EQUAL(Protocol::kEnd, message);
+    }
+}
+
+TEST(InfiniteStrategyTest, NeverProvidesNewStrategy) {
+    CHECK_THROWS(std::logic_error, Infinite().GetNewStrategy());
 }
 
 }  // namespace strategy

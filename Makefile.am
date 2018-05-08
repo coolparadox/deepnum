@@ -24,6 +24,7 @@ dist_doc_DATA = README
 ACLOCAL_AMFLAGS = -I m4
 
 totalclean: maintainer-clean
+	-rm -f *.in~
 	-rm -f aclocal.m4 ar-lib compile config.guess config.h.in config.sub
 	-rm -f configure depcomp install-sh ltmain.sh missing Makefile.in
 	-rm -f src/Makefile.in test/unit/Makefile.in

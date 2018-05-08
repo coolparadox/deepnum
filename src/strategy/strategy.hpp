@@ -40,19 +40,17 @@ class Strategy {
      * Reduce takes out the next Procol message from the underlying number,
      * which loses this information as a side effect.
      * \return If extraction was successful. On false, caller must ignore the
-     *         returned message and acquire another strategy through
-     *         GetNewStrategy. The new acquired strategy can then be used to
-     *         resume the reduction.
-     * \return Extracted message (valid only on successful extraction).
+     *         returned message. In this case, GetNewStrategy provides another
+     *         strategy that can resume the reduction.
+     * \return Message.
      * \see GetNewStrategy
      */
     virtual std::tuple<bool, Protocol> Reduce() = 0;
 
     /**
-     * GetNewStrategy offers another strategy that knows how to resume reduction
-     * when this strategy ceases working.
-     * This method should be called after Reduce fails.
-     * \see Reduce
+     * GetNewStrategy offers another strategy to resume reduction in case this
+     * strategy ceases working. \see Reduce
+     * May throw std::logic_error if called in a working strategy.
      */
     virtual std::unique_ptr<Strategy> GetNewStrategy() = 0;
 };
