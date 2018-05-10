@@ -2,10 +2,6 @@ dist: trusty
 language: cpp
 sudo: required
 
-addons:
-    apt:
-        update: false
-
 matrix:
   include:
     - os: linux
@@ -19,8 +15,10 @@ matrix:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 
 before_install:
-- eval "${MATRIX_EVAL}"
+  - eval "${MATRIX_EVAL}"
 
 install:
-- ./autogen.sh
+  - ./autogen.sh
 
+script:
+  - ./configure --enable-check && make check
