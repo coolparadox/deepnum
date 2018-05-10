@@ -1,2 +1,7 @@
-install: ./autogen.sh
+before_install:
+  - apt install libtool
+
+install:
+  - ./autogen.sh
+
 language: cpp
