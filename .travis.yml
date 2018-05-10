@@ -1,10 +1,6 @@
 dist: trusty
 language: cpp
-sudo: required
-
-addons:
-  apt:
-    update: true
+# sudo: required
 
 install:
   - ./autogen.sh

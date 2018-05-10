@@ -19,7 +19,7 @@
 #
 
 AC_PREREQ([2.69])
-LT_PREREQ([2.4.6])
+LT_PREREQ([2.4.2])
 AC_INIT([coolparadox-number-reducer],[0.0.0],[coolparadox@gmail.com])
 AC_CONFIG_MACRO_DIRS([m4])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
