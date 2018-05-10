@@ -9,8 +9,10 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+            - universe
           packages:
             - g++-7
+            - cpputest
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 
