@@ -1,5 +1,5 @@
 before_install:
-  - apt install libtool
+  - apt-get install libtool
 
 install:
   - ./autogen.sh
