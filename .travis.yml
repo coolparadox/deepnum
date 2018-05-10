@@ -3,7 +3,9 @@ language: cpp
 sudo: required
 
 before_install:
-  - sudo apt install autoconf-archive
+    - sudo add-apt-repository universe -y
+    - sudo apt-get update -q
+    - sudo apt-get install autoconf-archive -y
 
 install:
   - ./autogen.sh
