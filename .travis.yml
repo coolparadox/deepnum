@@ -1,6 +1,9 @@
 dist: trusty
 language: cpp
-# sudo: required
+sudo: required
+
+before-install:
+  - sudo apt install autoconf-archive
 
 install:
   - ./autogen.sh
