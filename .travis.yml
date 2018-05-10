@@ -1,7 +1,10 @@
+dist: trusty
+language: cpp
+sudo: required
+
 before_install:
-  - apt-get install libtool
+  - sudo apt install libtool
 
 install:
   - ./autogen.sh
 
-language: cpp
