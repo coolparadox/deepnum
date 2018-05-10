@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 #
 # Copyright 2018 Rafael Lorandi <coolparadox@gmail.com>
 #

@@ -1,1 +1,2 @@
+install: ./autogen.sh
 language: cpp
