@@ -2,6 +2,10 @@ dist: trusty
 language: cpp
 sudo: required
 
+addons:
+    apt:
+        update: false
+
 before_install:
     - sudo add-apt-repository universe -y
     - sudo apt-get update -q
