@@ -6,11 +6,21 @@ addons:
     apt:
         update: false
 
+matrix:
+  include:
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+
 before_install:
-    - sudo add-apt-repository universe -y
-    - sudo apt-get update -q
-    - sudo apt-get install autoconf-archive -y
+- eval "${MATRIX_EVAL}"
 
 install:
-  - ./autogen.sh
+- ./autogen.sh
 
