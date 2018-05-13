@@ -1,4 +1,4 @@
-# Reference builder setup
+# Reference build setup
 FROM ubuntu:latest
 RUN apt-get --yes --no-upgrade update
 ENV DEBIAN_FRONTEND noninteractive

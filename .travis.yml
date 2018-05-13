@@ -1,24 +1,8 @@
 os: linux
-language: cpp
+sudo: required
 
-addons:
-    apt:
-        update: true
-        sources:
-            - ubuntu-toolchain-r-test
-        packages:
-            # - autoconf-archive
-            - cpputest
-            - g++-7
-
-install: true
-
-before_script:
-    - wget -O /tmp/aa.tar.xz http://ftpmirror.gnu.org/autoconf-archive/autoconf-archive-2018.03.13.tar.xz
-    - tar -C /tmp -xf /tmp/aa.tar.xz
-    - pushd /tmp/autoconf-archive* && ./configure --prefix=/usr && make && sudo make install && popd
+services:
+    - docker
 
 script:
-    - ./autogen.sh
-    - CC=gcc-7 CXX=g++-7 ./configure --enable-check
-    - make check
+    - docker build .
