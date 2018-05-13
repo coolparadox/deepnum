@@ -1,26 +1,25 @@
-dist: trusty
+os: linux
+# dist: trusty
+# sudo: required
 language: cpp
-sudo: required
 
-matrix:
-  include:
-    - os: linux
-      addons:
-        apt:
-          sources:
+addons:
+    apt:
+        update: true
+        sources:
             - ubuntu-toolchain-r-test
-          packages:
+        packages:
             - autoconf-archive
             - cpputest
             - g++-7
-      env:
-        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && CXXFLAGS=-std=gnu++1z"
 
-before_install:
-  - eval "${MATRIX_EVAL}"
+env:
+    - CC=gcc-7
+    - CXX=g++-7
 
-install:
-  - ./autogen.sh
+install: true
 
 script:
-  - ./configure --enable-check && make check
+  - ./autogen.sh
+  - ./configure --enable-check
+  - make check
