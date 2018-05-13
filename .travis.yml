@@ -1,6 +1,10 @@
 os: linux
 sudo: required
 
+addons:
+    apt:
+        update: false
+
 services:
     - docker
 
