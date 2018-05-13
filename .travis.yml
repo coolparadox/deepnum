@@ -1,5 +1,5 @@
 os: linux
-dist: precise
+sudo: required
 language: cpp
 
 addons:
@@ -7,6 +7,7 @@ addons:
         update: true
         sources:
             - ubuntu-toolchain-r-test
+            - deb http://archive.ubuntu.com/ubuntu/ bionic universe
         packages:
             - autoconf-archive
             - cpputest
@@ -16,5 +17,5 @@ install: true
 
 script:
   - ./autogen.sh
-  - CC=gcc-7 CXX=g++-7 CXXFLAGS='-std=gnu++17' ./configure --enable-check
+  - CC=gcc-7 CXX=g++-7 ./configure --enable-check
   - make check
