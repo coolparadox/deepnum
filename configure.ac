@@ -37,7 +37,6 @@ AM_PROG_AR
 LT_INIT
 AC_PROG_CXX
 AC_LANG([C++])
-AX_CXX_COMPILE_STDCXX_17
 
 AC_CHECK_HEADER_STDBOOL
 
@@ -81,6 +80,8 @@ AS_VAR_IF([ac_enable_check], [yes], [
     )
     LIBS=$LIBS_ORIG
 ])
+
+AX_CXX_COMPILE_STDCXX_17
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile
