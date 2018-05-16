@@ -28,4 +28,9 @@ totalclean: maintainer-clean
 	-rm -f aclocal.m4 ar-lib compile config.guess config.h.in config.sub
 	-rm -f configure depcomp install-sh ltmain.sh missing Makefile.in
 	-rm -f src/Makefile.in test/unit/Makefile.in
-	-rm -rf m4/
+	-rm -rf m4/ doc/
+	-rm -rf test/unit/.deps/ test/unit/Makefile test/unit/strategy/.deps/
+
+doc:
+	doxygen
+.PHONY: doc

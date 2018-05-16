@@ -25,6 +25,7 @@ AC_CONFIG_MACRO_DIRS([m4])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_CONFIG_SRCDIR([src/protocol.hpp])
 AC_CONFIG_HEADERS([config.h])
+AC_SUBST([PROJECT_BRIEF], ["continued log arithmetic"])
 
 AC_PROG_AWK
 AC_PROG_CC
@@ -83,7 +84,8 @@ AS_VAR_IF([ac_enable_check], [yes], [
 
 AX_CXX_COMPILE_STDCXX_17
 
-AC_CONFIG_FILES([Makefile
+AC_CONFIG_FILES([Doxyfile
+                 Makefile
                  src/Makefile
                  test/unit/Makefile])
 AC_OUTPUT
