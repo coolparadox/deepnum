@@ -28,8 +28,7 @@ namespace number {
 namespace reducer {
 namespace strategy {
 
-/**
- * Infinite is a strategy that knows how to express positive infinity.
+/** Infinite is a strategy that knows how to express positive infinity.
  * \see Protocol
  */
 class Infinite : public Strategy {

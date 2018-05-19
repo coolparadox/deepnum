@@ -26,58 +26,66 @@ namespace number {
 namespace reducer {
 
 /**
- * Protocol tells what are the messages of the number reducing protocol.
- * The set of reducing messages is taken from Bill Gosper's continued log idea
- * (see README).
+ * Protocol defines the messages of the number reducing protocol.
+ * The set of reducing messages is taken from Bill Gosper's continued log idea.
  *
  * Before any message is known, a number is deemed to be completely unknown
  * (i.e., it lies somewhere between negative infinity and positive infinity).
  *
- * The message sequence of any given number is supposed to form a coherent list
- * where each message subdivide the previously known range of the number, and
- * causes a change of this range as a side effect. Moreover, the math must
- * converge in gradually decreasing the "information pool" of the number until
- * there is no information left to be extracted.
+ * The messages produced by reducing any given number is supposed to form a
+ * coherent sequence where each message uncovers a new level of knowledge about
+ * where the number lies in its formerly known range,
+ * and then causes a change of this range as a side effect
+ * of simple arithmetic transformations in the number.
+ * Moreover, the math must converge in gradually decreasing the
+ * "information pool" of the number
+ * until there is no information left to be extracted.
  *
- * The above constraints can be boiled down to the following protocol
- * invariants:
- * 1. '$' is final.
- * 2. Any message other than '$' is not final.
- * 3. '-' may optionally happen only once as the first message.
- * 4. '0' may optionally happen only once before any occurrence of other
- *    messages besides '-'.
- * 5. '$' cannot follow '2'.
+ * The above constraints can be boiled down
+ * to the following protocol invariants:
+ *   -# '$' is final.
+ *   -# Any message other than '$' is not final.
+ *   -# '-' may optionally happen only once as the first message.
+ *   -# '0' may optionally happen only once before any occurrence of other
+ *      messages besides '-'.
+ *   -# '$' cannot follow '2'.
  *
- * Samples:
- * 0: 0$
- * 0.5: 021$
- * -3.14: -2111211122111121$
+ * Samples of reducing some numbers using this protocol:
+ *   - _0_ = '0$'
+ *   - _0.5_ = '021$'
+ *   - _-3.14_ = '-2111211122111121$'
  */
 enum class Protocol {
 
     /**
-     * ('$') I am positive infinity.
+     * '$'.
+     * Number is positive infinity.
      */
     kEnd,
 
     /**
-     * ('2') I was at least two; I halved myself.
+     * '2'.
+     * Number was at least two and was halved.
      */
     kTwo,
 
     /**
-     * ('1') I was at least one and lesser than two; I subtracted one from
-     * myself and then reciprocated myself.
+     * '1'.
+     * Number was at least one but lesser than two,
+     * had one subtracted from itself and then was reciprocated.
      */
     kOne,
 
     /**
-     * ('0') I was at least zero and lesser than one; I reciprocated myself.
+     * '0'.
+     * Number was at least zero but lesser than one
+     * and was reciprocated.
      */
     kZero,
 
     /**
-     * ('-') I was lesser than zero; I negated myself.
+     * '-'.
+     * Number was lesser than zero and was negated.
      */
     kNeg,
 };

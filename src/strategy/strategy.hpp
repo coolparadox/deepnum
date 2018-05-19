@@ -31,7 +31,8 @@ enum class Protocol;
 namespace strategy {
 
 /**
- * Strategy is an approach for reducing numbers to Protocol message sequences.
+ * Strategy represents an approach for reducing numbers to Protocol message
+ * sequences.
  * \see Protocol
  */
 class Strategy {
