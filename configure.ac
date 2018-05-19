@@ -108,6 +108,9 @@ AS_VAR_IF([ac_enable_check], [yes], [
 ])
 
 AX_CXX_COMPILE_STDCXX_17
+AS_VAR_IF([HAVE_CXX17], [1], [], [
+    AC_MSG_ERROR([compiler with C++17 support not found])
+])
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile])
