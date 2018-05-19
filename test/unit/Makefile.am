@@ -20,8 +20,6 @@
 
 AUTOMAKE_OPTIONS = subdir-objects
 
-all-local: $(UNIT_TESTER)
-
 bin_PROGRAMS = unit_tests
 unit_tests_CPPFLAGS = -I@srcdir@/../../src
 unit_tests_LDADD = @builddir@/../../src/.libs/libreducer.la -lCppUTest
@@ -29,6 +27,6 @@ unit_tests_SOURCES = \
 	unit_tests.cpp \
 	strategy/infinite_test.cpp
 
-check:
+check: unit_tests
 	./unit_tests
 .PHONY: check

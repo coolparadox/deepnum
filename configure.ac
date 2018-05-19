@@ -68,7 +68,6 @@ AC_MSG_RESULT([$ac_enable_check])
 
 AS_VAR_IF([ac_enable_check], [yes], [
     AC_SUBST([TEST_SUBDIR], [test/unit])
-    AC_SUBST([UNIT_TESTER], [unit_tests])
 
     AC_CHECK_HEADER([CppUTest/CommandLineTestRunner.h], [], [
         AC_MSG_ERROR([unit tests require CppUTest])
