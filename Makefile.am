@@ -31,6 +31,11 @@ totalclean: maintainer-clean
 	-rm -rf m4/ doc/
 	-rm -rf test/unit/.deps/ test/unit/Makefile test/unit/strategy/.deps/
 
-doc:
+check:
+	@test -n "@TEST_SUBDIR@" || echo "error: checks are disabled" 1>&2 ; exit 1
+.PHONY: check
+
+doc/html/index.html:
 	doxygen
-.PHONY: doc
+
+all-local: $(HTML_DOC)

@@ -39,7 +39,23 @@ LT_INIT
 AC_PROG_CXX
 AC_LANG([C++])
 
-AC_CHECK_HEADER_STDBOOL
+AC_MSG_CHECKING([whether to build documentation])
+AC_ARG_ENABLE(
+    [doc],
+    [AS_HELP_STRING([--enable-doc], [build html documentation [default=no]])],
+    [ac_enable_doc=$enableval],
+    [ac_enable_doc=no]
+)
+AC_MSG_RESULT([$ac_enable_doc])
+
+AS_VAR_IF([ac_enable_doc], [yes], [
+    AC_SUBST([HTML_DOC], [doc/html/index.html])
+    AC_CHECK_PROG([has_doxygen], [doxygen], [yes], [no])
+    AS_VAR_IF([has_doxygen], [no], [
+        AC_MSG_ERROR([documentation building requires doxygen])
+    ])
+    AC_CONFIG_FILES([Doxyfile])
+])
 
 AC_MSG_CHECKING([whether to build unit tests])
 AC_ARG_ENABLE(
@@ -52,6 +68,7 @@ AC_MSG_RESULT([$ac_enable_check])
 
 AS_VAR_IF([ac_enable_check], [yes], [
     AC_SUBST([TEST_SUBDIR], [test/unit])
+    AC_SUBST([UNIT_TESTER], [unit_tests])
 
     AC_CHECK_HEADER([CppUTest/CommandLineTestRunner.h], [], [
         AC_MSG_ERROR([unit tests require CppUTest])
@@ -80,12 +97,13 @@ AS_VAR_IF([ac_enable_check], [yes], [
         ]
     )
     LIBS=$LIBS_ORIG
+
+    AC_CONFIG_FILES([test/unit/Makefile])
 ])
 
 AX_CXX_COMPILE_STDCXX_17
 
-AC_CONFIG_FILES([Doxyfile
-                 Makefile
-                 src/Makefile
-                 test/unit/Makefile])
+AC_CONFIG_FILES([Makefile
+                 src/Makefile])
+
 AC_OUTPUT
