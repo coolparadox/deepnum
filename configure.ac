@@ -50,10 +50,17 @@ AC_MSG_RESULT([$ac_enable_doc])
 
 AS_VAR_IF([ac_enable_doc], [yes], [
     AC_SUBST([HTML_DOC], [doc/html/index.html])
+
     AC_CHECK_PROG([has_doxygen], [doxygen], [yes], [no])
     AS_VAR_IF([has_doxygen], [no], [
-        AC_MSG_ERROR([documentation building requires doxygen])
+        AC_MSG_ERROR([documentation requires doxygen])
     ])
+
+    AC_CHECK_PROG([has_graphviz], [dot], [yes], [no])
+    AS_VAR_IF([has_graphviz], [no], [
+        AC_MSG_ERROR([documentation requires graphviz])
+    ])
+
     AC_CONFIG_FILES([Doxyfile])
 ])
 

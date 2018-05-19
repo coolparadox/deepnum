@@ -23,6 +23,9 @@ dist_doc_DATA = README
 
 ACLOCAL_AMFLAGS = -I m4
 
+clean-local:
+	rm -rf doc
+
 totalclean: maintainer-clean
 	-rm -f *.in~
 	-rm -f aclocal.m4 ar-lib compile config.guess config.h.in config.sub
