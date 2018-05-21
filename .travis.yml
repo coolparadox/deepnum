@@ -16,5 +16,5 @@ after_success: |
   git checkout -b gh-pages
   git add .
   git -c user.name='travis' -c user.email='travis' commit -m init
-  git push -f https://coolparadox:$GITHUB_API_KEY@github.com/coolparadox/number-reducer gh-pages
+  git push -f https://${GITHUB_API_KEY}@github.com/coolparadox/number-reducer gh-pages
   popd
