@@ -3,9 +3,6 @@ sudo: required
 language: c
 services:
 - docker
-env:
-  global:
-    secure: UUFC9E805TuIVcxrkQp73W9kKpwZf4Yd3gMRTlUvX1oGwYplcsrWhEgjxX6oCe3nBtwmOSjhyzzSChDnM40OeaMzOvf5xRnuuqy+xcWSNcIcUeV2CzFKp+xsxyHo7TEzWksB3Ee0jMGjjo3kVTgX0MrqwuFPAYQpZmaFobedK/AE42UYnnZLiBMmY0UbLnClQhrDAuOKxs1hF4PE7pg1z4Nm/BsRG426ArTAe1PtSeyDXtJk/sR3UOXBXUeJd5R+G24F4uqPR9dIkoLArwCA2uR6eBbO2zq+v0/q6giIjPPhf3RI+5KrA6uD36Q0YFP5D4UrKgj/Ou5qAO5nUWZv0IEoVsPLAvsp/2a3HzE26ONoNMPP9MRxDIHAG1Sgk++QzdUkpWAnXWx/02dCdhttY0jXkdfudXbNFYJPqY4VOoerDKI16Y4cnbB7IrZR/Mg+neZt1TjG39jfD3tLvd4Qi1ekqGS2VXGmUvy+J803wYd36orF5vd2eBxxzzv3/9X1iA+CqhoK7Ugm3FGpvMo3K+DzPOkiPSGtNiVvjAyS9FJUMwaWPP1/NESyShVAk9uLueOJwN7wGm+1lU3VYovfOtSXa4vKtGrwk+gTqV47AYYyzRe7oQTErMEX61OowXBvnUtcvCpzPVYP2p11Arnytf65ZhskGA9zsg2LAHeqgA8=
 script:
 - docker build -t project .
 after_success: |
