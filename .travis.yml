@@ -1,9 +1,20 @@
 os: linux
 sudo: required
 language: c
-
 services:
-    - docker
-
+- docker
 script:
-    - docker build .
+- docker build -t project .
+after_success: |
+  cd "$TRAVIS_BUILD_DIR"
+  docker run project tar -c -O doc | tar -x
+  pushd doc/html
+  git init
+  git checkout -b gh-pages
+  git add .
+  git -c user.name='travis' -c user.email='travis' commit -m init
+  git push -f https://coolparadox:$GITHUB_API_KEY@github.com/coolparadox/number-reducer gh-pages
+  popd
+env:
+  global:
+    secure: S8y1n1PcIiZV3bitZdW6oOoCeR6HLG32U6wYN0KbGp9CvQU3RhC4LZAZzzcw/trYpotuhkC0+ZpISnLPu/CkZNVbmPMU2JeqQ13lzrmoJBDMSD8ETE7ImPTXIMznDWIsPN35V/YkrBuzTkbvobaGdgjN5XIp3XDVhQt9bS4b2H8YCsJRaFtYT+EZDUQJXg5TVXNtcdQxsR02zZxwMSfdTVdzW3vRXhyeg0B4/VrP5b7hPmmQzhhcE8ipIsfeHCtXf1qFJuiZWrba701PsFfeMGZ8i9cKF6FAQfkD7OKvzajS1xQ6q+MuRwQaZPH9qi3zT2RRg9F/D5LlodoMkS3pPKToAHSqQm/1SJNsXhDMcusfMKYfXAyvRhRZ+5sFoj4gLx6ah7+z8U3jePdyVAjV9VDQ0BG/oklKzhREJa/d+HDTS4i0HAVSMlFkH1F4DlhnTesBivjvXuaha9p9LMd28ua4/lqq5Np0ZH7YclXM8NlMu6yzSSJesevMlAC9SPHlG/jLFFBOdhmc/JKrUqsVQn4nGVCQ3T4bYuNSV7q1rOSKIze8Gusct8BSgqRI9yvkC0M7bd6gyRhaYsg1p6RpOslm2c85Gqmmp7fgijP0tW4jDXGgvf1xtd7alDXmV/P4RMmItjqtn9JGnDdYrF+140l7yprXd9hCvSD96Kq+jng=
