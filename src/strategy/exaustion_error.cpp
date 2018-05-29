@@ -18,22 +18,15 @@
  * along with coolparadox-number-reducer.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "infinite.hpp"
-
-#include "protocol.hpp"
-#include "unavailable_error.hpp"
+#include "exaustion_error.hpp"
 
 namespace coolparadox {
 namespace number {
 namespace reducer {
 namespace strategy {
 
-Protocol Infinite::Reduce() {
-    return Protocol::kEnd;
-}
-
-std::unique_ptr<Strategy> Infinite::GetNewStrategy() const {
-    throw UnavailableError{};
+ExhaustionError::ExhaustionError()
+        : runtime_error("strategy exhaustion") {
 }
 
 }  // namespace strategy

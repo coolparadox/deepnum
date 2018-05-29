@@ -20,8 +20,10 @@
 
 #include <CppUTest/Utest.h>
 #include <CppUTest/UtestMacros.h>
+
 #include "protocol.hpp"
 #include "strategy/infinite.hpp"
+#include "strategy/unavailable_error.hpp"
 
 namespace coolparadox {
 namespace number {
@@ -31,22 +33,12 @@ namespace strategy {
 TEST_GROUP(InfiniteStrategyTest) {
 };
 
-TEST(InfiniteStrategyTest, AlwaysReducesToInfinity) {
-    Infinite strategy;
-    {
-        auto [ok, message] = strategy.Reduce();
-        CHECK(ok);
-        LONGS_EQUAL(Protocol::kEnd, message);
-    }
-    {
-        auto [ok, message] = strategy.Reduce();
-        CHECK(ok);
-        LONGS_EQUAL(Protocol::kEnd, message);
-    }
+TEST(InfiniteStrategyTest, IsInfinity) {
+    LONGS_EQUAL(Protocol::kEnd, Infinite().Reduce());
 }
 
-TEST(InfiniteStrategyTest, NeverProvidesNewStrategy) {
-    CHECK_THROWS(std::logic_error, Infinite().GetNewStrategy());
+TEST(InfiniteStrategyTest, DoesNotProvideNewStrategy) {
+    CHECK_THROWS(UnavailableError, Infinite().GetNewStrategy());
 }
 
 }  // namespace strategy

@@ -23,10 +23,12 @@ AUTOMAKE_OPTIONS = subdir-objects
 lib_LTLIBRARIES = libreducer.la
 
 libreducer_la_SOURCES = \
-	strategy/infinite.cpp
+	strategy/infinite.cpp \
+	strategy/unavailable_error.cpp
 
 include_HEADERS = \
 	protocol.hpp \
 	strategy/infinite.hpp \
+	strategy/unavailable_error.hpp \
 	strategy/strategy.hpp
 

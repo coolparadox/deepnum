@@ -31,29 +31,32 @@ enum class Protocol;
 namespace strategy {
 
 /**
- * Strategy represents an approach for reducing numbers to Protocol message
- * sequences.
+ * Represents an approach for reducing numbers to Protocol message sequences.
  * \see Protocol
  */
 class Strategy {
  public:
-    /**
-     * Reduce takes out the next Procol message from the underlying number,
-     * which loses this information as a side effect.
-     * \return If extraction was successful. On false, caller must ignore the
-     *         returned message. In this case, GetNewStrategy provides another
-     *         strategy that can resume the reduction.
-     * \return Message.
-     * \see GetNewStrategy
-     */
-    virtual std::tuple<bool, Protocol> Reduce() = 0;
+    virtual ~Strategy() = default;
 
     /**
-     * GetNewStrategy offers another strategy to resume reduction in case this
-     * strategy ceases working. \see Reduce
-     * May throw std::logic_error if called in a working strategy.
+     * Extracts next Procol message.
+     * Takes out the next Protocol message from the underlying number,
+     * which loses this information as a side effect.
+     * \return Extracted Protocol message.
+     * \throw ExhaustionError
+     * \see GetNewStrategy
      */
-    virtual std::unique_ptr<Strategy> GetNewStrategy() = 0;
+    virtual Protocol Reduce() = 0;
+
+    /**
+     * New strategy in case of exhaustion.
+     * Offers another strategy that can resume the reduction process
+     * in case the current strategy ceases working.
+     * \return New strategy where Reduce() works.
+     * \throw UnavailableError
+     * \see Reduce
+     */
+    virtual std::unique_ptr<Strategy> GetNewStrategy() const = 0;
 };
 
 }  // namespace strategy

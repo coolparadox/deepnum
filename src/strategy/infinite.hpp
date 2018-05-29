@@ -21,20 +21,22 @@
 #ifndef SRC_STRATEGY_INFINITE_HPP_
 #define SRC_STRATEGY_INFINITE_HPP_
 
-#include "strategy/strategy.hpp"
+#include "strategy.hpp"
 
 namespace coolparadox {
 namespace number {
 namespace reducer {
 namespace strategy {
 
-/** Infinite is a strategy that knows how to express positive infinity.
+/**
+ * Positive infinity.
+ * This is a strategy to express positive infinity.
  * \see Protocol
  */
 class Infinite : public Strategy {
  public:
-    std::tuple<bool, Protocol> Reduce() override;
-    std::unique_ptr<Strategy> GetNewStrategy() override;
+    Protocol Reduce() override;
+    std::unique_ptr<Strategy> GetNewStrategy() const override;
 };
 
 }  // namespace strategy

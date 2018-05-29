@@ -18,25 +18,28 @@
  * along with coolparadox-number-reducer.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "infinite.hpp"
+#ifndef SRC_STRATEGY_EXAUSTION_ERROR_HPP_
+#define SRC_STRATEGY_EXAUSTION_ERROR_HPP_
 
-#include "protocol.hpp"
-#include "unavailable_error.hpp"
+#include <stdexcept>
 
 namespace coolparadox {
 namespace number {
 namespace reducer {
 namespace strategy {
 
-Protocol Infinite::Reduce() {
-    return Protocol::kEnd;
-}
-
-std::unique_ptr<Strategy> Infinite::GetNewStrategy() const {
-    throw UnavailableError{};
-}
+/**
+ * Indicates that a reducing strategy is no longer effective.
+ * \see Strategy::Reduce
+ */
+class ExhaustionError : public std::runtime_error {
+ public:
+    ExhaustionError();
+};
 
 }  // namespace strategy
 }  // namespace reducer
 }  // namespace number
 }  // namespace coolparadox
+
+#endif  // SRC_STRATEGY_EXAUSTION_ERROR_HPP_

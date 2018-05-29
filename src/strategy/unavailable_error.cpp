@@ -18,9 +18,6 @@
  * along with coolparadox-number-reducer.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "infinite.hpp"
-
-#include "protocol.hpp"
 #include "unavailable_error.hpp"
 
 namespace coolparadox {
@@ -28,12 +25,8 @@ namespace number {
 namespace reducer {
 namespace strategy {
 
-Protocol Infinite::Reduce() {
-    return Protocol::kEnd;
-}
-
-std::unique_ptr<Strategy> Infinite::GetNewStrategy() const {
-    throw UnavailableError{};
+UnavailableError::UnavailableError()
+        : logic_error("new strategy not available") {
 }
 
 }  // namespace strategy
