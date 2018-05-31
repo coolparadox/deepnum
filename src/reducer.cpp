@@ -18,50 +18,25 @@
  * along with coolparadox-number-reducer.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#ifndef SRC_STRATEGY_STRATEGY_HPP_
-#define SRC_STRATEGY_STRATEGY_HPP_
+#include "reducer.hpp"
 
-#include <memory>
+#include "protocol.hpp"
+#include "strategy/strategy.hpp"
+
+using coolparadox::number::reducer::strategy::Strategy;
 
 namespace coolparadox {
 namespace number {
 namespace reducer {
-enum class Protocol;
 
-namespace strategy {
+Reducer::Reducer(std::unique_ptr<Strategy> strategy) {
+    throw std::logic_error("not implemented");
+}
 
-/**
- * Represents an approach for reducing numbers to Protocol message sequences.
- * \see Protocol
- */
-class Strategy {
- public:
-    virtual ~Strategy() = default;
+Protocol Reducer::Reduce() {
+    throw std::logic_error("not implemented");
+}
 
-    /**
-     * Extracts next Protocol message.
-     * Takes out the next Protocol message from the underlying number,
-     * which loses this information as a side effect.
-     * \return Extracted Protocol message.
-     * \throw ExhaustionError
-     * \see GetNewStrategy
-     */
-    virtual Protocol Reduce() = 0;
-
-    /**
-     * New strategy in case of exhaustion.
-     * Offers another strategy that can resume the reduction process
-     * in case the current strategy ceases working.
-     * \return New strategy where Reduce() works.
-     * \throw UnavailableError
-     * \see Reduce
-     */
-    virtual std::unique_ptr<Strategy> GetNewStrategy() const = 0;
-};
-
-}  // namespace strategy
 }  // namespace reducer
 }  // namespace number
 }  // namespace coolparadox
-
-#endif  // SRC_STRATEGY_STRATEGY_HPP_
