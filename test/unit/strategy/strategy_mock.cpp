@@ -18,18 +18,38 @@
  * along with coolparadox-number-reducer.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "exaustion_error.hpp"
+#include <CppUTestExt/MockSupport.h>
+
+#include "strategy/strategy_mock.hpp"
+#include "strategy/exhaustion_error.hpp"
+#include "strategy/unavailable_error.hpp"
 
 namespace coolparadox {
 namespace number {
 namespace reducer {
 namespace strategy {
 
-ExhaustionError::ExhaustionError()
-        : runtime_error("strategy exhaustion") {
+StrategyMock::StrategyMock(bool exhausted)
+        : exhausted_ (exhausted) {
+}
+
+Protocol StrategyMock::Reduce() {
+    mock().actualCall("Reduce").onObject(this);
+    if (exhausted_) {
+        throw ExhaustionError();
+    }
+}
+
+std::unique_ptr<Strategy> StrategyMock::GetNewStrategy() const {
+    mock().actualCall("GetNewStrategy").onObject(this);
+    if (!exhausted_) {
+        throw UnavailableError();
+    }
+    return std::make_unique<StrategyMock>();
 }
 
 }  // namespace strategy
 }  // namespace reducer
 }  // namespace number
 }  // namespace coolparadox
+

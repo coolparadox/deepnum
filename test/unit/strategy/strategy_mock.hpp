@@ -18,23 +18,21 @@
  * along with coolparadox-number-reducer.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#ifndef SRC_STRATEGY_EXAUSTION_ERROR_HPP_
-#define SRC_STRATEGY_EXAUSTION_ERROR_HPP_
-
-#include <stdexcept>
+#include "strategy/strategy.hpp"
 
 namespace coolparadox {
 namespace number {
 namespace reducer {
 namespace strategy {
 
-/**
- * Indicates that a reducing strategy is no longer effective.
- * \see Strategy::Reduce
- */
-class ExhaustionError : public std::runtime_error {
+class StrategyMock : public Strategy {
  public:
-    ExhaustionError();
+    StrategyMock(bool exhausted = false);
+    Protocol Reduce() override;
+    std::unique_ptr<Strategy> GetNewStrategy() const override;
+
+ private:
+    bool exhausted_ { false };
 };
 
 }  // namespace strategy
@@ -42,4 +40,3 @@ class ExhaustionError : public std::runtime_error {
 }  // namespace number
 }  // namespace coolparadox
 
-#endif  // SRC_STRATEGY_EXAUSTION_ERROR_HPP_

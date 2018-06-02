@@ -22,9 +22,12 @@ AUTOMAKE_OPTIONS = subdir-objects
 
 bin_PROGRAMS = unit_tests
 unit_tests_CPPFLAGS = -I@srcdir@/../../src
-unit_tests_LDADD = @builddir@/../../src/.libs/libreducer.la -lCppUTest
+unit_tests_LDADD = @builddir@/../../src/.libs/libreducer.la -lCppUTest -lCppUTestExt
 unit_tests_SOURCES = \
 	unit_tests.cpp \
+	reducer_test.cpp \
+	strategy/strategy_mock.cpp \
+	strategy/strategy_mock.hpp \
 	strategy/infinite_test.cpp
 
 check: unit_tests

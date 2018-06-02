@@ -24,12 +24,14 @@ lib_LTLIBRARIES = libreducer.la
 
 libreducer_la_SOURCES = \
 	reducer.cpp \
+	strategy/exhaustion_error.cpp \
 	strategy/infinite.cpp \
 	strategy/unavailable_error.cpp
 
 include_HEADERS = \
 	protocol.hpp \
 	reducer.hpp \
+	strategy/exhaustion_error.hpp \
 	strategy/infinite.hpp \
 	strategy/unavailable_error.hpp \
 	strategy/strategy.hpp
