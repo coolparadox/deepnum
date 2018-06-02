@@ -45,9 +45,8 @@ TEST(ReducerTest, ReducesStrategy) {
 
 TEST(ReducerTest, ReplacesStrategyOnExhaustion) {
     StrategyMock* strategy { new StrategyMock(true) };
-    mock().expectOneCall("Reduce").onObject(strategy);
     mock().expectOneCall("GetNewStrategy").onObject(strategy);
-    mock().expectNCalls(2, "Reduce");
+    mock().ignoreOtherCalls();
     Reducer(std::unique_ptr<StrategyMock>(strategy)).Reduce();
     mock().checkExpectations();
 }

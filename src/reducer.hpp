@@ -35,13 +35,16 @@ class Strategy;
 
 /**
  * Plays a reducing strategy.
+ * Strategies eventually get exhausted and provide another strategy for
+ * resuming the reduction process. Reducer automates strategy switching,
+ * providing a more straightforward interface for number reduction.
+ * \see strategy::Strategy
  */
 class Reducer {
  public:
-    /*
+    /**
      * Constructs a strategy player.
      * \param[in] strategy The strategy to be played.
-     * \see Strategy
      */
     explicit Reducer(std::unique_ptr<strategy::Strategy> strategy);
 

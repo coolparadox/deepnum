@@ -21,20 +21,28 @@
 #include "reducer.hpp"
 
 #include "protocol.hpp"
+#include "strategy/exhaustion_error.hpp"
 #include "strategy/strategy.hpp"
 
 using coolparadox::number::reducer::strategy::Strategy;
+using coolparadox::number::reducer::strategy::ExhaustionError;
 
 namespace coolparadox {
 namespace number {
 namespace reducer {
 
-Reducer::Reducer(std::unique_ptr<Strategy> strategy) {
-    throw std::logic_error("not implemented");
+Reducer::Reducer(std::unique_ptr<Strategy> strategy)
+        : strategy_(std::move(strategy)) {
 }
 
 Protocol Reducer::Reduce() {
-    throw std::logic_error("not implemented");
+    try {
+        return strategy_->Reduce();
+    }
+    catch (ExhaustionError) {
+        strategy_ = strategy_->GetNewStrategy();
+    }
+    return strategy_->Reduce();
 }
 
 }  // namespace reducer
