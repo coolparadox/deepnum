@@ -107,6 +107,21 @@ AS_VAR_IF([ac_enable_check], [yes], [
     AC_CONFIG_FILES([test/unit/Makefile])
 ])
 
+AC_MSG_CHECKING([whether to build for code coverage detection])
+AC_ARG_ENABLE(
+    [coverage],
+    [AS_HELP_STRING([--enable-coverage], [build for code coverage detection [default=no]])],
+    [ac_enable_coverage=$enableval],
+    [ac_enable_coverage=no]
+)
+AC_MSG_RESULT([$ac_enable_coverage])
+
+AS_VAR_IF([ac_enable_coverage], [yes], [
+    CPPFLAGS="$CPPFLAGS --coverage"
+    LDFLAGS="$LDFLAGS --coverage"
+    AC_SUBST([ac_enable_coverage], [$ac_enable_coverage])
+])
+
 AX_CXX_COMPILE_STDCXX_17
 AS_VAR_IF([HAVE_CXX17], [1], [], [
     AC_MSG_ERROR([compiler with C++17 support not found])

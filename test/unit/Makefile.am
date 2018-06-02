@@ -31,5 +31,13 @@ unit_tests_SOURCES = \
 	strategy/infinite_test.cpp
 
 check: unit_tests
+	echo
+	echo "Running unit tests:"
 	./unit_tests
+	if test x$(ac_enable_coverage) = xyes ; then \
+	echo "Code coverage summary:" && \
+	cd $(top_builddir)/src && \
+	gcov -n -r .libs/*.o && \
+	echo ; fi
+.SILENT: check
 .PHONY: check

@@ -1,4 +1,6 @@
 *~
+*.gcno
+*.gcda
 *.la
 *.lo
 *.o

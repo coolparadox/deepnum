@@ -33,6 +33,7 @@ totalclean: maintainer-clean
 	-rm -f src/Makefile.in test/unit/Makefile.in
 	-rm -rf m4/ doc/
 	-rm -rf test/unit/.deps/ test/unit/Makefile test/unit/strategy/.deps/
+	-find -name '*.gcno' -delete -o -name '*.gcda' -delete
 
 doc/html/index.html:
 	doxygen
