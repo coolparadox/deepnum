@@ -18,12 +18,13 @@
  * along with coolparadox-number-reducer.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#ifndef SRC_PROTOCOL_HPP_
-#define SRC_PROTOCOL_HPP_
+#ifndef SRC_PROTOCOL_PROTOCOL_HPP_
+#define SRC_PROTOCOL_PROTOCOL_HPP_
 
 namespace coolparadox {
 namespace number {
 namespace reducer {
+namespace protocol {
 
 /**
  * Protocol defines the messages of the number reducing protocol.
@@ -90,8 +91,9 @@ enum class Protocol {
     kNeg,
 };
 
+}  // namespace protocol
 }  // namespace reducer
 }  // namespace number
 }  // namespace coolparadox
 
-#endif  // SRC_PROTOCOL_HPP_
+#endif  // SRC_PROTOCOL_PROTOCOL_HPP_

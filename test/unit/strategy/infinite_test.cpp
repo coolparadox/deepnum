@@ -21,9 +21,11 @@
 #include <CppUTest/Utest.h>
 #include <CppUTest/UtestMacros.h>
 
-#include "protocol.hpp"
+#include "protocol/protocol.hpp"
 #include "strategy/infinite.hpp"
 #include "strategy/unavailable_error.hpp"
+
+using coolparadox::number::reducer::protocol::Protocol;
 
 namespace coolparadox {
 namespace number {

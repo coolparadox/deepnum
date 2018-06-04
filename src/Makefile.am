@@ -23,13 +23,17 @@ AUTOMAKE_OPTIONS = subdir-objects
 lib_LTLIBRARIES = libreducer.la
 
 libreducer_la_SOURCES = \
+	protocol/violation_error.cpp \
+	protocol/watcher.cpp \
 	reducer.cpp \
 	strategy/exhaustion_error.cpp \
 	strategy/infinite.cpp \
 	strategy/unavailable_error.cpp
 
 include_HEADERS = \
-	protocol.hpp \
+	protocol/protocol.hpp \
+	protocol/violation_error.hpp \
+	protocol/watcher.hpp \
 	reducer.hpp \
 	strategy/exhaustion_error.hpp \
 	strategy/infinite.hpp \

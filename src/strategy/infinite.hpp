@@ -26,6 +26,11 @@
 namespace coolparadox {
 namespace number {
 namespace reducer {
+
+namespace protocol {
+enum class Protocol;
+}  // namespace protocol
+
 namespace strategy {
 
 /**
@@ -35,7 +40,7 @@ namespace strategy {
  */
 class Infinite : public Strategy {
  public:
-    Protocol Reduce() override;
+    protocol::Protocol Reduce() override;
     std::unique_ptr<Strategy> GetNewStrategy() const override;
 };
 

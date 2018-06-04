@@ -20,10 +20,11 @@
 
 #include "reducer.hpp"
 
-#include "protocol.hpp"
+#include "protocol/protocol.hpp"
 #include "strategy/exhaustion_error.hpp"
 #include "strategy/strategy.hpp"
 
+using coolparadox::number::reducer::protocol::Protocol;
 using coolparadox::number::reducer::strategy::Strategy;
 using coolparadox::number::reducer::strategy::ExhaustionError;
 

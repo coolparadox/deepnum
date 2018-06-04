@@ -23,12 +23,17 @@
 namespace coolparadox {
 namespace number {
 namespace reducer {
+
+namespace protocol {
+enum class Protocol;
+}  // namespace protocol
+
 namespace strategy {
 
 class StrategyMock : public Strategy {
  public:
     StrategyMock(bool exhausted = false);
-    Protocol Reduce() override;
+    protocol::Protocol Reduce() override;
     std::unique_ptr<Strategy> GetNewStrategy() const override;
 
  private:

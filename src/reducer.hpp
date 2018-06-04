@@ -27,7 +27,9 @@ namespace coolparadox {
 namespace number {
 namespace reducer {
 
+namespace protocol {
 enum class Protocol;
+}  // namespace protocol
 
 namespace strategy {
 class Strategy;
@@ -53,7 +55,7 @@ class Reducer {
      * \return Extracted Protocol message.
      * \see Protocol
      */
-    Protocol Reduce();
+    protocol::Protocol Reduce();
 
  private:
     std::unique_ptr<strategy::Strategy> strategy_;

@@ -20,8 +20,10 @@
 
 #include "infinite.hpp"
 
-#include "protocol.hpp"
+#include "protocol/protocol.hpp"
 #include "unavailable_error.hpp"
+
+using coolparadox::number::reducer::protocol::Protocol;
 
 namespace coolparadox {
 namespace number {
