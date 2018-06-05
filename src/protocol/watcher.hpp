@@ -42,6 +42,10 @@ class Watcher {
      * \throw ViolationError
      */
     Protocol Watch(Protocol message);
+
+ private:
+    bool primed_ { false };
+    Protocol previous_;
 };
 
 }  // namespace protocol

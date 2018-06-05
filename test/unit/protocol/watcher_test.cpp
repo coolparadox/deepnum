@@ -32,8 +32,6 @@ namespace protocol {
 TEST_GROUP(WatcherTest) {
 };
 
-/*
-
 TEST(WatcherTest, ReturnsCopyOfInput) {
     LONGS_EQUAL(Protocol::kEnd, Watcher().Watch(Protocol::kEnd));
     LONGS_EQUAL(Protocol::kTwo, Watcher().Watch(Protocol::kTwo));
@@ -126,8 +124,6 @@ TEST(WatcherTest, ThrowsOnTwoMessageFollowedByEndMessage) {
     watcher.Watch(Protocol::kTwo);
     CHECK_THROWS(ViolationError, watcher.Watch(Protocol::kEnd));
 }
-
-*/
 
 }  // namespace protocol
 }  // namespace reducer

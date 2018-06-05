@@ -29,7 +29,25 @@ namespace reducer {
 namespace protocol {
 
 Protocol Watcher::Watch(Protocol message) {
-    throw std::logic_error("not implemented");
+    if (!primed_) {
+        primed_ = true;
+        previous_ = message;
+        return message;
+    }
+    if (previous_ == Protocol::kEnd) {
+        throw ViolationError("forbidden non final '$'");
+    }
+    if (message == Protocol::kNeg) {
+        throw ViolationError("forbidden non initial '-'");
+    }
+    if (previous_ != Protocol::kNeg && message == Protocol::kZero) {
+        throw ViolationError("forbidden non initial '0'");
+    }
+    if (previous_ == Protocol::kTwo && message == Protocol::kEnd) {
+        throw ViolationError("forbidden '2$' sequence");
+    }
+    previous_ = message;
+    return message;
 }
 
 }  // namespace protocol
