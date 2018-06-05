@@ -18,8 +18,7 @@
  * along with coolparadox-number-reducer.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include <CppUTest/Utest.h>
-#include <CppUTest/UtestMacros.h>
+#include <CppUTest/TestHarness.h>
 
 #include "protocol/protocol.hpp"
 #include "strategy/infinite.hpp"
@@ -32,14 +31,14 @@ namespace number {
 namespace reducer {
 namespace strategy {
 
-TEST_GROUP(InfiniteStrategyTest) {
+TEST_GROUP(InfiniteTest) {
 };
 
-TEST(InfiniteStrategyTest, IsInfinity) {
+TEST(InfiniteTest, IsInfinity) {
     LONGS_EQUAL(Protocol::kEnd, Infinite().Reduce());
 }
 
-TEST(InfiniteStrategyTest, DoesNotProvideNewStrategy) {
+TEST(InfiniteTest, DoesNotProvideNewStrategy) {
     CHECK_THROWS(UnavailableError, Infinite().GetNewStrategy());
 }
 

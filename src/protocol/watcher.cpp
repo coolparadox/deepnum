@@ -20,6 +20,7 @@
 
 #include "watcher.hpp"
 
+#include "protocol.hpp"
 #include "violation_error.hpp"
 
 namespace coolparadox {

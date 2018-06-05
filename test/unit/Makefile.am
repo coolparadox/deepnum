@@ -25,6 +25,7 @@ unit_tests_CPPFLAGS = -I@srcdir@/../../src
 unit_tests_LDADD = @builddir@/../../src/.libs/libreducer.la -lCppUTest -lCppUTestExt
 unit_tests_SOURCES = \
 	unit_tests.cpp \
+	protocol/watcher_test.cpp \
 	reducer_test.cpp \
 	strategy/strategy_mock.cpp \
 	strategy/strategy_mock.hpp \

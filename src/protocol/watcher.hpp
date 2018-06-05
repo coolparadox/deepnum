@@ -21,12 +21,12 @@
 #ifndef SRC_PROTOCOL_WATCHER_HPP_
 #define SRC_PROTOCOL_WATCHER_HPP_
 
-#include "protocol.hpp"
-
 namespace coolparadox {
 namespace number {
 namespace reducer {
 namespace protocol {
+
+enum class Protocol;
 
 /**
  * Check for Protocol correctness.
@@ -37,7 +37,7 @@ class Watcher {
  public:
     /**
      * Check one more message of a Protocol sequence for violation errors.
-     * \param[in] message Next reducing protocol message.
+     * \param[in] message Next message of a Protocol sequence.
      * \return Copy of input parameter.
      * \throw ViolationError
      */
