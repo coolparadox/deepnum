@@ -38,7 +38,7 @@ check: unit_tests
 	if test x$(ac_enable_coverage) = xyes ; then \
 	echo "Code coverage summary:" && \
 	cd $(top_builddir)/src && \
-	gcov -n -r .libs/*.o && \
+	find . -name '*.gcda' | xargs -r gcov -n -r && \
 	echo ; fi
 .SILENT: check
 .PHONY: check
