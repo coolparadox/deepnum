@@ -18,35 +18,28 @@
  * along with coolparadox-number-reducer.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#ifndef SRC_STRATEGY_INFINITE_HPP_
-#define SRC_STRATEGY_INFINITE_HPP_
+#include "ratio.hpp"
 
-#include "strategy.hpp"
+#include "exhaustion_error.hpp"
+#include "protocol/protocol.hpp"
+#include "unavailable_error.hpp"
+
+using coolparadox::number::reducer::protocol::Protocol;
 
 namespace coolparadox {
 namespace number {
 namespace reducer {
-
-namespace protocol {
-enum class Protocol;
-}  // namespace protocol
-
 namespace strategy {
 
-/**
- * Positive infinity.
- * This is a strategy to express positive infinity.
- * \see Strategy
- */
-class Infinite : public Strategy {
- public:
-    protocol::Protocol Reduce() override;
-    std::unique_ptr<Strategy> GetNewStrategy() const override;
-};
+Protocol Ratio::Reduce() {
+    throw std::logic_error("not implemented");
+}
+
+std::unique_ptr<Strategy> Ratio::GetNewStrategy() const {
+    throw std::logic_error("not implemented");
+}
 
 }  // namespace strategy
 }  // namespace reducer
 }  // namespace number
 }  // namespace coolparadox
-
-#endif  // SRC_STRATEGY_INFINITE_HPP_

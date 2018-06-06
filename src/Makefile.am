@@ -28,6 +28,7 @@ libreducer_la_SOURCES = \
 	reducer.cpp \
 	strategy/exhaustion_error.cpp \
 	strategy/infinite.cpp \
+	strategy/ratio.cpp \
 	strategy/unavailable_error.cpp
 
 include_HEADERS = \
@@ -37,6 +38,7 @@ include_HEADERS = \
 	reducer.hpp \
 	strategy/exhaustion_error.hpp \
 	strategy/infinite.hpp \
+	strategy/ratio.hpp \
 	strategy/unavailable_error.hpp \
 	strategy/strategy.hpp
 
