@@ -23,9 +23,8 @@
 
 #include <stdexcept>
 
-namespace coolparadox {
-namespace number {
-namespace reducer {
+namespace deepnum {
+namespace clarith {
 namespace strategy {
 
 /**
@@ -38,8 +37,7 @@ class UnavailableError : public std::logic_error {
 };
 
 }  // namespace strategy
-}  // namespace reducer
-}  // namespace number
-}  // namespace coolparadox
+}  // namespace clarith
+}  // namespace deepnum
 
 #endif  // SRC_STRATEGY_UNAVAILABLE_ERROR_HPP_

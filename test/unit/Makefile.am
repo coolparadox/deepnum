@@ -22,7 +22,7 @@ AUTOMAKE_OPTIONS = subdir-objects
 
 bin_PROGRAMS = unit_tests
 unit_tests_CPPFLAGS = -I@srcdir@/../../src
-unit_tests_LDADD = @builddir@/../../src/.libs/libreducer.la -lCppUTest -lCppUTestExt
+unit_tests_LDADD = @builddir@/../../src/.libs/libdn_clarith.la -lCppUTest -lCppUTestExt
 unit_tests_SOURCES = \
 	protocol/watcher_test.cpp \
 	reducer_test.cpp \

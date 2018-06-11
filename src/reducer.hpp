@@ -23,9 +23,8 @@
 
 #include <memory>
 
-namespace coolparadox {
-namespace number {
-namespace reducer {
+namespace deepnum {
+namespace clarith {
 
 namespace protocol {
 enum class Protocol;
@@ -61,8 +60,7 @@ class Reducer {
     std::unique_ptr<strategy::Strategy> strategy_;
 };
 
-}  // namespace reducer
-}  // namespace number
-}  // namespace coolparadox
+}  // namespace clarith
+}  // namespace deepnum
 
 #endif  // SRC_REDUCER_HPP_

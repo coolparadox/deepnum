@@ -24,13 +24,12 @@
 #include "strategy/exhaustion_error.hpp"
 #include "strategy/strategy.hpp"
 
-using coolparadox::number::reducer::protocol::Protocol;
-using coolparadox::number::reducer::strategy::Strategy;
-using coolparadox::number::reducer::strategy::ExhaustionError;
+using deepnum::clarith::protocol::Protocol;
+using deepnum::clarith::strategy::Strategy;
+using deepnum::clarith::strategy::ExhaustionError;
 
-namespace coolparadox {
-namespace number {
-namespace reducer {
+namespace deepnum {
+namespace clarith {
 
 Reducer::Reducer(std::unique_ptr<Strategy> strategy)
         : strategy_(std::move(strategy)) {
@@ -46,6 +45,5 @@ Protocol Reducer::Reduce() {
     return strategy_->Reduce();
 }
 
-}  // namespace reducer
-}  // namespace number
-}  // namespace coolparadox
+}  // namespace clarith
+}  // namespace deepnum

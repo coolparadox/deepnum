@@ -23,9 +23,8 @@
 
 #include "strategy.hpp"
 
-namespace coolparadox {
-namespace number {
-namespace reducer {
+namespace deepnum {
+namespace clarith {
 
 namespace protocol {
 enum class Protocol;
@@ -45,8 +44,7 @@ class Infinite : public Strategy {
 };
 
 }  // namespace strategy
-}  // namespace reducer
-}  // namespace number
-}  // namespace coolparadox
+}  // namespace clarith
+}  // namespace deepnum
 
 #endif  // SRC_STRATEGY_INFINITE_HPP_

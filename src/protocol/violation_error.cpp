@@ -20,9 +20,8 @@
 
 #include "violation_error.hpp"
 
-namespace coolparadox {
-namespace number {
-namespace reducer {
+namespace deepnum {
+namespace clarith {
 namespace protocol {
 
 ViolationError::ViolationError(const std::string &description)
@@ -30,6 +29,5 @@ ViolationError::ViolationError(const std::string &description)
 }
 
 }  // namespace protocol
-}  // namespace reducer
-}  // namespace number
-}  // namespace coolparadox
+}  // namespace clarith
+}  // namespace deepnum

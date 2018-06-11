@@ -20,9 +20,8 @@
 
 #include "exhaustion_error.hpp"
 
-namespace coolparadox {
-namespace number {
-namespace reducer {
+namespace deepnum {
+namespace clarith {
 namespace strategy {
 
 ExhaustionError::ExhaustionError()
@@ -30,6 +29,5 @@ ExhaustionError::ExhaustionError()
 }
 
 }  // namespace strategy
-}  // namespace reducer
-}  // namespace number
-}  // namespace coolparadox
+}  // namespace clarith
+}  // namespace deepnum

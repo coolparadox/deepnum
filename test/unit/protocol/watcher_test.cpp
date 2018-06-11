@@ -24,9 +24,8 @@
 #include "protocol/violation_error.hpp"
 #include "protocol/watcher.hpp"
 
-namespace coolparadox {
-namespace number {
-namespace reducer {
+namespace deepnum {
+namespace clarith {
 namespace protocol {
 
 TEST_GROUP(WatcherTest) {
@@ -126,7 +125,6 @@ TEST(WatcherTest, ThrowsOnTwoMessageFollowedByEndMessage) {
 }
 
 }  // namespace protocol
-}  // namespace reducer
-}  // namespace number
-}  // namespace coolparadox
+}  // namespace clarith
+}  // namespace deepnum
 

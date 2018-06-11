@@ -25,11 +25,10 @@
 #include "strategy/exhaustion_error.hpp"
 #include "strategy/unavailable_error.hpp"
 
-using coolparadox::number::reducer::protocol::Protocol;
+using deepnum::clarith::protocol::Protocol;
 
-namespace coolparadox {
-namespace number {
-namespace reducer {
+namespace deepnum {
+namespace clarith {
 namespace strategy {
 
 StrategyMock::StrategyMock(bool exhausted)
@@ -52,7 +51,6 @@ std::unique_ptr<Strategy> StrategyMock::GetNewStrategy() const {
 }
 
 }  // namespace strategy
-}  // namespace reducer
-}  // namespace number
-}  // namespace coolparadox
+}  // namespace clarith
+}  // namespace deepnum
 

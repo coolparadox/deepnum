@@ -24,11 +24,10 @@
 #include "reducer.hpp"
 #include "strategy/strategy_mock.hpp"
 
-using coolparadox::number::reducer::strategy::StrategyMock;
+using deepnum::clarith::strategy::StrategyMock;
 
-namespace coolparadox {
-namespace number {
-namespace reducer {
+namespace deepnum {
+namespace clarith {
 
 TEST_GROUP(ReducerTest) {
     void teardown() {
@@ -51,7 +50,6 @@ TEST(ReducerTest, ReplacesStrategyOnExhaustion) {
     mock().checkExpectations();
 }
 
-}  // namespace reducer
-}  // namespace number
-}  // namespace coolparadox
+}  // namespace clarith
+}  // namespace deepnum
 

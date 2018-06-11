@@ -23,9 +23,8 @@
 
 #include <stdexcept>
 
-namespace coolparadox {
-namespace number {
-namespace reducer {
+namespace deepnum {
+namespace clarith {
 namespace strategy {
 
 /**
@@ -38,8 +37,7 @@ class ExhaustionError : public std::runtime_error {
 };
 
 }  // namespace strategy
-}  // namespace reducer
-}  // namespace number
-}  // namespace coolparadox
+}  // namespace clarith
+}  // namespace deepnum
 
 #endif  // SRC_STRATEGY_EXHAUSTION_ERROR_HPP_

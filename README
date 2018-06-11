@@ -16,9 +16,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
 
-dn-clarith is a library for decomposing rational numbers into 
-"continued log" components, as well as performing basic arithmetic operations
-with rational numbers in continued log form.
+dn-clarith is a library for decomposing rational numbers into "continued
+logarithm" components, as well as performing basic arithmetic operations
+with rational numbers in continued logarithm representation.
 
 The foundation of continued log arithmetic has been provided by Bill Gosper in
 his paper "Continued Fraction Arithmetic"

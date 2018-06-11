@@ -21,9 +21,8 @@
 #ifndef SRC_PROTOCOL_PROTOCOL_HPP_
 #define SRC_PROTOCOL_PROTOCOL_HPP_
 
-namespace coolparadox {
-namespace number {
-namespace reducer {
+namespace deepnum {
+namespace clarith {
 namespace protocol {
 
 /**
@@ -92,8 +91,7 @@ enum class Protocol {
 };
 
 }  // namespace protocol
-}  // namespace reducer
-}  // namespace number
-}  // namespace coolparadox
+}  // namespace clarith
+}  // namespace deepnum
 
 #endif  // SRC_PROTOCOL_PROTOCOL_HPP_

@@ -21,9 +21,8 @@
 #ifndef SRC_PROTOCOL_WATCHER_HPP_
 #define SRC_PROTOCOL_WATCHER_HPP_
 
-namespace coolparadox {
-namespace number {
-namespace reducer {
+namespace deepnum {
+namespace clarith {
 namespace protocol {
 
 enum class Protocol;
@@ -49,8 +48,7 @@ class Watcher {
 };
 
 }  // namespace protocol
-}  // namespace reducer
-}  // namespace number
-}  // namespace coolparadox
+}  // namespace clarith
+}  // namespace deepnum
 
 #endif  // SRC_PROTOCOL_WATCHER_HPP_

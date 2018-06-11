@@ -24,9 +24,8 @@
 #include <stdexcept>
 #include <string>
 
-namespace coolparadox {
-namespace number {
-namespace reducer {
+namespace deepnum {
+namespace clarith {
 namespace protocol {
 
 /**
@@ -39,8 +38,7 @@ class ViolationError : public std::runtime_error {
 };
 
 }  // namespace protocol
-}  // namespace reducer
-}  // namespace number
-}  // namespace coolparadox
+}  // namespace clarith
+}  // namespace deepnum
 
 #endif  // SRC_PROTOCOL_VIOLATION_ERROR_HPP_

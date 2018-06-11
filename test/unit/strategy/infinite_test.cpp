@@ -24,11 +24,10 @@
 #include "strategy/infinite.hpp"
 #include "strategy/unavailable_error.hpp"
 
-using coolparadox::number::reducer::protocol::Protocol;
+using deepnum::clarith::protocol::Protocol;
 
-namespace coolparadox {
-namespace number {
-namespace reducer {
+namespace deepnum {
+namespace clarith {
 namespace strategy {
 
 TEST_GROUP(InfiniteTest) {
@@ -43,7 +42,6 @@ TEST(InfiniteTest, DoesNotProvideNewStrategy) {
 }
 
 }  // namespace strategy
-}  // namespace reducer
-}  // namespace number
-}  // namespace coolparadox
+}  // namespace clarith
+}  // namespace deepnum
 

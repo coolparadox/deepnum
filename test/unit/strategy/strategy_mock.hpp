@@ -20,9 +20,8 @@
 
 #include "strategy/strategy.hpp"
 
-namespace coolparadox {
-namespace number {
-namespace reducer {
+namespace deepnum {
+namespace clarith {
 
 namespace protocol {
 enum class Protocol;
@@ -41,7 +40,6 @@ class StrategyMock : public Strategy {
 };
 
 }  // namespace strategy
-}  // namespace reducer
-}  // namespace number
-}  // namespace coolparadox
+}  // namespace clarith
+}  // namespace deepnum
 

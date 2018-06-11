@@ -20,9 +20,9 @@
 
 AUTOMAKE_OPTIONS = subdir-objects
 
-lib_LTLIBRARIES = libreducer.la
+lib_LTLIBRARIES = libdn_clarith.la
 
-libreducer_la_SOURCES = \
+libdn_clarith_la_SOURCES = \
 	protocol/violation_error.cpp \
 	protocol/watcher.cpp \
 	reducer.cpp \

@@ -23,9 +23,8 @@
 
 #include "strategy.hpp"
 
-namespace coolparadox {
-namespace number {
-namespace reducer {
+namespace deepnum {
+namespace clarith {
 
 namespace protocol {
 enum class Protocol;
@@ -53,8 +52,7 @@ class Ratio : public Strategy {
 };
 
 }  // namespace strategy
-}  // namespace reducer
-}  // namespace number
-}  // namespace coolparadox
+}  // namespace clarith
+}  // namespace deepnum
 
 #endif  // SRC_STRATEGY_RATIO_HPP_

@@ -23,9 +23,8 @@
 
 #include <memory>
 
-namespace coolparadox {
-namespace number {
-namespace reducer {
+namespace deepnum {
+namespace clarith {
 
 namespace protocol {
 enum class Protocol;
@@ -63,8 +62,7 @@ class Strategy {
 };
 
 }  // namespace strategy
-}  // namespace reducer
-}  // namespace number
-}  // namespace coolparadox
+}  // namespace clarith
+}  // namespace deepnum
 
 #endif  // SRC_STRATEGY_STRATEGY_HPP_

@@ -23,11 +23,10 @@
 #include "protocol/protocol.hpp"
 #include "unavailable_error.hpp"
 
-using coolparadox::number::reducer::protocol::Protocol;
+using deepnum::clarith::protocol::Protocol;
 
-namespace coolparadox {
-namespace number {
-namespace reducer {
+namespace deepnum {
+namespace clarith {
 namespace strategy {
 
 Protocol Infinite::Reduce() {
@@ -39,6 +38,5 @@ std::unique_ptr<Strategy> Infinite::GetNewStrategy() const {
 }
 
 }  // namespace strategy
-}  // namespace reducer
-}  // namespace number
-}  // namespace coolparadox
+}  // namespace clarith
+}  // namespace deepnum

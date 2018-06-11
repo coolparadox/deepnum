@@ -20,9 +20,8 @@
 
 #include "unavailable_error.hpp"
 
-namespace coolparadox {
-namespace number {
-namespace reducer {
+namespace deepnum {
+namespace clarith {
 namespace strategy {
 
 UnavailableError::UnavailableError()
@@ -30,6 +29,5 @@ UnavailableError::UnavailableError()
 }
 
 }  // namespace strategy
-}  // namespace reducer
-}  // namespace number
-}  // namespace coolparadox
+}  // namespace clarith
+}  // namespace deepnum
