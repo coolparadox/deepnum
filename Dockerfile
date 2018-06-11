@@ -12,11 +12,9 @@ RUN apt-get --yes --no-upgrade --no-install-recommends install doxygen
 RUN apt-get --yes --no-upgrade --no-install-recommends install automake
 RUN apt-get --yes --no-upgrade --no-install-recommends install graphviz
 RUN apt-get --yes --no-upgrade --no-install-recommends install autoconf-archive
-ENV CC gcc-7
-ENV CXX g++-7
 ADD . /home/number-reducer
 WORKDIR /home/number-reducer
 RUN ./autosetup.sh
-RUN ./configure --enable-doc --enable-check
+RUN ./configure CC=gcc-7 CXX=g++-7 --enable-doc --enable-check
 RUN make
 RUN make check
