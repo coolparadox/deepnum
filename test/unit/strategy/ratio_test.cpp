@@ -18,11 +18,12 @@
  * along with coolparadox-number-reducer.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "ratio.hpp"
+#include <CppUTest/TestHarness.h>
 
-#include "exhaustion_error.hpp"
 #include "protocol/protocol.hpp"
-#include "unavailable_error.hpp"
+#include "strategy/exhaustion_error.hpp"
+#include "strategy/ratio.hpp"
+#include "strategy/unavailable_error.hpp"
 
 using coolparadox::number::reducer::protocol::Protocol;
 
@@ -31,19 +32,26 @@ namespace number {
 namespace reducer {
 namespace strategy {
 
-Ratio::Ratio(int n, int d) {
-    throw std::logic_error("not implemented");
+TEST_GROUP(RatioTest) {
+};
+
+/*
+
+TEST(RatioTest, DoesNotProvideNewStrategy) {
+    CHECK_THROWS(UnavailableError, Ratio(0, 1).GetNewStrategy());
 }
 
-Protocol Ratio::Reduce() {
-    throw std::logic_error("not implemented");
+TEST(RatioTest, DegeneratesToInfinite) {
+    std::unique_ptr<Strategy> strategy(new Ratio(1, 0));
+    CHECK_THROWS(ExhaustionError, strategy->Reduce());
+    strategy = strategy->GetNewStrategy();
+    LONGS_EQUAL(Protocol::kEnd, strategy->Reduce());
 }
 
-std::unique_ptr<Strategy> Ratio::GetNewStrategy() const {
-    throw std::logic_error("not implemented");
-}
+*/
 
 }  // namespace strategy
 }  // namespace reducer
 }  // namespace number
 }  // namespace coolparadox
+
