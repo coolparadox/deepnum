@@ -22,8 +22,10 @@
 
 #include "protocol/protocol.hpp"
 #include "strategy/exhaustion_error.hpp"
+#include "strategy/infinity.hpp"
 #include "strategy/ratio.hpp"
 #include "strategy/unavailable_error.hpp"
+#include "strategy/undefined_ratio_error.hpp"
 
 using deepnum::clarith::protocol::Protocol;
 
@@ -36,15 +38,111 @@ TEST_GROUP(RatioTest) {
 
 /*
 
-TEST(RatioTest, DoesNotProvideNewStrategy) {
+TEST(RatioTest, ThrowsOnUndefinedRatio) {
+    CHECK_THROWS(UndefinedRatioError, Ratio(0, 0));
+}
+
+TEST(RatioTest, DoesNotProvideNewStrategyOnNonInfiniteRatio) {
     CHECK_THROWS(UnavailableError, Ratio(0, 1).GetNewStrategy());
 }
 
-TEST(RatioTest, DegeneratesToInfinite) {
-    std::unique_ptr<Strategy> strategy(new Ratio(1, 0));
-    CHECK_THROWS(ExhaustionError, strategy->Reduce());
-    strategy = strategy->GetNewStrategy();
-    LONGS_EQUAL(Protocol::kEnd, strategy->Reduce());
+TEST(RatioTest, DegeneratesToInfinityOnInfiniteRatio) {
+    Ratio ratio(1, 0);
+    CHECK_THROWS(ExhaustionError, ratio.Reduce());
+    CHECK_TRUE(dynamic_cast<Infinity*>(ratio.GetNewStrategy().get()));
+}
+
+TEST(RatioTest, DegeneratesToInfinityOnInfiniteRatio2) {
+    Ratio ratio(std::numeric_limits<int>::max(), 0);
+    CHECK_THROWS(ExhaustionError, ratio.Reduce());
+    CHECK_TRUE(dynamic_cast<Infinity*>(ratio.GetNewStrategy().get()));
+}
+
+TEST(RatioTest, CanExpressAtLeastTwo) {
+    LONGS_EQUAL(Protocol::kNeg, Ratio(2, 1).Reduce());
+}
+
+TEST(RatioTest, CanExpressAtLeastTwo2) {
+    LONGS_EQUAL(Protocol::kNeg,
+                Ratio(std::numeric_limits<int>::max(),
+                      std::numeric_limits<int>::max() / 2).Reduce());
+}
+
+TEST(RatioTest, CanExpressAtLeastTwo3) {
+    LONGS_EQUAL(Protocol::kNeg,
+                Ratio(std::numeric_limits<int>::min(),
+                      std::numeric_limits<int>::min() / 2).Reduce());
+}
+
+TEST(RatioTest, CanExpressAtLeastOne) {
+    LONGS_EQUAL(Protocol::kNeg, Ratio(1, 1).Reduce());
+}
+
+TEST(RatioTest, CanExpressAtLeastOne2) {
+    LONGS_EQUAL(Protocol::kNeg,
+                Ratio(std::numeric_limits<int>::max(),
+                      std::numeric_limits<int>::max()).Reduce());
+}
+
+TEST(RatioTest, CanExpressAtLeastOne3) {
+    LONGS_EQUAL(Protocol::kNeg,
+                Ratio(std::numeric_limits<int>::min(),
+                      std::numeric_limits<int>::min()).Reduce());
+}
+
+TEST(RatioTest, CanExpressAtLeastZero) {
+    LONGS_EQUAL(Protocol::kZero, Ratio(0, 1).Reduce());
+}
+
+TEST(RatioTest, CanExpressAtLeastZero2) {
+    LONGS_EQUAL(Protocol::kZero,
+                Ratio(0, std::numeric_limits<int>::max()).Reduce());
+}
+
+TEST(RatioTest, CanExpressNegative) {
+    LONGS_EQUAL(Protocol::kNeg, Ratio(-1, 1).Reduce());
+}
+
+TEST(RatioTest, CanExpressNegative2) {
+    LONGS_EQUAL(Protocol::kNeg,
+                Ratio(-1, std::numeric_limits<int>::max()).Reduce());
+}
+
+TEST(RatioTest, CanExpressNegative3) {
+    LONGS_EQUAL(Protocol::kNeg, Ratio(1, -1).Reduce());
+}
+
+TEST(RatioTest, CanExpressNegative4) {
+    LONGS_EQUAL(Protocol::kNeg,
+                Ratio(1, std::numeric_limits<int>::min()).Reduce());
+}
+
+TEST(RatioTest, CanExpressNegative5) {
+    LONGS_EQUAL(Protocol::kNeg,
+                Ratio(std::numeric_limits<int>::max(),
+                      std::numeric_limits<int>::min()).Reduce());
+}
+
+TEST(RatioTest, CanExpressNegative6) {
+    LONGS_EQUAL(Protocol::kNeg,
+                Ratio(std::numeric_limits<int>::min(),
+                      std::numeric_limits<int>::max()).Reduce());
+}
+
+TEST(RatioTest, CanExpressNegative7) {
+    // Negative infinity
+    LONGS_EQUAL(Protocol::kNeg, Ratio(-1, 0).Reduce());
+}
+
+TEST(RatioTest, CanExpressNegative8) {
+    // Negative infinity
+    LONGS_EQUAL(Protocol::kNeg,
+                Ratio(std::numeric_limits<int>::min(), 0).Reduce());
+}
+
+TEST(RatioTest, CanExpressNegative9) {
+    // Negative zero
+    LONGS_EQUAL(Protocol::kNeg, Ratio(0, -1).Reduce());
 }
 
 */

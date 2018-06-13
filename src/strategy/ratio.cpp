@@ -30,7 +30,7 @@ namespace deepnum {
 namespace clarith {
 namespace strategy {
 
-Ratio::Ratio(int n, int d) {
+Ratio::Ratio(int num, int den) {
     throw std::logic_error("not implemented");
 }
 

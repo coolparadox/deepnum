@@ -18,43 +18,25 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#ifndef SRC_STRATEGY_RATIO_HPP_
-#define SRC_STRATEGY_RATIO_HPP_
+#include "infinity.hpp"
 
-#include "strategy.hpp"
+#include "protocol/protocol.hpp"
+#include "unavailable_error.hpp"
+
+using deepnum::clarith::protocol::Protocol;
 
 namespace deepnum {
 namespace clarith {
-
-namespace protocol {
-enum class Protocol;
-}  // namespace protocol
-
 namespace strategy {
 
-/**
- * Integer ratio.
- * This strategy can reduce ratios of integer numbers.
- * \see Strategy
- */
-class Ratio : public Strategy {
- public:
-    /**
-     * Ratio strategy constructor.
-     * Construct a strategy for reducing a ratio of integer numbers.
-     * \param[in] num Numerator.
-     * \param[in] den Denominator.
-     * \pre Parameters cannot be both zero.
-     * \throw UndefinedRatioError
-     */
-    Ratio(int num, int den);
+Protocol Infinity::Reduce() {
+    return Protocol::kEnd;
+}
 
-    protocol::Protocol Reduce() override;
-    std::unique_ptr<Strategy> GetNewStrategy() const override;
-};
+std::unique_ptr<Strategy> Infinity::GetNewStrategy() const {
+    throw UnavailableError{};
+}
 
 }  // namespace strategy
 }  // namespace clarith
 }  // namespace deepnum
-
-#endif  // SRC_STRATEGY_RATIO_HPP_

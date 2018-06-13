@@ -18,33 +18,16 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#ifndef SRC_STRATEGY_INFINITE_HPP_
-#define SRC_STRATEGY_INFINITE_HPP_
-
-#include "strategy.hpp"
+#include "undefined_ratio_error.hpp"
 
 namespace deepnum {
 namespace clarith {
-
-namespace protocol {
-enum class Protocol;
-}  // namespace protocol
-
 namespace strategy {
 
-/**
- * Positive infinity.
- * This is a strategy to express positive infinity.
- * \see Strategy
- */
-class Infinite : public Strategy {
- public:
-    protocol::Protocol Reduce() override;
-    std::unique_ptr<Strategy> GetNewStrategy() const override;
-};
+UndefinedRatioError::UndefinedRatioError()
+        : logic_error("undefined ratio") {
+}
 
 }  // namespace strategy
 }  // namespace clarith
 }  // namespace deepnum
-
-#endif  // SRC_STRATEGY_INFINITE_HPP_

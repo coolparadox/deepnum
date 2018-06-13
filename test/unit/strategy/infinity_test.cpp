@@ -21,7 +21,7 @@
 #include <CppUTest/TestHarness.h>
 
 #include "protocol/protocol.hpp"
-#include "strategy/infinite.hpp"
+#include "strategy/infinity.hpp"
 #include "strategy/unavailable_error.hpp"
 
 using deepnum::clarith::protocol::Protocol;
@@ -34,11 +34,11 @@ TEST_GROUP(InfiniteTest) {
 };
 
 TEST(InfiniteTest, IsInfinity) {
-    LONGS_EQUAL(Protocol::kEnd, Infinite().Reduce());
+    LONGS_EQUAL(Protocol::kEnd, Infinity().Reduce());
 }
 
 TEST(InfiniteTest, DoesNotProvideNewStrategy) {
-    CHECK_THROWS(UnavailableError, Infinite().GetNewStrategy());
+    CHECK_THROWS(UnavailableError, Infinity().GetNewStrategy());
 }
 
 }  // namespace strategy
