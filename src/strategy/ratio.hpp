@@ -44,13 +44,18 @@ class Ratio : public Strategy {
      * Construct a strategy for reducing a ratio of integer numbers.
      * \param[in] num Numerator.
      * \param[in] den Denominator.
-     * \pre Parameters cannot be both zero.
+     * \pre At least one parameter must not be zero.
      * \throw UndefinedRatioError
      */
     Ratio(int num, int den);
 
     protocol::Protocol Reduce() override;
     std::unique_ptr<Strategy> GetNewStrategy() const override;
+
+ private:
+    unsigned int num_;
+    unsigned int den_;
+    bool positive_;
 };
 
 }  // namespace strategy

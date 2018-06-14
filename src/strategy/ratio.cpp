@@ -21,8 +21,10 @@
 #include "ratio.hpp"
 
 #include "exhaustion_error.hpp"
+#include "infinity.hpp"
 #include "protocol/protocol.hpp"
 #include "unavailable_error.hpp"
+#include "undefined_ratio_error.hpp"
 
 using deepnum::clarith::protocol::Protocol;
 
@@ -31,15 +33,43 @@ namespace clarith {
 namespace strategy {
 
 Ratio::Ratio(int num, int den) {
-    throw std::logic_error("not implemented");
+    if (num == 0 && den == 0)
+        throw UndefinedRatioError();
+    positive_ = (num >= 0 && den >= 0) || (num < 0 && den < 0);
+    constexpr int min_int = std::numeric_limits<int>::min();
+    num_ = num == min_int ? static_cast<unsigned int>(abs(min_int + 1)) + 1 :
+                            abs(num);
+    den_ = den == min_int ? static_cast<unsigned int>(abs(min_int + 1)) + 1 :
+                            abs(den);
 }
 
 Protocol Ratio::Reduce() {
-    throw std::logic_error("not implemented");
+    if (!positive_) {
+        positive_ = true;
+        return Protocol::kNeg;
+    }
+    if (den_ == 0)
+        throw ExhaustionError();
+    if (num_ / 2 >= den_) {
+        if (num_ % 2)
+            den_ *= 2;
+        else
+            num_ /= 2;
+        return Protocol::kTwo;
+    }
+    if (num_ >= den_) {
+        num_ -= den_;
+        std::swap(num_, den_);
+        return Protocol::kOne;
+    }
+    std::swap(num_, den_);
+    return Protocol::kZero;
 }
 
 std::unique_ptr<Strategy> Ratio::GetNewStrategy() const {
-    throw std::logic_error("not implemented");
+    if (den_ != 0)
+        throw UnavailableError();
+    return std::make_unique<Infinity>();
 }
 
 }  // namespace strategy

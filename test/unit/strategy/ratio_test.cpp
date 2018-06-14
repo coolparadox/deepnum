@@ -36,8 +36,6 @@ namespace strategy {
 TEST_GROUP(RatioTest) {
 };
 
-/*
-
 TEST(RatioTest, ThrowsOnUndefinedRatio) {
     CHECK_THROWS(UndefinedRatioError, Ratio(0, 0));
 }
@@ -59,33 +57,33 @@ TEST(RatioTest, DegeneratesToInfinityOnInfiniteRatio2) {
 }
 
 TEST(RatioTest, CanExpressAtLeastTwo) {
-    LONGS_EQUAL(Protocol::kNeg, Ratio(2, 1).Reduce());
+    LONGS_EQUAL(Protocol::kTwo, Ratio(2, 1).Reduce());
 }
 
 TEST(RatioTest, CanExpressAtLeastTwo2) {
-    LONGS_EQUAL(Protocol::kNeg,
+    LONGS_EQUAL(Protocol::kTwo,
                 Ratio(std::numeric_limits<int>::max(),
                       std::numeric_limits<int>::max() / 2).Reduce());
 }
 
 TEST(RatioTest, CanExpressAtLeastTwo3) {
-    LONGS_EQUAL(Protocol::kNeg,
+    LONGS_EQUAL(Protocol::kTwo,
                 Ratio(std::numeric_limits<int>::min(),
                       std::numeric_limits<int>::min() / 2).Reduce());
 }
 
 TEST(RatioTest, CanExpressAtLeastOne) {
-    LONGS_EQUAL(Protocol::kNeg, Ratio(1, 1).Reduce());
+    LONGS_EQUAL(Protocol::kOne, Ratio(1, 1).Reduce());
 }
 
 TEST(RatioTest, CanExpressAtLeastOne2) {
-    LONGS_EQUAL(Protocol::kNeg,
+    LONGS_EQUAL(Protocol::kOne,
                 Ratio(std::numeric_limits<int>::max(),
                       std::numeric_limits<int>::max()).Reduce());
 }
 
 TEST(RatioTest, CanExpressAtLeastOne3) {
-    LONGS_EQUAL(Protocol::kNeg,
+    LONGS_EQUAL(Protocol::kOne,
                 Ratio(std::numeric_limits<int>::min(),
                       std::numeric_limits<int>::min()).Reduce());
 }
@@ -144,8 +142,6 @@ TEST(RatioTest, CanExpressNegative9) {
     // Negative zero
     LONGS_EQUAL(Protocol::kNeg, Ratio(0, -1).Reduce());
 }
-
-*/
 
 }  // namespace strategy
 }  // namespace clarith
