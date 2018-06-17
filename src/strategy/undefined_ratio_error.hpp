@@ -28,7 +28,7 @@ namespace clarith {
 namespace strategy {
 
 /**
- * Indicates that a reducing strategy is no longer effective.
+ * Indicates that a ratio of two numbers is nonsense (eg: 0/0).
  * \see Strategy::Reduce
  */
 class UndefinedRatioError : public std::logic_error {
