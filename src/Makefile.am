@@ -23,6 +23,7 @@ AUTOMAKE_OPTIONS = subdir-objects
 lib_LTLIBRARIES = libdn_clarith.la
 
 libdn_clarith_la_SOURCES = \
+	math.cpp \
 	protocol/violation_error.cpp \
 	protocol/watcher.cpp \
 	reducer.cpp \
@@ -33,6 +34,7 @@ libdn_clarith_la_SOURCES = \
 	strategy/undefined_ratio_error.cpp
 
 include_HEADERS = \
+	math.hpp \
 	protocol/protocol.hpp \
 	protocol/violation_error.hpp \
 	protocol/watcher.hpp \

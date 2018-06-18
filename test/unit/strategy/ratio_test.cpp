@@ -127,19 +127,16 @@ TEST(RatioTest, CanExpressNegative6) {
                       std::numeric_limits<int>::max()).Reduce());
 }
 
-TEST(RatioTest, CanExpressNegative7) {
-    // Negative infinity
+TEST(RatioTest, CanExpressNegativeInfinity) {
     LONGS_EQUAL(Protocol::kNeg, Ratio(-1, 0).Reduce());
 }
 
-TEST(RatioTest, CanExpressNegative8) {
-    // Negative infinity
+TEST(RatioTest, CanExpressNegativeInfinity2) {
     LONGS_EQUAL(Protocol::kNeg,
                 Ratio(std::numeric_limits<int>::min(), 0).Reduce());
 }
 
-TEST(RatioTest, CanExpressNegative9) {
-    // Negative zero
+TEST(RatioTest, CanExpressNegativeZero) {
     LONGS_EQUAL(Protocol::kNeg, Ratio(0, -1).Reduce());
 }
 
