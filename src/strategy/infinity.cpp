@@ -29,7 +29,7 @@ namespace deepnum {
 namespace clarith {
 namespace strategy {
 
-Protocol Infinity::Reduce() {
+Protocol Infinity::Egest() {
     return Protocol::kEnd;
 }
 

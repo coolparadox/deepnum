@@ -32,7 +32,7 @@ namespace strategy {
 class StrategyMock : public Strategy {
  public:
     StrategyMock(bool exhausted = false);
-    protocol::Protocol Reduce() override;
+    protocol::Protocol Egest() override;
     std::unique_ptr<Strategy> GetNewStrategy() const override;
 
  private:

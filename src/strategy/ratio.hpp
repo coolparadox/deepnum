@@ -49,7 +49,7 @@ class Ratio : public Strategy {
      */
     Ratio(int num, int den);
 
-    protocol::Protocol Reduce() override;
+    protocol::Protocol Egest() override;
     std::unique_ptr<Strategy> GetNewStrategy() const override;
 
  private:

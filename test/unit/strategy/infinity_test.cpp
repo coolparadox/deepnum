@@ -34,7 +34,7 @@ TEST_GROUP(InfiniteTest) {
 };
 
 TEST(InfiniteTest, IsInfinity) {
-    LONGS_EQUAL(Protocol::kEnd, Infinity().Reduce());
+    LONGS_EQUAL(Protocol::kEnd, Infinity().Egest());
 }
 
 TEST(InfiniteTest, DoesNotProvideNewStrategy) {

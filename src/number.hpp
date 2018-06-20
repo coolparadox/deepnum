@@ -18,8 +18,8 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#ifndef SRC_REDUCER_HPP_
-#define SRC_REDUCER_HPP_
+#ifndef SRC_NUMBER_HPP_
+#define SRC_NUMBER_HPP_
 
 #include <memory>
 
@@ -35,26 +35,24 @@ class Strategy;
 }  // namespace strategy
 
 /**
- * Plays a reducing strategy.
- * Strategies eventually get exhausted and provide another strategy for
- * resuming the reduction process. Reducer automates strategy switching,
- * providing a more straightforward interface for number reduction.
- * \see strategy::Strategy
+ * Rational number in continued logarithm representation.
  */
-class Reducer {
+class Number {
  public:
     /**
-     * Constructs a strategy player.
-     * \param[in] strategy The strategy to be played.
+     * A Number is defined by means of a strategy (that may combine other
+     * numbers).
+     * \param[in] strategy Defining strategy.
      */
-    explicit Reducer(std::unique_ptr<strategy::Strategy> strategy);
+    explicit Number(std::unique_ptr<strategy::Strategy> strategy);
 
     /**
-     * Retrieves next Protocol message from underlying strategy.
-     * \return Extracted Protocol message.
-     * \see Protocol
+     * Extract Number information.
+     * Takes out the next piece of information from the Number instance, which
+     * looses this information as a side effect.
+     * \return Next continued logarithm protocol message.
      */
-    protocol::Protocol Reduce();
+    protocol::Protocol Egest();
 
  private:
     std::unique_ptr<strategy::Strategy> strategy_;
@@ -63,4 +61,4 @@ class Reducer {
 }  // namespace clarith
 }  // namespace deepnum
 
-#endif  // SRC_REDUCER_HPP_
+#endif  // SRC_NUMBER_HPP_

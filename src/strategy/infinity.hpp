@@ -39,7 +39,7 @@ namespace strategy {
  */
 class Infinity : public Strategy {
  public:
-    protocol::Protocol Reduce() override;
+    protocol::Protocol Egest() override;
     std::unique_ptr<Strategy> GetNewStrategy() const override;
 };
 

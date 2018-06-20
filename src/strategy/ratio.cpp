@@ -40,7 +40,7 @@ Ratio::Ratio(int num, int den) {
     den_ = den >= 0 ? den : -den;
 }
 
-Protocol Ratio::Reduce() {
+Protocol Ratio::Egest() {
     if (!positive_) {
         positive_ = true;
         return Protocol::kNeg;

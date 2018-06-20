@@ -42,21 +42,21 @@ class Strategy {
 
     /**
      * Extracts next Protocol message.
-     * Takes out the next Protocol message from the underlying number,
+     * Takes out the next Protocol message from the underlying strategy,
      * which loses this information as a side effect.
      * \return Extracted Protocol message.
      * \throw ExhaustionError
      * \see GetNewStrategy
      */
-    virtual protocol::Protocol Reduce() = 0;
+    virtual protocol::Protocol Egest() = 0;
 
     /**
      * New strategy in case of exhaustion.
      * Offers another strategy that can resume the reduction process
      * in case the current strategy ceases working.
-     * \return New strategy where Reduce() works.
+     * \return New strategy where Egest() works.
      * \throw UnavailableError
-     * \see Reduce
+     * \see Egest
      */
     virtual std::unique_ptr<Strategy> GetNewStrategy() const = 0;
 };

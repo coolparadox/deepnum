@@ -25,7 +25,7 @@ unit_tests_CPPFLAGS = -I@srcdir@/../../src
 unit_tests_LDADD = @builddir@/../../src/.libs/libdn_clarith.la -lCppUTest -lCppUTestExt
 unit_tests_SOURCES = \
 	protocol/watcher_test.cpp \
-	reducer_test.cpp \
+	number_test.cpp \
 	strategy/infinity_test.cpp \
 	strategy/ratio_test.cpp \
 	strategy/strategy_mock.cpp \

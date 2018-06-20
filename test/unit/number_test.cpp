@@ -18,32 +18,38 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "reducer.hpp"
+#include <CppUTest/TestHarness.h>
+#include <CppUTestExt/MockSupport.h>
 
-#include "protocol/protocol.hpp"
-#include "strategy/exhaustion_error.hpp"
-#include "strategy/strategy.hpp"
+#include "number.hpp"
+#include "strategy/strategy_mock.hpp"
 
-using deepnum::clarith::protocol::Protocol;
-using deepnum::clarith::strategy::Strategy;
-using deepnum::clarith::strategy::ExhaustionError;
+using deepnum::clarith::strategy::StrategyMock;
 
 namespace deepnum {
 namespace clarith {
 
-Reducer::Reducer(std::unique_ptr<Strategy> strategy)
-        : strategy_(std::move(strategy)) {
+TEST_GROUP(NumberTest) {
+    void teardown() {
+        mock().clear();
+    }
+};
+
+TEST(NumberTest, DelegatesEgestionToStrategy) {
+    StrategyMock* strategy { new StrategyMock(false) };
+    mock().expectOneCall("Egest").onObject(strategy);
+    Number(std::unique_ptr<StrategyMock>(strategy)).Egest();
+    mock().checkExpectations();
 }
 
-Protocol Reducer::Reduce() {
-    try {
-        return strategy_->Reduce();
-    }
-    catch (ExhaustionError) {
-        strategy_ = strategy_->GetNewStrategy();
-    }
-    return strategy_->Reduce();
+TEST(NumberTest, ReplacesStrategyOnExhaustion) {
+    StrategyMock* strategy { new StrategyMock(true) };
+    mock().expectOneCall("GetNewStrategy").onObject(strategy);
+    mock().ignoreOtherCalls();
+    Number(std::unique_ptr<StrategyMock>(strategy)).Egest();
+    mock().checkExpectations();
 }
 
 }  // namespace clarith
 }  // namespace deepnum
+

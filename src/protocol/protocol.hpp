@@ -26,13 +26,13 @@ namespace clarith {
 namespace protocol {
 
 /**
- * Protocol defines the messages of the number reducing protocol.
- * The set of reducing messages is taken from Bill Gosper's continued log idea.
+ * Continued logarithm messages.
+ * The set of messages is taken from Bill Gosper's continued log idea.
  *
  * Before any message is known, a number is deemed to be completely unknown
  * (i.e., it lies somewhere between negative infinity and positive infinity).
  *
- * The messages produced by reducing any given number is supposed to form a
+ * Messages produced by reducing any given number are supposed to form a
  * coherent sequence where each message uncovers a new level of knowledge about
  * where the number lies in its formerly known range,
  * and then causes a change of this range as a side effect

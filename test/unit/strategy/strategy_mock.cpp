@@ -35,8 +35,8 @@ StrategyMock::StrategyMock(bool exhausted)
         : exhausted_ (exhausted) {
 }
 
-Protocol StrategyMock::Reduce() {
-    mock().actualCall("Reduce").onObject(this);
+Protocol StrategyMock::Egest() {
+    mock().actualCall("Egest").onObject(this);
     if (exhausted_) {
         throw ExhaustionError();
     }

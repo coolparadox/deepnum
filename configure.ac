@@ -23,7 +23,7 @@ LT_PREREQ([2.4.2])
 AC_INIT([dn-clarith],[0.0.0],[coolparadox@gmail.com])
 AC_CONFIG_MACRO_DIRS([m4])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
-AC_CONFIG_SRCDIR([src/reducer.cpp])
+AC_CONFIG_SRCDIR([src/number.cpp])
 AC_CONFIG_HEADERS([config.h])
 AC_SUBST([PROJECT_BRIEF], ["continued logarithm arithmetic"])
 

@@ -23,9 +23,9 @@ AUTOMAKE_OPTIONS = subdir-objects
 lib_LTLIBRARIES = libdn_clarith.la
 
 libdn_clarith_la_SOURCES = \
+	number.cpp \
 	protocol/violation_error.cpp \
 	protocol/watcher.cpp \
-	reducer.cpp \
 	strategy/exhaustion_error.cpp \
 	strategy/infinity.cpp \
 	strategy/ratio.cpp \
@@ -33,10 +33,10 @@ libdn_clarith_la_SOURCES = \
 	strategy/undefined_ratio_error.cpp
 
 include_HEADERS = \
+	number.hpp \
 	protocol/protocol.hpp \
 	protocol/violation_error.hpp \
 	protocol/watcher.hpp \
-	reducer.hpp \
 	strategy/exhaustion_error.hpp \
 	strategy/infinity.hpp \
 	strategy/ratio.hpp \
