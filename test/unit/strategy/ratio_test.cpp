@@ -68,8 +68,8 @@ TEST(RatioTest, CanExpressAtLeastTwo2) {
 
 TEST(RatioTest, CanExpressAtLeastTwo3) {
     LONGS_EQUAL(Protocol::kTwo,
-                Ratio(std::numeric_limits<int>::min(),
-                      std::numeric_limits<int>::min() / 2).Reduce());
+                Ratio(std::numeric_limits<int>::lowest(),
+                      std::numeric_limits<int>::lowest() / 2).Reduce());
 }
 
 TEST(RatioTest, CanExpressAtLeastOne) {
@@ -84,8 +84,8 @@ TEST(RatioTest, CanExpressAtLeastOne2) {
 
 TEST(RatioTest, CanExpressAtLeastOne3) {
     LONGS_EQUAL(Protocol::kOne,
-                Ratio(std::numeric_limits<int>::min(),
-                      std::numeric_limits<int>::min()).Reduce());
+                Ratio(std::numeric_limits<int>::lowest(),
+                      std::numeric_limits<int>::lowest()).Reduce());
 }
 
 TEST(RatioTest, CanExpressAtLeastZero) {
@@ -112,18 +112,18 @@ TEST(RatioTest, CanExpressNegative3) {
 
 TEST(RatioTest, CanExpressNegative4) {
     LONGS_EQUAL(Protocol::kNeg,
-                Ratio(1, std::numeric_limits<int>::min()).Reduce());
+                Ratio(1, std::numeric_limits<int>::lowest()).Reduce());
 }
 
 TEST(RatioTest, CanExpressNegative5) {
     LONGS_EQUAL(Protocol::kNeg,
                 Ratio(std::numeric_limits<int>::max(),
-                      std::numeric_limits<int>::min()).Reduce());
+                      std::numeric_limits<int>::lowest()).Reduce());
 }
 
 TEST(RatioTest, CanExpressNegative6) {
     LONGS_EQUAL(Protocol::kNeg,
-                Ratio(std::numeric_limits<int>::min(),
+                Ratio(std::numeric_limits<int>::lowest(),
                       std::numeric_limits<int>::max()).Reduce());
 }
 
@@ -133,7 +133,7 @@ TEST(RatioTest, CanExpressNegativeInfinity) {
 
 TEST(RatioTest, CanExpressNegativeInfinity2) {
     LONGS_EQUAL(Protocol::kNeg,
-                Ratio(std::numeric_limits<int>::min(), 0).Reduce());
+                Ratio(std::numeric_limits<int>::lowest(), 0).Reduce());
 }
 
 TEST(RatioTest, CanExpressNegativeZero) {

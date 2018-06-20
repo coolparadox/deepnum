@@ -22,7 +22,6 @@
 
 #include "exhaustion_error.hpp"
 #include "infinity.hpp"
-#include "math.hpp"
 #include "protocol/protocol.hpp"
 #include "unavailable_error.hpp"
 #include "undefined_ratio_error.hpp"
@@ -37,8 +36,8 @@ Ratio::Ratio(int num, int den) {
     if (num == 0 && den == 0)
         throw UndefinedRatioError();
     positive_ = (num >= 0 && den >= 0) || (num < 0 && den < 0);
-    num_ = Math::Absolute(num);
-    den_ = Math::Absolute(den);
+    num_ = num >= 0 ? num : -num;
+    den_ = den >= 0 ? den : -den;
 }
 
 Protocol Ratio::Reduce() {
