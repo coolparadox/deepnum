@@ -42,7 +42,7 @@ Protocol Number::Egest() {
     catch (ExhaustionError) {
         strategy_ = strategy_->GetNewStrategy();
     }
-    return strategy_->Egest();
+    return Egest();
 }
 
 }  // namespace clarith
