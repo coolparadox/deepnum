@@ -72,6 +72,13 @@ TEST(RatioTest, CanExpressAtLeastTwo3) {
                       std::numeric_limits<int>::lowest() / 2).Egest());
 }
 
+TEST(RatioTest, CanExpressAtLeastTwo4) {
+    LONGS_EQUAL(Protocol::kTwo,
+                Ratio(std::numeric_limits<unsigned int>::max(),
+                      std::numeric_limits<unsigned int>::max() / 2,
+                      true).Egest());
+}
+
 TEST(RatioTest, CanExpressAtLeastOne) {
     LONGS_EQUAL(Protocol::kOne, Ratio(1, 1).Egest());
 }
@@ -88,6 +95,13 @@ TEST(RatioTest, CanExpressAtLeastOne3) {
                       std::numeric_limits<int>::lowest()).Egest());
 }
 
+TEST(RatioTest, CanExpressAtLeastOne4) {
+    LONGS_EQUAL(Protocol::kOne,
+                Ratio(std::numeric_limits<unsigned int>::max(),
+                      std::numeric_limits<unsigned int>::max(),
+                      true).Egest());
+}
+
 TEST(RatioTest, CanExpressAtLeastZero) {
     LONGS_EQUAL(Protocol::kZero, Ratio(0, 1).Egest());
 }
@@ -95,6 +109,12 @@ TEST(RatioTest, CanExpressAtLeastZero) {
 TEST(RatioTest, CanExpressAtLeastZero2) {
     LONGS_EQUAL(Protocol::kZero,
                 Ratio(0, std::numeric_limits<int>::max()).Egest());
+}
+
+TEST(RatioTest, CanExpressAtLeastZero3) {
+    LONGS_EQUAL(Protocol::kZero,
+                Ratio(0, std::numeric_limits<unsigned int>::max(),
+                      true).Egest());
 }
 
 TEST(RatioTest, CanExpressNegative) {
@@ -127,6 +147,12 @@ TEST(RatioTest, CanExpressNegative6) {
                       std::numeric_limits<int>::max()).Egest());
 }
 
+TEST(RatioTest, CanExpressNegative7) {
+    LONGS_EQUAL(Protocol::kNeg,
+                Ratio(1, std::numeric_limits<unsigned int>::max(),
+                      false).Egest());
+}
+
 TEST(RatioTest, CanExpressNegativeInfinity) {
     LONGS_EQUAL(Protocol::kNeg, Ratio(-1, 0).Egest());
 }
@@ -136,8 +162,22 @@ TEST(RatioTest, CanExpressNegativeInfinity2) {
                 Ratio(std::numeric_limits<int>::lowest(), 0).Egest());
 }
 
+TEST(RatioTest, CanExpressNegativeInfinity3) {
+    LONGS_EQUAL(Protocol::kNeg, Ratio(1, 0, false).Egest());
+}
+
+TEST(RatioTest, CanExpressNegativeInfinity4) {
+    LONGS_EQUAL(Protocol::kNeg,
+                Ratio(std::numeric_limits<unsigned int>::max(), 0, false)
+                        .Egest());
+}
+
 TEST(RatioTest, CanExpressNegativeZero) {
     LONGS_EQUAL(Protocol::kNeg, Ratio(0, -1).Egest());
+}
+
+TEST(RatioTest, CanExpressNegativeZero2) {
+    LONGS_EQUAL(Protocol::kNeg, Ratio(0, 1, false).Egest());
 }
 
 }  // namespace strategy

@@ -49,6 +49,17 @@ class Ratio : public Strategy {
      */
     Ratio(int num, int den);
 
+    /**
+     * Ratio strategy constructor.
+     * Construct a strategy for reducing a ratio of integer numbers.
+     * \param[in] num Numerator.
+     * \param[in] den Denominator.
+     * \param[in] positive Is the ratio a positive number?
+     * \pre num and den are not both zero.
+     * \throw UndefinedRatioError
+     */
+    Ratio(unsigned int num, unsigned int den, bool positive);
+
     protocol::Protocol Egest() override;
     std::unique_ptr<Strategy> GetNewStrategy() const override;
 

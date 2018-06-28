@@ -32,12 +32,17 @@ namespace deepnum {
 namespace clarith {
 namespace strategy {
 
-Ratio::Ratio(int num, int den) {
-    if (num == 0 && den == 0)
+Ratio::Ratio(int num, int den)
+        : Ratio(num >= 0 ? num : -num, den >= 0 ? den : -den,
+                (num >= 0 && den >= 0) || (num < 0 && den < 0)) {
+}
+
+Ratio::Ratio(unsigned int num, unsigned int den, bool positive)
+        : num_(num),
+          den_(den),
+          positive_(positive) {
+    if (num_ == 0 && den_ == 0)
         throw UndefinedRatioError();
-    positive_ = (num >= 0 && den >= 0) || (num < 0 && den < 0);
-    num_ = num >= 0 ? num : -num;
-    den_ = den >= 0 ? den : -den;
 }
 
 Protocol Ratio::Egest() {
