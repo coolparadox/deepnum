@@ -63,7 +63,7 @@ class Ratio : public Strategy {
     protocol::Protocol Egest() override;
     std::unique_ptr<Strategy> GetNewStrategy() const override;
 
- private:
+ protected:
     unsigned int num_;
     unsigned int den_;
     bool positive_;
