@@ -40,6 +40,7 @@ Protocol StrategyMock::Egest() {
     if (exhausted_) {
         throw ExhaustionError();
     }
+    return Protocol::kEnd;
 }
 
 std::unique_ptr<Strategy> StrategyMock::GetNewStrategy() const {
