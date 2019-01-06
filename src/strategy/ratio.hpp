@@ -49,7 +49,7 @@ class Ratio : public Strategy
      * Construct a strategy for reducing a ratio of integer numbers.
      * \param[in] num Numerator.
      * \param[in] den Denominator.
-     * \pre At least one parameter must not be zero.
+     * \pre num and den are not both zero.
      * \throw UndefinedRatioError
      */
     Ratio(int num, int den);
