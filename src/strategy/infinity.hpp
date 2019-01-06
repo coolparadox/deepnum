@@ -23,21 +23,26 @@
 
 #include "strategy.hpp"
 
-namespace deepnum {
-namespace clarith {
+namespace deepnum
+{
+namespace clarith
+{
 
-namespace protocol {
+namespace protocol
+{
 enum class Protocol;
 }  // namespace protocol
 
-namespace strategy {
+namespace strategy
+{
 
 /**
  * Positive infinity.
- * This is a strategy to express positive infinity.
+ * This strategy simply represents positive infinity.
  * \see Strategy
  */
-class Infinity : public Strategy {
+class Infinity : public Strategy
+{
  public:
     protocol::Protocol Egest() override;
     std::unique_ptr<Strategy> GetNewStrategy() const override;

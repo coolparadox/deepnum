@@ -21,9 +21,12 @@
 #ifndef SRC_PROTOCOL_WATCHER_HPP_
 #define SRC_PROTOCOL_WATCHER_HPP_
 
-namespace deepnum {
-namespace clarith {
-namespace protocol {
+namespace deepnum
+{
+namespace clarith
+{
+namespace protocol
+{
 
 enum class Protocol;
 
@@ -32,7 +35,8 @@ enum class Protocol;
  * Track Protocol messages, checking for violation of its invariants.
  * \see Protocol
  */
-class Watcher {
+class Watcher
+{
  public:
     /**
      * Check one more message of a Protocol sequence for violation errors.

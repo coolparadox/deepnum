@@ -20,12 +20,16 @@
 
 #include "violation_error.hpp"
 
-namespace deepnum {
-namespace clarith {
-namespace protocol {
+namespace deepnum
+{
+namespace clarith
+{
+namespace protocol
+{
 
 ViolationError::ViolationError(const std::string &description)
-        : runtime_error(description) {
+        : runtime_error(description)
+{
 }
 
 }  // namespace protocol

@@ -21,9 +21,12 @@
 #ifndef SRC_PROTOCOL_PROTOCOL_HPP_
 #define SRC_PROTOCOL_PROTOCOL_HPP_
 
-namespace deepnum {
-namespace clarith {
-namespace protocol {
+namespace deepnum
+{
+namespace clarith
+{
+namespace protocol
+{
 
 /**
  * Continued logarithm messages.
@@ -55,7 +58,8 @@ namespace protocol {
  *   - _0.5_ = '021$'
  *   - _-3.14_ = '-2111211122111121$'
  */
-enum class Protocol {
+enum class Protocol
+{
 
     /**
      * '$'.
@@ -78,7 +82,7 @@ enum class Protocol {
 
     /**
      * '0'.
-     * Number was at least zero but lesser than one
+     * Number was at least zero but lesser than one,
      * and was reciprocated.
      */
     kZero,

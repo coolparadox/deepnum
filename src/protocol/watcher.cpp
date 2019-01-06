@@ -23,26 +23,35 @@
 #include "protocol.hpp"
 #include "violation_error.hpp"
 
-namespace deepnum {
-namespace clarith {
-namespace protocol {
+namespace deepnum
+{
+namespace clarith
+{
+namespace protocol
+{
 
-Protocol Watcher::Watch(Protocol message) {
-    if (!primed_) {
+Protocol Watcher::Watch(Protocol message)
+{
+    if (!primed_)
+    {
         primed_ = true;
         previous_ = message;
         return message;
     }
-    if (previous_ == Protocol::kEnd) {
+    if (previous_ == Protocol::kEnd)
+    {
         throw ViolationError("forbidden non final '$'");
     }
-    if (message == Protocol::kNeg) {
+    if (message == Protocol::kNeg)
+    {
         throw ViolationError("forbidden non initial '-'");
     }
-    if (previous_ != Protocol::kNeg && message == Protocol::kZero) {
+    if (previous_ != Protocol::kNeg && message == Protocol::kZero)
+    {
         throw ViolationError("forbidden non initial '0'");
     }
-    if (previous_ == Protocol::kTwo && message == Protocol::kEnd) {
+    if (previous_ == Protocol::kTwo && message == Protocol::kEnd)
+    {
         throw ViolationError("forbidden '2$' sequence");
     }
     previous_ = message;

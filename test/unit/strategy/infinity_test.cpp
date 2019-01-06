@@ -26,18 +26,24 @@
 
 using deepnum::clarith::protocol::Protocol;
 
-namespace deepnum {
-namespace clarith {
-namespace strategy {
+namespace deepnum
+{
+namespace clarith
+{
+namespace strategy
+{
 
-TEST_GROUP(InfiniteTest) {
+TEST_GROUP(InfiniteTest)
+{
 };
 
-TEST(InfiniteTest, IsInfinity) {
+TEST(InfiniteTest, IsInfinity)
+{
     LONGS_EQUAL(Protocol::kEnd, Infinity().Egest());
 }
 
-TEST(InfiniteTest, DoesNotProvideNewStrategy) {
+TEST(InfiniteTest, DoesNotProvideNewStrategy)
+{
     CHECK_THROWS(UnavailableError, Infinity().GetNewStrategy());
 }
 

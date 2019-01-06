@@ -20,12 +20,16 @@
 
 #include "undefined_ratio_error.hpp"
 
-namespace deepnum {
-namespace clarith {
-namespace strategy {
+namespace deepnum
+{
+namespace clarith
+{
+namespace strategy
+{
 
 UndefinedRatioError::UndefinedRatioError()
-        : logic_error("undefined ratio") {
+        : logic_error("undefined ratio")
+{
 }
 
 }  // namespace strategy

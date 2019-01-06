@@ -23,15 +23,19 @@
 
 #include <stdexcept>
 
-namespace deepnum {
-namespace clarith {
-namespace strategy {
+namespace deepnum
+{
+namespace clarith
+{
+namespace strategy
+{
 
 /**
  * Indicates that a new strategy is not available.
  * \see Strategy::GetNewStrategy
  */
-class UnavailableError : public std::logic_error {
+class UnavailableError : public std::logic_error
+{
  public:
     UnavailableError();
 };

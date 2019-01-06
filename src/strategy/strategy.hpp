@@ -23,20 +23,25 @@
 
 #include <memory>
 
-namespace deepnum {
-namespace clarith {
+namespace deepnum
+{
+namespace clarith
+{
 
-namespace protocol {
+namespace protocol
+{
 enum class Protocol;
 }  // namespace protocol
 
-namespace strategy {
+namespace strategy
+{
 
 /**
  * Represents an approach for reducing numbers to Protocol message sequences.
  * \see Protocol
  */
-class Strategy {
+class Strategy
+{
  public:
     virtual ~Strategy() = default;
 

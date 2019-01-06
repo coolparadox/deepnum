@@ -27,25 +27,33 @@
 
 using deepnum::clarith::protocol::Protocol;
 
-namespace deepnum {
-namespace clarith {
-namespace strategy {
+namespace deepnum
+{
+namespace clarith
+{
+namespace strategy
+{
 
 StrategyMock::StrategyMock(bool exhausted)
-        : exhausted_ (exhausted) {
+        : exhausted_ (exhausted)
+{
 }
 
-Protocol StrategyMock::Egest() {
+Protocol StrategyMock::Egest()
+{
     mock().actualCall("Egest").onObject(this);
-    if (exhausted_) {
+    if (exhausted_)
+    {
         throw ExhaustionError();
     }
     return Protocol::kEnd;
 }
 
-std::unique_ptr<Strategy> StrategyMock::GetNewStrategy() const {
+std::unique_ptr<Strategy> StrategyMock::GetNewStrategy() const
+{
     mock().actualCall("GetNewStrategy").onObject(this);
-    if (!exhausted_) {
+    if (!exhausted_)
+    {
         throw UnavailableError();
     }
     return std::make_unique<StrategyMock>();

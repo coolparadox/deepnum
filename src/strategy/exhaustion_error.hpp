@@ -23,15 +23,19 @@
 
 #include <stdexcept>
 
-namespace deepnum {
-namespace clarith {
-namespace strategy {
+namespace deepnum
+{
+namespace clarith
+{
+namespace strategy
+{
 
 /**
  * Indicates that a reducing strategy is no longer effective.
- * \see Strategy::Reduce
+ * \see Strategy::Egest
  */
-class ExhaustionError : public std::runtime_error {
+class ExhaustionError : public std::runtime_error
+{
  public:
     ExhaustionError();
 };

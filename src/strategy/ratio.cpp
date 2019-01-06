@@ -28,38 +28,47 @@
 
 using deepnum::clarith::protocol::Protocol;
 
-namespace deepnum {
-namespace clarith {
-namespace strategy {
+namespace deepnum
+{
+namespace clarith
+{
+namespace strategy
+{
 
 Ratio::Ratio(int num, int den)
         : Ratio(num >= 0 ? num : -num, den >= 0 ? den : -den,
-                (num >= 0 && den >= 0) || (num < 0 && den < 0)) {
+                (num >= 0 && den >= 0) || (num < 0 && den < 0))
+{
 }
 
 Ratio::Ratio(unsigned int num, unsigned int den, bool positive)
         : num_(num),
           den_(den),
-          positive_(positive) {
+          positive_(positive)
+{
     if (num_ == 0 && den_ == 0)
         throw UndefinedRatioError();
 }
 
-Protocol Ratio::Egest() {
-    if (!positive_) {
+Protocol Ratio::Egest()
+{
+    if (!positive_)
+    {
         positive_ = true;
         return Protocol::kNeg;
     }
     if (den_ == 0)
         throw ExhaustionError();
-    if (num_ / 2 >= den_) {
+    if (num_ / 2 >= den_)
+    {
         if (num_ % 2)
             den_ *= 2;
         else
             num_ /= 2;
         return Protocol::kTwo;
     }
-    if (num_ >= den_) {
+    if (num_ >= den_)
+    {
         num_ -= den_;
         std::swap(num_, den_);
         return Protocol::kOne;
@@ -68,7 +77,8 @@ Protocol Ratio::Egest() {
     return Protocol::kZero;
 }
 
-std::unique_ptr<Strategy> Ratio::GetNewStrategy() const {
+std::unique_ptr<Strategy> Ratio::GetNewStrategy() const
+{
     if (den_ != 0)
         throw UnavailableError();
     return std::make_unique<Infinity>();

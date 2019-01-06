@@ -25,15 +25,20 @@
 
 using deepnum::clarith::protocol::Protocol;
 
-namespace deepnum {
-namespace clarith {
-namespace strategy {
+namespace deepnum
+{
+namespace clarith
+{
+namespace strategy
+{
 
-Protocol Infinity::Egest() {
+Protocol Infinity::Egest()
+{
     return Protocol::kEnd;
 }
 
-std::unique_ptr<Strategy> Infinity::GetNewStrategy() const {
+std::unique_ptr<Strategy> Infinity::GetNewStrategy() const
+{
     throw UnavailableError{};
 }
 

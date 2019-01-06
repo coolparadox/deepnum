@@ -20,12 +20,16 @@
 
 #include "exhaustion_error.hpp"
 
-namespace deepnum {
-namespace clarith {
-namespace strategy {
+namespace deepnum
+{
+namespace clarith
+{
+namespace strategy
+{
 
 ExhaustionError::ExhaustionError()
-        : runtime_error("strategy exhaustion") {
+        : runtime_error("strategy exhaustion")
+{
 }
 
 }  // namespace strategy

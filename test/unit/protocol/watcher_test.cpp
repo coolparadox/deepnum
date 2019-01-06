@@ -24,14 +24,19 @@
 #include "protocol/violation_error.hpp"
 #include "protocol/watcher.hpp"
 
-namespace deepnum {
-namespace clarith {
-namespace protocol {
+namespace deepnum
+{
+namespace clarith
+{
+namespace protocol
+{
 
-TEST_GROUP(WatcherTest) {
+TEST_GROUP(WatcherTest)
+{
 };
 
-TEST(WatcherTest, ReturnsCopyOfInput) {
+TEST(WatcherTest, ReturnsCopyOfInput)
+{
     LONGS_EQUAL(Protocol::kEnd, Watcher().Watch(Protocol::kEnd));
     LONGS_EQUAL(Protocol::kTwo, Watcher().Watch(Protocol::kTwo));
     LONGS_EQUAL(Protocol::kOne, Watcher().Watch(Protocol::kOne));
@@ -39,7 +44,8 @@ TEST(WatcherTest, ReturnsCopyOfInput) {
     LONGS_EQUAL(Protocol::kNeg, Watcher().Watch(Protocol::kNeg));
 }
 
-TEST(WatcherTest, ThrowsOnNonFinalEndMessage) {
+TEST(WatcherTest, ThrowsOnNonFinalEndMessage)
+{
     {
         Watcher watcher;
         watcher.Watch(Protocol::kEnd);
@@ -62,7 +68,8 @@ TEST(WatcherTest, ThrowsOnNonFinalEndMessage) {
     }
 }
 
-TEST(WatcherTest, ThrowsOnNonInitialNegMessage) {
+TEST(WatcherTest, ThrowsOnNonInitialNegMessage)
+{
     {
         Watcher watcher;
         watcher.Watch(Protocol::kEnd);
@@ -90,7 +97,8 @@ TEST(WatcherTest, ThrowsOnNonInitialNegMessage) {
     }
 }
 
-TEST(WatcherTest, ThrowsOnNonInitialZeroMessage) {
+TEST(WatcherTest, ThrowsOnNonInitialZeroMessage)
+{
     {
         Watcher watcher;
         watcher.Watch(Protocol::kEnd);
@@ -118,7 +126,8 @@ TEST(WatcherTest, ThrowsOnNonInitialZeroMessage) {
     }
 }
 
-TEST(WatcherTest, ThrowsOnTwoMessageFollowedByEndMessage) {
+TEST(WatcherTest, ThrowsOnTwoMessageFollowedByEndMessage)
+{
     Watcher watcher;
     watcher.Watch(Protocol::kTwo);
     CHECK_THROWS(ViolationError, watcher.Watch(Protocol::kEnd));

@@ -28,18 +28,24 @@ using deepnum::clarith::protocol::Protocol;
 using deepnum::clarith::strategy::Strategy;
 using deepnum::clarith::strategy::ExhaustionError;
 
-namespace deepnum {
-namespace clarith {
+namespace deepnum
+{
+namespace clarith
+{
 
 Number::Number(std::unique_ptr<Strategy> strategy)
-        : strategy_(std::move(strategy)) {
+        : strategy_(std::move(strategy))
+{
 }
 
-Protocol Number::Egest() {
-    try {
+Protocol Number::Egest()
+{
+    try
+    {
         return strategy_->Egest();
     }
-    catch (ExhaustionError) {
+    catch (ExhaustionError)
+    {
         strategy_ = strategy_->GetNewStrategy();
     }
     return Egest();

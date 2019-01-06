@@ -23,21 +23,26 @@
 
 #include "strategy.hpp"
 
-namespace deepnum {
-namespace clarith {
+namespace deepnum
+{
+namespace clarith
+{
 
-namespace protocol {
+namespace protocol
+{
 enum class Protocol;
 }  // namespace protocol
 
-namespace strategy {
+namespace strategy
+{
 
 /**
  * Integer ratio.
  * This strategy can reduce ratios of integer numbers.
  * \see Strategy
  */
-class Ratio : public Strategy {
+class Ratio : public Strategy
+{
  public:
     /**
      * Ratio strategy constructor.

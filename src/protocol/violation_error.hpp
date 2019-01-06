@@ -24,15 +24,19 @@
 #include <stdexcept>
 #include <string>
 
-namespace deepnum {
-namespace clarith {
-namespace protocol {
+namespace deepnum
+{
+namespace clarith
+{
+namespace protocol
+{
 
 /**
  * Indicates that some Protocol rule was not honored.
  * \see Protocol, Watcher
  */
-class ViolationError : public std::runtime_error {
+class ViolationError : public std::runtime_error
+{
  public:
     ViolationError(const std::string &description);
 };

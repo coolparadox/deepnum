@@ -26,23 +26,29 @@
 
 using deepnum::clarith::strategy::StrategyMock;
 
-namespace deepnum {
-namespace clarith {
+namespace deepnum
+{
+namespace clarith
+{
 
-TEST_GROUP(NumberTest) {
-    void teardown() {
+TEST_GROUP(NumberTest)
+{
+    void teardown()
+    {
         mock().clear();
     }
 };
 
-TEST(NumberTest, DelegatesEgestionToStrategy) {
+TEST(NumberTest, DelegatesEgestionToStrategy)
+{
     StrategyMock* strategy { new StrategyMock(false) };
     mock().expectOneCall("Egest").onObject(strategy);
     Number(std::unique_ptr<StrategyMock>(strategy)).Egest();
     mock().checkExpectations();
 }
 
-TEST(NumberTest, ReplacesStrategyOnExhaustion) {
+TEST(NumberTest, ReplacesStrategyOnExhaustion)
+{
     StrategyMock* strategy { new StrategyMock(true) };
     mock().expectOneCall("GetNewStrategy").onObject(strategy);
     mock().ignoreOtherCalls();

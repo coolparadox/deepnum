@@ -20,12 +20,16 @@
 
 #include "unavailable_error.hpp"
 
-namespace deepnum {
-namespace clarith {
-namespace strategy {
+namespace deepnum
+{
+namespace clarith
+{
+namespace strategy
+{
 
 UnavailableError::UnavailableError()
-        : logic_error("new strategy not available") {
+        : logic_error("new strategy not available")
+{
 }
 
 }  // namespace strategy

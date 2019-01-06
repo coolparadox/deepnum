@@ -20,16 +20,21 @@
 
 #include "strategy/strategy.hpp"
 
-namespace deepnum {
-namespace clarith {
+namespace deepnum
+{
+namespace clarith
+{
 
-namespace protocol {
+namespace protocol
+{
 enum class Protocol;
 }  // namespace protocol
 
-namespace strategy {
+namespace strategy
+{
 
-class StrategyMock : public Strategy {
+class StrategyMock : public Strategy
+{
  public:
     StrategyMock(bool exhausted = false);
     protocol::Protocol Egest() override;

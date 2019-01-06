@@ -23,15 +23,19 @@
 
 #include <stdexcept>
 
-namespace deepnum {
-namespace clarith {
-namespace strategy {
+namespace deepnum
+{
+namespace clarith
+{
+namespace strategy
+{
 
 /**
  * Indicates that a ratio of two numbers is nonsense (eg: 0/0).
  * \see Strategy::Reduce
  */
-class UndefinedRatioError : public std::logic_error {
+class UndefinedRatioError : public std::logic_error
+{
  public:
     UndefinedRatioError();
 };

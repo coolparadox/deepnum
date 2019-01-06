@@ -23,21 +23,26 @@
 
 #include <memory>
 
-namespace deepnum {
-namespace clarith {
+namespace deepnum
+{
+namespace clarith
+{
 
-namespace protocol {
+namespace protocol
+{
 enum class Protocol;
 }  // namespace protocol
 
-namespace strategy {
+namespace strategy
+{
 class Strategy;
 }  // namespace strategy
 
 /**
  * Rational number in continued logarithm representation.
  */
-class Number {
+class Number
+{
  public:
     /**
      * A Number is defined by means of a strategy (that may combine other
