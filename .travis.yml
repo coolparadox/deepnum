@@ -15,3 +15,6 @@ deploy:
   skip-cleanup: true
   github-token: $GITHUB_API_KEY
   keep-history: false
+branches:
+  only:
+    -master
