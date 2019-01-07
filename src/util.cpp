@@ -18,45 +18,21 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#ifndef SRC_UTIL_HPP_
-#define SRC_UTIL_HPP_
+#include "util.hpp"
 
-#include <memory>
+#include "number.hpp"
 
 namespace deepnum
 {
 namespace clarith
 {
 
-class Number;
-
-/**
- * Useful functions.
- */
-class Util
+int Util::Compare(std::unique_ptr<Number> n1,
+                  std::unique_ptr<Number> n2,
+                  bool pedantic)
 {
- public:
-
-    /**
-     * Compare two numbers.
-     *
-     * \param[in] n1 First number.
-     * \param[in] n2 Second number.
-     * \param[in] pedantic Distinguish between negative and positive zero.
-     * 
-     * \return Negative if n1 is lesser than n2,
-     *         positive if n1 is greater than n2,
-     *         zero otherwise.
-     */
-    static int Compare(std::unique_ptr<Number> n1,
-                       std::unique_ptr<Number> n2,
-                       bool pedantic = false);
-
- private:
-    Util();
-};
+    return 0;
+}
 
 }  // namespace clarith
 }  // namespace deepnum
-
-#endif  // SRC_UTIL_HPP_
