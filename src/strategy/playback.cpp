@@ -18,20 +18,38 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "util.hpp"
+#include "protocol/protocol.hpp"
+#include "strategy/infinity.hpp"
 
-#include "number.hpp"
+#include "playback.hpp"
+
+using deepnum::clarith::protocol::Protocol;
 
 namespace deepnum
 {
 namespace clarith
 {
-
-int Util::Compare(std::unique_ptr<Number> n1, std::unique_ptr<Number> n2,
-                  bool pedantic)
+namespace strategy
 {
-    return 0;
+
+Playback::Playback(gsl::span<protocol::Protocol> sequence)
+{
+    // FIXME: implement me
+};
+
+protocol::Protocol Playback::Egest()
+{
+    // FIXME: implement me
+    return Protocol::kEnd;
 }
 
+std::unique_ptr<Strategy> Playback::GetNewStrategy() const
+{
+    // FIXME: implement me
+    return std::unique_ptr<Strategy>(new Infinity());
+}
+
+}  // namespace strategy
 }  // namespace clarith
 }  // namespace deepnum
+

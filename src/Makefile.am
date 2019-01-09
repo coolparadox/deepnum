@@ -29,6 +29,7 @@ libdn_clarith_la_SOURCES = \
 	protocol/watcher.cpp \
 	strategy/exhaustion_error.cpp \
 	strategy/infinity.cpp \
+	strategy/playback.cpp \
 	strategy/ratio.cpp \
 	strategy/unavailable_error.cpp \
 	strategy/undefined_ratio_error.cpp
@@ -41,6 +42,7 @@ include_HEADERS = \
 	protocol/watcher.hpp \
 	strategy/exhaustion_error.hpp \
 	strategy/infinity.hpp \
+	strategy/playback.hpp \
 	strategy/ratio.hpp \
 	strategy/unavailable_error.hpp \
 	strategy/undefined_ratio_error.hpp \
