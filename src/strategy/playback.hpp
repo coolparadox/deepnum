@@ -21,8 +21,7 @@
 #ifndef SRC_STRATEGY_PLAYBACK_HPP_
 #define SRC_STRATEGY_PLAYBACK_HPP_
 
-#include <gsl/gsl>
-
+#include <forward_list>
 #include "protocol/watcher.hpp"
 #include "strategy.hpp"
 
@@ -50,10 +49,10 @@ class Playback : public Strategy
     /**
      * Playback strategy constructor.
      * Construct a reducing strategy with an explicit sequence of messages.
-     * Protocol::kEnd is optional at the end of sequence.
+     * Protocol::kEnd is not required at the end of sequence.
      * \param[in] sequence Protocol message sequence.
      */
-    Playback(gsl::span<protocol::Protocol> sequence);
+    explicit Playback(std::unique_ptr<std::forward_list<protocol::Protocol>> sequence);
 
     /**
      * \throw protocol::ViolationError
@@ -62,8 +61,8 @@ class Playback : public Strategy
 
     std::unique_ptr<Strategy> GetNewStrategy() const override;
 
- protected:
-    protocol::Protocol sequence_;
+ private:
+    std::unique_ptr<std::forward_list<protocol::Protocol>> sequence_;
     protocol::Watcher watcher_;
 };
 

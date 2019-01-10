@@ -20,6 +20,8 @@
 
 #include "protocol/protocol.hpp"
 #include "strategy/infinity.hpp"
+#include "strategy/exhaustion_error.hpp"
+#include "strategy/unavailable_error.hpp"
 
 #include "playback.hpp"
 
@@ -32,7 +34,7 @@ namespace clarith
 namespace strategy
 {
 
-Playback::Playback(gsl::span<protocol::Protocol> sequence)
+Playback::Playback(std::unique_ptr<std::forward_list<Protocol>> sequence)
 {
     // FIXME: implement me
 };
@@ -40,13 +42,13 @@ Playback::Playback(gsl::span<protocol::Protocol> sequence)
 protocol::Protocol Playback::Egest()
 {
     // FIXME: implement me
-    return Protocol::kEnd;
+    throw ExhaustionError();
 }
 
 std::unique_ptr<Strategy> Playback::GetNewStrategy() const
 {
     // FIXME: implement me
-    return std::unique_ptr<Strategy>(new Infinity());
+    throw UnavailableError();
 }
 
 }  // namespace strategy

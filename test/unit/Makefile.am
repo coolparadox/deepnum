@@ -27,6 +27,7 @@ unit_tests_SOURCES = \
 	protocol/watcher_test.cpp \
 	number_test.cpp \
 	strategy/infinity_test.cpp \
+	strategy/playback_test.cpp \
 	strategy/ratio_test.cpp \
 	strategy/strategy_mock.cpp \
 	strategy/strategy_mock.hpp \
