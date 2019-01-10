@@ -41,7 +41,7 @@ TEST_GROUP(PlaybackTest)
 {
 };
 
-TEST(PlaybackTest, DegeneratesToInfinity)
+TEST(PlaybackTest, ReachesInfinity)
 {
     Playback strategy(std::unique_ptr<std::forward_list<Protocol>>(new std::forward_list<Protocol> {}));
     CHECK_THROWS(ExhaustionError, strategy.Egest());
@@ -50,7 +50,7 @@ TEST(PlaybackTest, DegeneratesToInfinity)
 
 TEST(PlaybackTest, DoesNotOfferPrematureStrategy)
 {
-    CHECK_THROWS(UnavailableError, Playback(std::unique_ptr<std::forward_list<Protocol>>(new std::forward_list<Protocol> { Protocol::kZero, })).GetNewStrategy());
+    CHECK_THROWS(UnavailableError, Playback(std::unique_ptr<std::forward_list<Protocol>>(new std::forward_list<Protocol> { Protocol::kZero })).GetNewStrategy());
 }
 
 TEST(PlaybackTest, ReplaysTwo)
@@ -71,13 +71,6 @@ TEST(PlaybackTest, ReplaysZero)
 TEST(PlaybackTest, ReplaysNegative)
 {
     LONGS_EQUAL(Protocol::kNeg, Playback(std::unique_ptr<std::forward_list<Protocol>>(new std::forward_list<Protocol> { Protocol::kNeg, })).Egest());
-}
-
-TEST(PlaybackTest, ReachesEnd)
-{
-    Playback strategy(std::unique_ptr<std::forward_list<Protocol>>(new std::forward_list<Protocol> { Protocol::kZero, }));
-    LONGS_EQUAL(Protocol::kZero, strategy.Egest());
-    CHECK_THROWS(ExhaustionError, strategy.Egest());
 }
 
 }  // namespace strategy

@@ -39,7 +39,7 @@ Playback::Playback(std::unique_ptr<std::forward_list<Protocol>> sequence)
 {
 }
 
-protocol::Protocol Playback::Egest()
+Protocol Playback::Egest()
 {
     if (sequence_->empty())
     {
@@ -52,11 +52,11 @@ protocol::Protocol Playback::Egest()
 
 std::unique_ptr<Strategy> Playback::GetNewStrategy() const
 {
-    if (sequence_->empty())
+    if (!sequence_->empty())
     {
-        return std::unique_ptr<Infinity>(new Infinity());
+        throw UnavailableError();
     }
-    throw UnavailableError();
+    return std::unique_ptr<Infinity>(new Infinity());
 }
 
 }  // namespace strategy

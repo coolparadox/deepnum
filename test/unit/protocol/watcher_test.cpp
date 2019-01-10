@@ -49,6 +49,11 @@ TEST(WatcherTest, ThrowsOnNonFinalEndMessage)
     {
         Watcher watcher;
         watcher.Watch(Protocol::kEnd);
+        watcher.Watch(Protocol::kEnd);
+    }
+    {
+        Watcher watcher;
+        watcher.Watch(Protocol::kEnd);
         CHECK_THROWS(ViolationError, watcher.Watch(Protocol::kTwo));
     }
     {

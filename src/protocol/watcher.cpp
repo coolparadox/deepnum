@@ -38,7 +38,7 @@ Protocol Watcher::Watch(Protocol message)
         previous_ = message;
         return message;
     }
-    if (previous_ == Protocol::kEnd)
+    if (previous_ == Protocol::kEnd && message != Protocol::kEnd)
     {
         throw ViolationError("forbidden non final '$'");
     }
