@@ -35,19 +35,27 @@ namespace strategy
 {
 
 Playback::Playback(std::unique_ptr<std::forward_list<Protocol>> sequence)
+        : sequence_(std::move(sequence))
 {
-    // FIXME: implement me
-};
+}
 
 protocol::Protocol Playback::Egest()
 {
-    // FIXME: implement me
-    throw ExhaustionError();
+    if (sequence_->empty())
+    {
+        throw ExhaustionError();
+    }
+    Protocol answer = sequence_->front();
+    sequence_->pop_front();
+    return watcher_.Watch(answer);
 }
 
 std::unique_ptr<Strategy> Playback::GetNewStrategy() const
 {
-    // FIXME: implement me
+    if (sequence_->empty())
+    {
+        return std::unique_ptr<Infinity>(new Infinity());
+    }
     throw UnavailableError();
 }
 

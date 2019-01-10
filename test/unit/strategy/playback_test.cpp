@@ -73,6 +73,13 @@ TEST(PlaybackTest, ReplaysNegative)
     LONGS_EQUAL(Protocol::kNeg, Playback(std::unique_ptr<std::forward_list<Protocol>>(new std::forward_list<Protocol> { Protocol::kNeg, })).Egest());
 }
 
+TEST(PlaybackTest, ReachesEnd)
+{
+    Playback strategy(std::unique_ptr<std::forward_list<Protocol>>(new std::forward_list<Protocol> { Protocol::kZero, }));
+    LONGS_EQUAL(Protocol::kZero, strategy.Egest());
+    CHECK_THROWS(ExhaustionError, strategy.Egest());
+}
+
 }  // namespace strategy
 }  // namespace clarith
 }  // namespace deepnum
