@@ -44,9 +44,9 @@ class Util
      * \param[in] n2 Second number.
      * \param[in] pedantic Distinguish between negative and positive zero.
      * 
-     * \return Negative if n1 is lesser than n2,
-     *         positive if n1 is greater than n2,
-     *         zero otherwise.
+     * \return -1 if n1 is lesser than n2,
+     *         +1 if n1 is greater than n2,
+     *         0 otherwise.
      */
     static int Compare(std::unique_ptr<Number> n1,
                        std::unique_ptr<Number> n2,
