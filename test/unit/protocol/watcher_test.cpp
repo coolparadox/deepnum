@@ -131,7 +131,7 @@ TEST(WatcherTest, ThrowsOnNonInitialZeroMessage)
     }
 }
 
-TEST(WatcherTest, ThrowsOnTwoMessageFollowedByEndMessage)
+TEST(WatcherTest, ThrowsOnFinalTwoMessage)
 {
     Watcher watcher;
     watcher.Watch(Protocol::kTwo);

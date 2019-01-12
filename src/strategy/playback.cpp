@@ -43,6 +43,7 @@ Protocol Playback::Egest()
 {
     if (sequence_->empty())
     {
+        watcher_.Watch(Protocol::kEnd);
         throw ExhaustionError();
     }
     Protocol answer = sequence_->front();
