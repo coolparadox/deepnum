@@ -18,23 +18,15 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
-// #include <memory>
 #include <forward_list>
 #include <CppUTest/TestHarness.h>
 
 #include "number.hpp"
 #include "protocol/protocol.hpp"
-// #include "protocol/violation_error.hpp"
-// #include "strategy/strategy.hpp"
-// #include "strategy/infinity.hpp"
 #include "strategy/playback.hpp"
-// #include "strategy/exhaustion_error.hpp"
-// #include "strategy/unavailable_error.hpp"
 #include "util.hpp"
 
 using deepnum::clarith::protocol::Protocol;
-// using deepnum::clarith::protocol::ViolationError;
-// using deepnum::clarith::strategy::Strategy;
 using deepnum::clarith::strategy::Playback;
 
 namespace deepnum

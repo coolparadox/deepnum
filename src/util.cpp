@@ -18,19 +18,38 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
+#include "number.hpp"
+#include "protocol/protocol.hpp"
+
 #include "util.hpp"
 
-#include "number.hpp"
+using deepnum::clarith::protocol::Protocol;
 
 namespace deepnum
 {
 namespace clarith
 {
 
-int Util::Compare(std::unique_ptr<Number> n1, std::unique_ptr<Number> n2,
-                  bool pedantic)
+int Util::Compare(std::unique_ptr<Number> n1, std::unique_ptr<Number> n2, bool pedantic)
 {
-    return 0;
+    Protocol v1, v2;
+    int polarity = 1;
+    while (true)
+    {
+        v1 = n1->Egest();
+        v2 = n2->Egest();
+        if (v1 == Protocol::kEnd && v2 == Protocol::kEnd) { return 0; }
+        if (v1 != v2) { break; }
+        if (v1 == Protocol::kNeg || v1 == Protocol::kOne || v1 == Protocol::kZero) { polarity *= -1; }
+    }
+    if (v1 == Protocol::kNeg) { return -polarity; }
+    if (v2 == Protocol::kNeg) { return polarity; }
+    if (v1 == Protocol::kZero) { return -polarity; }
+    if (v2 == Protocol::kZero) { return polarity; }
+    if (v1 == Protocol::kOne) { return -polarity; }
+    if (v2 == Protocol::kOne) { return polarity; }
+    if (v1 == Protocol::kTwo) { return -polarity; }
+    return polarity;
 }
 
 }  // namespace clarith
