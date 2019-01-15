@@ -34,16 +34,31 @@ int Util::Compare(std::unique_ptr<Number> n1, std::unique_ptr<Number> n2, bool p
 {
     Protocol v1, v2;
     int polarity = 1;
+    bool v1_may_be_zero = true;
+    bool v2_may_be_zero = true;
     while (true)
     {
         v1 = n1->Egest();
         v2 = n2->Egest();
+        if (!pedantic)
+        {
+            if (v1_may_be_zero && (v1 == Protocol::kOne || v1 == Protocol::kTwo || v1 == Protocol::kEnd)) { v1_may_be_zero = false; }
+            if (v2_may_be_zero && (v2 == Protocol::kOne || v2 == Protocol::kTwo || v2 == Protocol::kEnd)) { v2_may_be_zero = false; }
+        }
         if (v1 == Protocol::kEnd && v2 == Protocol::kEnd) { return 0; }
         if (v1 != v2) { break; }
         if (v1 == Protocol::kNeg || v1 == Protocol::kOne || v1 == Protocol::kZero) { polarity *= -1; }
     }
-    if (v1 == Protocol::kNeg) { return -polarity; }
-    if (v2 == Protocol::kNeg) { return polarity; }
+    if (v1 == Protocol::kNeg)
+    {
+        if (!pedantic && v2_may_be_zero && n1->Egest() == Protocol::kZero && n1->Egest() == Protocol::kEnd && n2->Egest() == Protocol::kEnd) { return 0; }
+        return -polarity;
+    }
+    if (v2 == Protocol::kNeg)
+    {
+        if (!pedantic && v1_may_be_zero && n2->Egest() == Protocol::kZero && n2->Egest() == Protocol::kEnd && n1->Egest() == Protocol::kEnd) { return 0; }
+        return polarity;
+    }
     if (v1 == Protocol::kZero) { return -polarity; }
     if (v2 == Protocol::kZero) { return polarity; }
     if (v1 == Protocol::kOne) { return -polarity; }
