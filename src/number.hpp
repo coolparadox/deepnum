@@ -21,7 +21,13 @@
 #ifndef SRC_NUMBER_HPP_
 #define SRC_NUMBER_HPP_
 
+#include <config.h>
+
 #include <memory>
+
+#if NUMBER_SANITY_CHECK
+#include "protocol/watcher.hpp"
+#endif
 
 namespace deepnum
 {
@@ -61,6 +67,9 @@ class Number
 
  private:
     std::unique_ptr<strategy::Strategy> strategy_;
+#if NUMBER_SANITY_CHECK
+    protocol::Watcher watcher_;
+#endif
 };
 
 }  // namespace clarith

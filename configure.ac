@@ -122,6 +122,18 @@ AS_VAR_IF([ac_enable_coverage], [yes], [
     AC_SUBST([ac_enable_coverage], [$ac_enable_coverage])
 ])
 
+AC_MSG_CHECKING([whether to instrument Number class and make it sanity check its own output])
+AC_ARG_ENABLE(
+    [number_sanity_check],
+    [AS_HELP_STRING([--enable-number-sanity-check], [instrument Number class and make it sanity check its own output [default=yes]])],
+    [ac_number_sanity_check=$enableval],
+    [ac_number_sanity_check=yes]
+)
+AC_MSG_RESULT([$ac_number_sanity_check])
+number_sanity_check=0
+AS_VAR_IF([ac_number_sanity_check], [yes], [number_sanity_check=1])
+AC_DEFINE_UNQUOTED([NUMBER_SANITY_CHECK], [$number_sanity_check], [Define to 1 to instrument Number class and make it sanity check its own output.])
+
 AX_CXX_COMPILE_STDCXX_17
 AS_VAR_IF([HAVE_CXX17], [1], [], [
     AC_MSG_ERROR([compiler with C++17 support not found])

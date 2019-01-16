@@ -42,7 +42,11 @@ Protocol Number::Egest()
 {
     try
     {
+#if NUMBER_SANITY_CHECK
+        return watcher_.Watch(strategy_->Egest());
+#else
         return strategy_->Egest();
+#endif
     }
     catch (ExhaustionError)
     {
