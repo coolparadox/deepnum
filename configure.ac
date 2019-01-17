@@ -64,28 +64,50 @@ AS_VAR_IF([ac_enable_doc], [yes], [
     AC_CONFIG_FILES([Doxyfile])
 ])
 
+test_wanted='no'
+
 AC_MSG_CHECKING([whether to build unit tests])
 AC_ARG_ENABLE(
     [check],
-    [AS_HELP_STRING([--enable-check], [build unit tests [default=no]])],
+    [AS_HELP_STRING([--enable-check], [build unit tests [default=yes]])],
     [ac_enable_check=$enableval],
-    [ac_enable_check=no]
+    [ac_enable_check=yes]
 )
 AC_MSG_RESULT([$ac_enable_check])
 
 AS_VAR_IF([ac_enable_check], [yes], [
-    AC_SUBST([TEST_SUBDIR], [test/unit])
+    test_wanted='yes'
+    AC_SUBST([UNIT_TEST_SUBDIR], [test/unit])
+    AC_CONFIG_FILES([test/unit/Makefile])
+])
+
+AC_MSG_CHECKING([whether to build integration tests])
+AC_ARG_ENABLE(
+    [tests],
+    [AS_HELP_STRING([--enable-tests], [build integration tests [default=no]])],
+    [ac_enable_tests=$enableval],
+    [ac_enable_tests=no]
+)
+AC_MSG_RESULT([$ac_enable_tests])
+
+AS_VAR_IF([ac_enable_tests], [yes], [
+    test_wanted='yes'
+    AC_SUBST([INTEGRATION_TEST_SUBDIR], [test/integration])
+    AC_CONFIG_FILES([test/integration/Makefile])
+])
+
+AS_VAR_IF([test_wanted], [yes], [
 
     AC_CHECK_HEADER([CppUTest/CommandLineTestRunner.h], [], [
-        AC_MSG_ERROR([unit tests require CppUTest])
+        AC_MSG_ERROR([tests require CppUTest])
     ])
 
     AC_CHECK_HEADER([CppUTest/Utest.h], [], [
-        AC_MSG_ERROR([unit tests require CppUTest])
+        AC_MSG_ERROR([tests require CppUTest])
     ])
 
     AC_CHECK_HEADER([CppUTest/UtestMacros.h], [], [
-        AC_MSG_ERROR([unit tests require CppUTest])
+        AC_MSG_ERROR([tests require CppUTest])
     ])
 
     AC_MSG_CHECKING([for CommandLineTestRunner::RunAllTests in -lCppUTest])
@@ -99,12 +121,11 @@ AS_VAR_IF([ac_enable_check], [yes], [
         [AC_MSG_RESULT([yes])],
         [
             AC_MSG_RESULT([no])
-            AC_MSG_ERROR([unit tests require CppUTest])
+            AC_MSG_ERROR([tests require CppUTest])
         ]
     )
     LIBS=$LIBS_ORIG
 
-    AC_CONFIG_FILES([test/unit/Makefile])
 ])
 
 AC_MSG_CHECKING([whether to build for code coverage detection])
