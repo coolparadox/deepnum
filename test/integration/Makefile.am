@@ -27,9 +27,9 @@ integration_tests_SOURCES = \
 	integration_tests.cpp \
 	ratio_test.cpp
 
-tests: integration_tests
+test: integration_tests
 	echo
 	echo "Running integration tests:"
 	./integration_tests
-.SILENT: tests
-.PHONY: tests
+.SILENT: test
+.PHONY: test

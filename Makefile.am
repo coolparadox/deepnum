@@ -23,11 +23,11 @@ dist_doc_DATA = README
 
 ACLOCAL_AMFLAGS = -I m4
 
-tests: check
+test: check
 	if test -z "@INTEGRATION_TEST_SUBDIR@" ; then echo "error: integration tests are disabled." ; false ; fi
-	cd "@INTEGRATION_TEST_SUBDIR@" && $(MAKE) tests
-.SILENT: tests
-.PHONY: tests
+	cd "@INTEGRATION_TEST_SUBDIR@" && $(MAKE) test
+.SILENT: test
+.PHONY: test
 
 clean-local:
 	rm -rf doc
