@@ -20,6 +20,8 @@
 
 #include <CppUTest/TestHarness.h>
 
+#include <iostream>
+
 #include "number.hpp"
 #include "strategy/ratio.hpp"
 #include "util.hpp"
@@ -48,14 +50,21 @@ int reference_compare(int n1, int d1, int n2, int d2)
 TEST(RatioTest, ComparisonMatch)
 {
     for (int n1 = -RANGE; n1 != RANGE; ++n1)
-    for (int d1 = -RANGE; d1 != RANGE; ++d1)
     for (int n2 = -RANGE; n2 != RANGE; ++n2)
-    for (int d2 = -RANGE; d2 != RANGE; ++d2)
+    for (int d1 = -RANGE; d1 != RANGE; ++d1)
     {
-        if (d1 == 0 || d2 == 0) { continue; }
-        int c1 = reference_compare(n1, d1, n2, d2);
-        int c2 = Util::Compare(std::make_unique<Number>(std::make_unique<Ratio>(n1, d1)), std::make_unique<Number>(std::make_unique<Ratio>(n2, d2)));
-        LONGS_EQUAL(c1, c2);
+        if (d1 == 0) { continue; }
+        for (int d2 = -RANGE; d2 != RANGE; ++d2)
+        {
+            if (d2 == 0) { continue; }
+            LONGS_EQUAL(
+                    reference_compare(n1, d1, n2, d2),
+                    Util::Compare(
+                            std::make_unique<Number>(std::make_unique<Ratio>(n1, d1)),
+                            std::make_unique<Number>(std::make_unique<Ratio>(n2, d2))
+                    )
+            );
+        }
     }
 }
 

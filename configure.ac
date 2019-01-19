@@ -83,14 +83,14 @@ AS_VAR_IF([ac_enable_check], [yes], [
 
 AC_MSG_CHECKING([whether to build integration tests])
 AC_ARG_ENABLE(
-    [tests],
-    [AS_HELP_STRING([--enable-tests], [build integration tests [default=no]])],
-    [ac_enable_tests=$enableval],
-    [ac_enable_tests=no]
+    [test],
+    [AS_HELP_STRING([--enable-test], [build integration tests [default=no]])],
+    [ac_enable_test=$enableval],
+    [ac_enable_test=no]
 )
-AC_MSG_RESULT([$ac_enable_tests])
+AC_MSG_RESULT([$ac_enable_test])
 
-AS_VAR_IF([ac_enable_tests], [yes], [
+AS_VAR_IF([ac_enable_test], [yes], [
     test_wanted='yes'
     AC_SUBST([INTEGRATION_TEST_SUBDIR], [test/integration])
     AC_CONFIG_FILES([test/integration/Makefile])
