@@ -45,7 +45,7 @@ class Infinity : public Strategy
 {
  public:
     protocol::Protocol Egest() override;
-    std::unique_ptr<Strategy> GetNewStrategy() const override;
+    gsl::not_null<gsl::owner<Strategy*>> GetNewStrategy() const override;
 };
 
 }  // namespace strategy

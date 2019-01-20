@@ -18,13 +18,13 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include <CppUTest/TestHarness.h>
-
 #include <iostream>
 
 #include "number.hpp"
 #include "strategy/ratio.hpp"
 #include "util.hpp"
+
+#include <CppUTest/TestHarness.h>
 
 using deepnum::clarith::strategy::Ratio;
 
@@ -60,8 +60,8 @@ TEST(RatioTest, ComparisonMatch)
             LONGS_EQUAL(
                     reference_compare(n1, d1, n2, d2),
                     Util::Compare(
-                            std::make_unique<Number>(std::make_unique<Ratio>(n1, d1)),
-                            std::make_unique<Number>(std::make_unique<Ratio>(n2, d2))
+                            gsl::not_null<gsl::owner<Number*>>(new Number(gsl::not_null<gsl::owner<Ratio*>>(new Ratio(n1, d1)))),
+                            gsl::not_null<gsl::owner<Number*>>(new Number(gsl::not_null<gsl::owner<Ratio*>>(new Ratio(n2, d2))))
                     )
             );
         }

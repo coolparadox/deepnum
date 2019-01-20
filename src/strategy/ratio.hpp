@@ -66,7 +66,7 @@ class Ratio : public Strategy
     Ratio(unsigned int num, unsigned int den, bool positive);
 
     protocol::Protocol Egest() override;
-    std::unique_ptr<Strategy> GetNewStrategy() const override;
+    gsl::not_null<gsl::owner<Strategy*>> GetNewStrategy() const override;
 
  protected:
     unsigned int num_;

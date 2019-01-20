@@ -1,0 +1,538 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls   s/call   s/call  name    
+  8.91      0.57     0.57                             MemoryLeakDetector::deallocMemory(TestMemoryAllocator*, void*, char const*, int, bool)
+  8.28      1.10     0.53                             MemoryLeakDetector::allocMemory(TestMemoryAllocator*, unsigned long, char const*, int, bool)
+  4.69      1.40     0.30 21505542     0.00     0.00  deepnum::clarith::protocol::Watcher::Watch(deepnum::clarith::protocol::Protocol)
+  4.53      1.69     0.29 21505542     0.00     0.00  deepnum::clarith::Number::Egest()
+  4.22      1.96     0.27        1     0.27     3.85  deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::testBody()
+  3.91      2.21     0.25  6002500     0.00     0.00  deepnum::clarith::Util::Compare(gsl::not_null<deepnum::clarith::Number*>, gsl::not_null<deepnum::clarith::Number*>, bool)
+  3.91      2.46     0.25 21505542     0.00     0.00  deepnum::clarith::strategy::Ratio::Egest()
+  3.59      2.69     0.23                             MemoryLeakDetector::checkForCorruption(MemoryLeakDetectorNode*, char const*, int, TestMemoryAllocator*, bool)
+  3.36      2.91     0.22 10075838     0.00     0.00  std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<unsigned int> >, std::is_move_constructible<unsigned int>, std::is_move_assignable<unsigned int> >::value, void>::type std::swap<unsigned int>(unsigned int&, unsigned int&)
+  3.36      3.12     0.22 33510542     0.00     0.00  gsl::not_null<deepnum::clarith::Number*>::get() const
+  3.28      3.33     0.21                             mem_leak_operator_delete(void*)
+  2.66      3.50     0.17 12005000     0.00     0.00  gsl::not_null<deepnum::clarith::strategy::Ratio*>::not_null<void>(deepnum::clarith::strategy::Ratio*)
+  2.66      3.67     0.17                             mem_leak_operator_new_debug(unsigned long, char const*, int)
+  2.58      3.84     0.17 12005000     0.00     0.00  deepnum::clarith::strategy::Ratio::Ratio(unsigned int, unsigned int, bool)
+  2.58      4.00     0.17 12005000     0.00     0.00  deepnum::clarith::strategy::Ratio::Ratio(int, int)
+  2.50      4.16     0.16 12005000     0.00     0.00  deepnum::clarith::Number::Number(gsl::not_null<deepnum::clarith::strategy::Strategy*>)
+  2.11      4.30     0.14 12005000     0.00     0.00  gsl::not_null<deepnum::clarith::Number*>::not_null<void>(deepnum::clarith::Number*)
+  2.03      4.43     0.13                             MemoryLeakDetector::allocateMemoryWithAccountingInformation(TestMemoryAllocator*, unsigned long, char const*, int, bool)
+  1.72      4.54     0.11 12005000     0.00     0.00  gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Ratio*, void>(deepnum::clarith::strategy::Ratio*&&)
+  1.72      4.65     0.11  6002500     0.00     0.00  deepnum::clarith::reference_compare(int, int, int, int)
+  1.72      4.76     0.11                             MemoryLeakDetector::invalidateMemory(char*)
+  1.72      4.87     0.11 21505542     0.00     0.00  gsl::not_null<deepnum::clarith::Number*>::operator->() const
+  1.56      4.97     0.10 12005000     0.00     0.00  deepnum::clarith::Number::~Number()
+  1.41      5.06     0.09 12005000     0.00     0.00  gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Ratio*, void>(gsl::not_null<deepnum::clarith::strategy::Ratio*> const&)
+  1.41      5.15     0.09 12005000     0.00     0.00  deepnum::clarith::strategy::Ratio::~Ratio()
+  1.33      5.23     0.09                             getCurrentNewAllocator()
+  1.25      5.31     0.08 30227514     0.00     0.00  std::remove_reference<unsigned int&>::type&& std::move<unsigned int&>(unsigned int&)
+  1.25      5.39     0.08 12005000     0.00     0.00  deepnum::clarith::strategy::Ratio::~Ratio()
+  1.25      5.47     0.08                             checkedMalloc(unsigned long)
+  1.17      5.55     0.08 12005000     0.00     0.00  gsl::not_null<deepnum::clarith::strategy::Ratio*>::get() const
+  1.09      5.62     0.07 12005000     0.00     0.00  deepnum::clarith::protocol::Watcher::Watcher()
+  0.94      5.68     0.06 12246692     0.00     0.00  deepnum::clarith::strategy::Strategy::~Strategy()
+  0.94      5.74     0.06 12246692     0.00     0.00  gsl::not_null<deepnum::clarith::strategy::Strategy*>::get() const
+  0.94      5.80     0.06                             UtestShell::assertLongsEqual(long, long, char const*, char const*, int, TestTerminator const&)
+  0.86      5.85     0.06 12005000     0.00     0.00  gsl::not_null<deepnum::clarith::Number*>::operator deepnum::clarith::Number*() const
+  0.86      5.91     0.06                             MemoryLeakWarningPlugin::getGlobalDetector()
+  0.70      5.95     0.05                             setCurrentNewAllocatorToDefault()
+  0.63      5.99     0.04 12246692     0.00     0.00  deepnum::clarith::strategy::Strategy::Strategy()
+  0.63      6.03     0.04 12005000     0.00     0.00  deepnum::clarith::strategy::Ratio*&& std::forward<deepnum::clarith::strategy::Ratio*>(std::remove_reference<deepnum::clarith::strategy::Ratio*>::type&)
+  0.63      6.07     0.04                             MemoryLeakDetector::createMemoryLeakAccountingInformation(TestMemoryAllocator*, unsigned long, char*, bool)
+  0.47      6.10     0.03 12246692     0.00     0.00  gsl::not_null<deepnum::clarith::strategy::Strategy*>::operator deepnum::clarith::strategy::Strategy*() const
+  0.47      6.13     0.03                             TestResult::countCheck()
+  0.47      6.16     0.03                             deepnum::clarith::protocol::ViolationError::~ViolationError()
+  0.39      6.19     0.03                             crash_on_allocation_number(unsigned int)
+  0.31      6.21     0.02  6002500     0.00     0.00  TestTerminator::TestTerminator()
+  0.31      6.23     0.02  6002500     0.00     0.00  NormalTestTerminator::NormalTestTerminator()
+  0.31      6.25     0.02                             TestResult::countRun()
+  0.31      6.27     0.02                             UtestShell::getCurrent()
+  0.31      6.29     0.02                             MemoryLeakDetector::removeMemoryLeakInformationWithoutCheckingOrDeallocatingTheMemoryButDeallocatingTheAccountInformation(TestMemoryAllocator*, void*, bool)
+  0.31      6.31     0.02                             TestMemoryAllocator::~TestMemoryAllocator()
+  0.31      6.33     0.02                             deepnum::clarith::TEST_RatioTest_ComparisonMatch_TestShell::~TEST_RatioTest_ComparisonMatch_TestShell()
+  0.23      6.34     0.02   241692     0.00     0.00  deepnum::clarith::strategy::Infinity::Infinity()
+  0.16      6.35     0.01   241692     0.00     0.00  deepnum::clarith::strategy::ExhaustionError::ExhaustionError(deepnum::clarith::strategy::ExhaustionError const&)
+  0.16      6.36     0.01                             mem_leak_operator_new(unsigned long)
+  0.16      6.37     0.01                             MemoryLeakDetector::matchingAllocation(TestMemoryAllocator*, TestMemoryAllocator*)
+  0.16      6.38     0.01                             deepnum::clarith::strategy::ExhaustionError::~ExhaustionError()
+  0.16      6.39     0.01                             operator delete(void*, char const*, int)
+  0.16      6.40     0.01                             operator delete(void*, unsigned long)
+  0.00      6.40     0.00   241692     0.00     0.00  gsl::not_null<deepnum::clarith::strategy::Infinity*>::not_null<void>(deepnum::clarith::strategy::Infinity*)
+  0.00      6.40     0.00   241692     0.00     0.00  gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Infinity*, void>(deepnum::clarith::strategy::Infinity*&&)
+  0.00      6.40     0.00   241692     0.00     0.00  gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Infinity*, void>(gsl::not_null<deepnum::clarith::strategy::Infinity*> const&)
+  0.00      6.40     0.00   241692     0.00     0.00  deepnum::clarith::strategy::ExhaustionError::ExhaustionError()
+  0.00      6.40     0.00   241692     0.00     0.00  deepnum::clarith::strategy::ExhaustionError::~ExhaustionError()
+  0.00      6.40     0.00   241692     0.00     0.00  deepnum::clarith::strategy::Infinity::Egest()
+  0.00      6.40     0.00   241692     0.00     0.00  deepnum::clarith::strategy::Infinity::~Infinity()
+  0.00      6.40     0.00   241692     0.00     0.00  deepnum::clarith::strategy::Infinity::~Infinity()
+  0.00      6.40     0.00   241692     0.00     0.00  gsl::not_null<deepnum::clarith::strategy::Infinity*>::get() const
+  0.00      6.40     0.00   241692     0.00     0.00  deepnum::clarith::strategy::Ratio::GetNewStrategy() const
+  0.00      6.40     0.00   241692     0.00     0.00  deepnum::clarith::strategy::Infinity*&& std::forward<deepnum::clarith::strategy::Infinity*>(std::remove_reference<deepnum::clarith::strategy::Infinity*>::type&)
+  0.00      6.40     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN7deepnum7clarith24externTestGroupRatioTestE
+  0.00      6.40     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00      6.40     0.00        1     0.00     0.00  deepnum::clarith::TEST_GROUP_CppUTestGroupRatioTest::TEST_GROUP_CppUTestGroupRatioTest()
+  0.00      6.40     0.00        1     0.00     0.00  deepnum::clarith::TEST_GROUP_CppUTestGroupRatioTest::~TEST_GROUP_CppUTestGroupRatioTest()
+  0.00      6.40     0.00        1     0.00     0.00  deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::TEST_RatioTest_ComparisonMatch_Test()
+  0.00      6.40     0.00        1     0.00     0.00  deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::~TEST_RatioTest_ComparisonMatch_Test()
+  0.00      6.40     0.00        1     0.00     0.00  deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::~TEST_RatioTest_ComparisonMatch_Test()
+  0.00      6.40     0.00        1     0.00     0.00  deepnum::clarith::TEST_RatioTest_ComparisonMatch_TestShell::createTest()
+  0.00      6.40     0.00        1     0.00     0.00  deepnum::clarith::TEST_RatioTest_ComparisonMatch_TestShell::TEST_RatioTest_ComparisonMatch_TestShell()
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 0.16% of 6.40 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     60.2    0.00    3.85                 PlatformSpecificSetJmpImplementation [1]
+                0.27    3.58       1/1           deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::testBody() [2]
+-----------------------------------------------
+                0.27    3.58       1/1           PlatformSpecificSetJmpImplementation [1]
+[2]     60.2    0.27    3.58       1         deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::testBody() [2]
+                0.25    1.87 6002500/6002500     deepnum::clarith::Util::Compare(gsl::not_null<deepnum::clarith::Number*>, gsl::not_null<deepnum::clarith::Number*>, bool) [3]
+                0.17    0.20 12005000/12005000     deepnum::clarith::strategy::Ratio::Ratio(int, int) [8]
+                0.16    0.16 12005000/12005000     deepnum::clarith::Number::Number(gsl::not_null<deepnum::clarith::strategy::Strategy*>) [10]
+                0.09    0.23 12005000/12005000     gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Ratio*, void>(gsl::not_null<deepnum::clarith::strategy::Ratio*> const&) [11]
+                0.17    0.00 12005000/12005000     gsl::not_null<deepnum::clarith::strategy::Ratio*>::not_null<void>(deepnum::clarith::strategy::Ratio*) [20]
+                0.14    0.00 12005000/12005000     gsl::not_null<deepnum::clarith::Number*>::not_null<void>(deepnum::clarith::Number*) [24]
+                0.11    0.00 6002500/6002500     deepnum::clarith::reference_compare(int, int, int, int) [27]
+                0.02    0.02 6002500/6002500     NormalTestTerminator::NormalTestTerminator() [42]
+-----------------------------------------------
+                0.25    1.87 6002500/6002500     deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::testBody() [2]
+[3]     33.2    0.25    1.87 6002500         deepnum::clarith::Util::Compare(gsl::not_null<deepnum::clarith::Number*>, gsl::not_null<deepnum::clarith::Number*>, bool) [3]
+                0.29    0.88 21505542/21505542     deepnum::clarith::Number::Egest() [4]
+                0.10    0.23 12005000/12005000     deepnum::clarith::Number::~Number() [9]
+                0.11    0.14 21505542/21505542     gsl::not_null<deepnum::clarith::Number*>::operator->() const [14]
+                0.06    0.08 12005000/12005000     gsl::not_null<deepnum::clarith::Number*>::operator deepnum::clarith::Number*() const [25]
+-----------------------------------------------
+                              241692             deepnum::clarith::Number::Egest() [4]
+                0.29    0.88 21505542/21505542     deepnum::clarith::Util::Compare(gsl::not_null<deepnum::clarith::Number*>, gsl::not_null<deepnum::clarith::Number*>, bool) [3]
+[4]     18.2    0.29    0.88 21505542+241692  deepnum::clarith::Number::Egest() [4]
+                0.25    0.30 21505542/21505542     deepnum::clarith::strategy::Ratio::Egest() [6]
+                0.30    0.00 21505542/21505542     deepnum::clarith::protocol::Watcher::Watch(deepnum::clarith::protocol::Protocol) [12]
+                0.00    0.02  241692/241692      deepnum::clarith::strategy::Ratio::GetNewStrategy() const [54]
+                0.01    0.00  241692/241692      deepnum::clarith::strategy::ExhaustionError::ExhaustionError(deepnum::clarith::strategy::ExhaustionError const&) [55]
+                0.00    0.00  241692/12005000     deepnum::clarith::strategy::Ratio::~Ratio() [16]
+                0.00    0.00  241692/12246692     gsl::not_null<deepnum::clarith::strategy::Strategy*>::operator deepnum::clarith::strategy::Strategy*() const [29]
+                0.00    0.00  241692/241692      deepnum::clarith::strategy::Infinity::Egest() [94]
+                0.00    0.00  241692/241692      deepnum::clarith::strategy::ExhaustionError::~ExhaustionError() [93]
+                              241692             deepnum::clarith::Number::Egest() [4]
+-----------------------------------------------
+                                                 <spontaneous>
+[5]      8.9    0.57    0.00                 MemoryLeakDetector::deallocMemory(TestMemoryAllocator*, void*, char const*, int, bool) [5]
+-----------------------------------------------
+                0.25    0.30 21505542/21505542     deepnum::clarith::Number::Egest() [4]
+[6]      8.5    0.25    0.30 21505542         deepnum::clarith::strategy::Ratio::Egest() [6]
+                0.22    0.08 10075838/10075838     std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<unsigned int> >, std::is_move_constructible<unsigned int>, std::is_move_assignable<unsigned int> >::value, void>::type std::swap<unsigned int>(unsigned int&, unsigned int&) [13]
+                0.00    0.00  241692/241692      deepnum::clarith::strategy::ExhaustionError::ExhaustionError() [92]
+-----------------------------------------------
+                                                 <spontaneous>
+[7]      8.3    0.53    0.00                 MemoryLeakDetector::allocMemory(TestMemoryAllocator*, unsigned long, char const*, int, bool) [7]
+-----------------------------------------------
+                0.17    0.20 12005000/12005000     deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::testBody() [2]
+[8]      5.8    0.17    0.20 12005000         deepnum::clarith::strategy::Ratio::Ratio(int, int) [8]
+                0.17    0.04 12005000/12005000     deepnum::clarith::strategy::Ratio::Ratio(unsigned int, unsigned int, bool) [19]
+-----------------------------------------------
+                0.10    0.23 12005000/12005000     deepnum::clarith::Util::Compare(gsl::not_null<deepnum::clarith::Number*>, gsl::not_null<deepnum::clarith::Number*>, bool) [3]
+[9]      5.1    0.10    0.23 12005000         deepnum::clarith::Number::~Number() [9]
+                0.08    0.15 11763308/12005000     deepnum::clarith::strategy::Ratio::~Ratio() [16]
+                0.00    0.00  241692/241692      deepnum::clarith::strategy::Infinity::~Infinity() [61]
+-----------------------------------------------
+                0.16    0.16 12005000/12005000     deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::testBody() [2]
+[10]     5.0    0.16    0.16 12005000         deepnum::clarith::Number::Number(gsl::not_null<deepnum::clarith::strategy::Strategy*>) [10]
+                0.03    0.06 12005000/12246692     gsl::not_null<deepnum::clarith::strategy::Strategy*>::operator deepnum::clarith::strategy::Strategy*() const [29]
+                0.07    0.00 12005000/12005000     deepnum::clarith::protocol::Watcher::Watcher() [34]
+-----------------------------------------------
+                0.09    0.23 12005000/12005000     deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::testBody() [2]
+[11]     4.9    0.09    0.23 12005000         gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Ratio*, void>(gsl::not_null<deepnum::clarith::strategy::Ratio*> const&) [11]
+                0.11    0.04 12005000/12005000     gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Ratio*, void>(deepnum::clarith::strategy::Ratio*&&) [22]
+                0.08    0.00 12005000/12005000     gsl::not_null<deepnum::clarith::strategy::Ratio*>::get() const [33]
+-----------------------------------------------
+                0.30    0.00 21505542/21505542     deepnum::clarith::Number::Egest() [4]
+[12]     4.7    0.30    0.00 21505542         deepnum::clarith::protocol::Watcher::Watch(deepnum::clarith::protocol::Protocol) [12]
+-----------------------------------------------
+                0.22    0.08 10075838/10075838     deepnum::clarith::strategy::Ratio::Egest() [6]
+[13]     4.6    0.22    0.08 10075838         std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<unsigned int> >, std::is_move_constructible<unsigned int>, std::is_move_assignable<unsigned int> >::value, void>::type std::swap<unsigned int>(unsigned int&, unsigned int&) [13]
+                0.08    0.00 30227514/30227514     std::remove_reference<unsigned int&>::type&& std::move<unsigned int&>(unsigned int&) [31]
+-----------------------------------------------
+                0.11    0.14 21505542/21505542     deepnum::clarith::Util::Compare(gsl::not_null<deepnum::clarith::Number*>, gsl::not_null<deepnum::clarith::Number*>, bool) [3]
+[14]     3.9    0.11    0.14 21505542         gsl::not_null<deepnum::clarith::Number*>::operator->() const [14]
+                0.14    0.00 21505542/33510542     gsl::not_null<deepnum::clarith::Number*>::get() const [17]
+-----------------------------------------------
+                                                 <spontaneous>
+[15]     3.6    0.23    0.00                 MemoryLeakDetector::checkForCorruption(MemoryLeakDetectorNode*, char const*, int, TestMemoryAllocator*, bool) [15]
+-----------------------------------------------
+                0.00    0.00  241692/12005000     deepnum::clarith::Number::Egest() [4]
+                0.08    0.15 11763308/12005000     deepnum::clarith::Number::~Number() [9]
+[16]     3.6    0.08    0.15 12005000         deepnum::clarith::strategy::Ratio::~Ratio() [16]
+                0.09    0.06 12005000/12005000     deepnum::clarith::strategy::Ratio::~Ratio() [23]
+-----------------------------------------------
+                0.08    0.00 12005000/33510542     gsl::not_null<deepnum::clarith::Number*>::operator deepnum::clarith::Number*() const [25]
+                0.14    0.00 21505542/33510542     gsl::not_null<deepnum::clarith::Number*>::operator->() const [14]
+[17]     3.4    0.22    0.00 33510542         gsl::not_null<deepnum::clarith::Number*>::get() const [17]
+-----------------------------------------------
+                                                 <spontaneous>
+[18]     3.3    0.21    0.00                 mem_leak_operator_delete(void*) [18]
+-----------------------------------------------
+                0.17    0.04 12005000/12005000     deepnum::clarith::strategy::Ratio::Ratio(int, int) [8]
+[19]     3.2    0.17    0.04 12005000         deepnum::clarith::strategy::Ratio::Ratio(unsigned int, unsigned int, bool) [19]
+                0.04    0.00 12005000/12246692     deepnum::clarith::strategy::Strategy::Strategy() [40]
+-----------------------------------------------
+                0.17    0.00 12005000/12005000     deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::testBody() [2]
+[20]     2.7    0.17    0.00 12005000         gsl::not_null<deepnum::clarith::strategy::Ratio*>::not_null<void>(deepnum::clarith::strategy::Ratio*) [20]
+-----------------------------------------------
+                                                 <spontaneous>
+[21]     2.7    0.17    0.00                 mem_leak_operator_new_debug(unsigned long, char const*, int) [21]
+-----------------------------------------------
+                0.11    0.04 12005000/12005000     gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Ratio*, void>(gsl::not_null<deepnum::clarith::strategy::Ratio*> const&) [11]
+[22]     2.3    0.11    0.04 12005000         gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Ratio*, void>(deepnum::clarith::strategy::Ratio*&&) [22]
+                0.04    0.00 12005000/12005000     deepnum::clarith::strategy::Ratio*&& std::forward<deepnum::clarith::strategy::Ratio*>(std::remove_reference<deepnum::clarith::strategy::Ratio*>::type&) [41]
+-----------------------------------------------
+                0.09    0.06 12005000/12005000     deepnum::clarith::strategy::Ratio::~Ratio() [16]
+[23]     2.3    0.09    0.06 12005000         deepnum::clarith::strategy::Ratio::~Ratio() [23]
+                0.06    0.00 12005000/12246692     deepnum::clarith::strategy::Strategy::~Strategy() [35]
+-----------------------------------------------
+                0.14    0.00 12005000/12005000     deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::testBody() [2]
+[24]     2.1    0.14    0.00 12005000         gsl::not_null<deepnum::clarith::Number*>::not_null<void>(deepnum::clarith::Number*) [24]
+-----------------------------------------------
+                0.06    0.08 12005000/12005000     deepnum::clarith::Util::Compare(gsl::not_null<deepnum::clarith::Number*>, gsl::not_null<deepnum::clarith::Number*>, bool) [3]
+[25]     2.1    0.06    0.08 12005000         gsl::not_null<deepnum::clarith::Number*>::operator deepnum::clarith::Number*() const [25]
+                0.08    0.00 12005000/33510542     gsl::not_null<deepnum::clarith::Number*>::get() const [17]
+-----------------------------------------------
+                                                 <spontaneous>
+[26]     2.0    0.13    0.00                 MemoryLeakDetector::allocateMemoryWithAccountingInformation(TestMemoryAllocator*, unsigned long, char const*, int, bool) [26]
+-----------------------------------------------
+                0.11    0.00 6002500/6002500     deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::testBody() [2]
+[27]     1.7    0.11    0.00 6002500         deepnum::clarith::reference_compare(int, int, int, int) [27]
+-----------------------------------------------
+                                                 <spontaneous>
+[28]     1.7    0.11    0.00                 MemoryLeakDetector::invalidateMemory(char*) [28]
+-----------------------------------------------
+                0.00    0.00  241692/12246692     deepnum::clarith::Number::Egest() [4]
+                0.03    0.06 12005000/12246692     deepnum::clarith::Number::Number(gsl::not_null<deepnum::clarith::strategy::Strategy*>) [10]
+[29]     1.4    0.03    0.06 12246692         gsl::not_null<deepnum::clarith::strategy::Strategy*>::operator deepnum::clarith::strategy::Strategy*() const [29]
+                0.06    0.00 12246692/12246692     gsl::not_null<deepnum::clarith::strategy::Strategy*>::get() const [36]
+-----------------------------------------------
+                                                 <spontaneous>
+[30]     1.3    0.09    0.00                 getCurrentNewAllocator() [30]
+-----------------------------------------------
+                0.08    0.00 30227514/30227514     std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<unsigned int> >, std::is_move_constructible<unsigned int>, std::is_move_assignable<unsigned int> >::value, void>::type std::swap<unsigned int>(unsigned int&, unsigned int&) [13]
+[31]     1.2    0.08    0.00 30227514         std::remove_reference<unsigned int&>::type&& std::move<unsigned int&>(unsigned int&) [31]
+-----------------------------------------------
+                                                 <spontaneous>
+[32]     1.2    0.08    0.00                 checkedMalloc(unsigned long) [32]
+-----------------------------------------------
+                0.08    0.00 12005000/12005000     gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Ratio*, void>(gsl::not_null<deepnum::clarith::strategy::Ratio*> const&) [11]
+[33]     1.2    0.08    0.00 12005000         gsl::not_null<deepnum::clarith::strategy::Ratio*>::get() const [33]
+-----------------------------------------------
+                0.07    0.00 12005000/12005000     deepnum::clarith::Number::Number(gsl::not_null<deepnum::clarith::strategy::Strategy*>) [10]
+[34]     1.1    0.07    0.00 12005000         deepnum::clarith::protocol::Watcher::Watcher() [34]
+-----------------------------------------------
+                0.00    0.00  241692/12246692     deepnum::clarith::strategy::Infinity::~Infinity() [62]
+                0.06    0.00 12005000/12246692     deepnum::clarith::strategy::Ratio::~Ratio() [23]
+[35]     0.9    0.06    0.00 12246692         deepnum::clarith::strategy::Strategy::~Strategy() [35]
+-----------------------------------------------
+                0.06    0.00 12246692/12246692     gsl::not_null<deepnum::clarith::strategy::Strategy*>::operator deepnum::clarith::strategy::Strategy*() const [29]
+[36]     0.9    0.06    0.00 12246692         gsl::not_null<deepnum::clarith::strategy::Strategy*>::get() const [36]
+-----------------------------------------------
+                                                 <spontaneous>
+[37]     0.9    0.06    0.00                 UtestShell::assertLongsEqual(long, long, char const*, char const*, int, TestTerminator const&) [37]
+-----------------------------------------------
+                                                 <spontaneous>
+[38]     0.9    0.06    0.00                 MemoryLeakWarningPlugin::getGlobalDetector() [38]
+-----------------------------------------------
+                                                 <spontaneous>
+[39]     0.7    0.05    0.00                 setCurrentNewAllocatorToDefault() [39]
+-----------------------------------------------
+                0.00    0.00  241692/12246692     deepnum::clarith::strategy::Infinity::Infinity() [53]
+                0.04    0.00 12005000/12246692     deepnum::clarith::strategy::Ratio::Ratio(unsigned int, unsigned int, bool) [19]
+[40]     0.6    0.04    0.00 12246692         deepnum::clarith::strategy::Strategy::Strategy() [40]
+-----------------------------------------------
+                0.04    0.00 12005000/12005000     gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Ratio*, void>(deepnum::clarith::strategy::Ratio*&&) [22]
+[41]     0.6    0.04    0.00 12005000         deepnum::clarith::strategy::Ratio*&& std::forward<deepnum::clarith::strategy::Ratio*>(std::remove_reference<deepnum::clarith::strategy::Ratio*>::type&) [41]
+-----------------------------------------------
+                0.02    0.02 6002500/6002500     deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::testBody() [2]
+[42]     0.6    0.02    0.02 6002500         NormalTestTerminator::NormalTestTerminator() [42]
+                0.02    0.00 6002500/6002500     TestTerminator::TestTerminator() [47]
+-----------------------------------------------
+                                                 <spontaneous>
+[43]     0.6    0.04    0.00                 MemoryLeakDetector::createMemoryLeakAccountingInformation(TestMemoryAllocator*, unsigned long, char*, bool) [43]
+-----------------------------------------------
+                                                 <spontaneous>
+[44]     0.5    0.03    0.00                 TestResult::countCheck() [44]
+-----------------------------------------------
+                                                 <spontaneous>
+[45]     0.5    0.03    0.00                 deepnum::clarith::protocol::ViolationError::~ViolationError() [45]
+-----------------------------------------------
+                                                 <spontaneous>
+[46]     0.4    0.03    0.00                 crash_on_allocation_number(unsigned int) [46]
+-----------------------------------------------
+                0.02    0.00 6002500/6002500     NormalTestTerminator::NormalTestTerminator() [42]
+[47]     0.3    0.02    0.00 6002500         TestTerminator::TestTerminator() [47]
+-----------------------------------------------
+                                                 <spontaneous>
+[48]     0.3    0.02    0.00                 TestResult::countRun() [48]
+-----------------------------------------------
+                                                 <spontaneous>
+[49]     0.3    0.02    0.00                 UtestShell::getCurrent() [49]
+-----------------------------------------------
+                                                 <spontaneous>
+[50]     0.3    0.02    0.00                 MemoryLeakDetector::removeMemoryLeakInformationWithoutCheckingOrDeallocatingTheMemoryButDeallocatingTheAccountInformation(TestMemoryAllocator*, void*, bool) [50]
+-----------------------------------------------
+                                                 <spontaneous>
+[51]     0.3    0.02    0.00                 TestMemoryAllocator::~TestMemoryAllocator() [51]
+-----------------------------------------------
+                                                 <spontaneous>
+[52]     0.3    0.02    0.00                 deepnum::clarith::TEST_RatioTest_ComparisonMatch_TestShell::~TEST_RatioTest_ComparisonMatch_TestShell() [52]
+-----------------------------------------------
+                0.02    0.00  241692/241692      deepnum::clarith::strategy::Ratio::GetNewStrategy() const [54]
+[53]     0.2    0.02    0.00  241692         deepnum::clarith::strategy::Infinity::Infinity() [53]
+                0.00    0.00  241692/12246692     deepnum::clarith::strategy::Strategy::Strategy() [40]
+-----------------------------------------------
+                0.00    0.02  241692/241692      deepnum::clarith::Number::Egest() [4]
+[54]     0.2    0.00    0.02  241692         deepnum::clarith::strategy::Ratio::GetNewStrategy() const [54]
+                0.02    0.00  241692/241692      deepnum::clarith::strategy::Infinity::Infinity() [53]
+                0.00    0.00  241692/241692      gsl::not_null<deepnum::clarith::strategy::Infinity*>::not_null<void>(deepnum::clarith::strategy::Infinity*) [89]
+                0.00    0.00  241692/241692      gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Infinity*, void>(gsl::not_null<deepnum::clarith::strategy::Infinity*> const&) [91]
+-----------------------------------------------
+                0.01    0.00  241692/241692      deepnum::clarith::Number::Egest() [4]
+[55]     0.2    0.01    0.00  241692         deepnum::clarith::strategy::ExhaustionError::ExhaustionError(deepnum::clarith::strategy::ExhaustionError const&) [55]
+-----------------------------------------------
+                                                 <spontaneous>
+[56]     0.2    0.01    0.00                 mem_leak_operator_new(unsigned long) [56]
+-----------------------------------------------
+                                                 <spontaneous>
+[57]     0.2    0.01    0.00                 MemoryLeakDetector::matchingAllocation(TestMemoryAllocator*, TestMemoryAllocator*) [57]
+-----------------------------------------------
+                                                 <spontaneous>
+[58]     0.2    0.01    0.00                 deepnum::clarith::strategy::ExhaustionError::~ExhaustionError() [58]
+-----------------------------------------------
+                                                 <spontaneous>
+[59]     0.2    0.01    0.00                 operator delete(void*, char const*, int) [59]
+-----------------------------------------------
+                                                 <spontaneous>
+[60]     0.2    0.01    0.00                 operator delete(void*, unsigned long) [60]
+-----------------------------------------------
+                0.00    0.00  241692/241692      deepnum::clarith::Number::~Number() [9]
+[61]     0.0    0.00    0.00  241692         deepnum::clarith::strategy::Infinity::~Infinity() [61]
+                0.00    0.00  241692/241692      deepnum::clarith::strategy::Infinity::~Infinity() [62]
+-----------------------------------------------
+                0.00    0.00  241692/241692      deepnum::clarith::strategy::Infinity::~Infinity() [61]
+[62]     0.0    0.00    0.00  241692         deepnum::clarith::strategy::Infinity::~Infinity() [62]
+                0.00    0.00  241692/12246692     deepnum::clarith::strategy::Strategy::~Strategy() [35]
+-----------------------------------------------
+                0.00    0.00  241692/241692      deepnum::clarith::strategy::Ratio::GetNewStrategy() const [54]
+[89]     0.0    0.00    0.00  241692         gsl::not_null<deepnum::clarith::strategy::Infinity*>::not_null<void>(deepnum::clarith::strategy::Infinity*) [89]
+-----------------------------------------------
+                0.00    0.00  241692/241692      gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Infinity*, void>(gsl::not_null<deepnum::clarith::strategy::Infinity*> const&) [91]
+[90]     0.0    0.00    0.00  241692         gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Infinity*, void>(deepnum::clarith::strategy::Infinity*&&) [90]
+                0.00    0.00  241692/241692      deepnum::clarith::strategy::Infinity*&& std::forward<deepnum::clarith::strategy::Infinity*>(std::remove_reference<deepnum::clarith::strategy::Infinity*>::type&) [96]
+-----------------------------------------------
+                0.00    0.00  241692/241692      deepnum::clarith::strategy::Ratio::GetNewStrategy() const [54]
+[91]     0.0    0.00    0.00  241692         gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Infinity*, void>(gsl::not_null<deepnum::clarith::strategy::Infinity*> const&) [91]
+                0.00    0.00  241692/241692      gsl::not_null<deepnum::clarith::strategy::Infinity*>::get() const [95]
+                0.00    0.00  241692/241692      gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Infinity*, void>(deepnum::clarith::strategy::Infinity*&&) [90]
+-----------------------------------------------
+                0.00    0.00  241692/241692      deepnum::clarith::strategy::Ratio::Egest() [6]
+[92]     0.0    0.00    0.00  241692         deepnum::clarith::strategy::ExhaustionError::ExhaustionError() [92]
+-----------------------------------------------
+                0.00    0.00  241692/241692      deepnum::clarith::Number::Egest() [4]
+[93]     0.0    0.00    0.00  241692         deepnum::clarith::strategy::ExhaustionError::~ExhaustionError() [93]
+-----------------------------------------------
+                0.00    0.00  241692/241692      deepnum::clarith::Number::Egest() [4]
+[94]     0.0    0.00    0.00  241692         deepnum::clarith::strategy::Infinity::Egest() [94]
+-----------------------------------------------
+                0.00    0.00  241692/241692      gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Infinity*, void>(gsl::not_null<deepnum::clarith::strategy::Infinity*> const&) [91]
+[95]     0.0    0.00    0.00  241692         gsl::not_null<deepnum::clarith::strategy::Infinity*>::get() const [95]
+-----------------------------------------------
+                0.00    0.00  241692/241692      gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Infinity*, void>(deepnum::clarith::strategy::Infinity*&&) [90]
+[96]     0.0    0.00    0.00  241692         deepnum::clarith::strategy::Infinity*&& std::forward<deepnum::clarith::strategy::Infinity*>(std::remove_reference<deepnum::clarith::strategy::Infinity*>::type&) [96]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [818]
+[97]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN7deepnum7clarith24externTestGroupRatioTestE [97]
+                0.00    0.00       1/1           __static_initialization_and_destruction_0(int, int) [98]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I__ZN7deepnum7clarith24externTestGroupRatioTestE [97]
+[98]     0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [98]
+                0.00    0.00       1/1           deepnum::clarith::TEST_RatioTest_ComparisonMatch_TestShell::TEST_RatioTest_ComparisonMatch_TestShell() [105]
+-----------------------------------------------
+                0.00    0.00       1/1           deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::TEST_RatioTest_ComparisonMatch_Test() [101]
+[99]     0.0    0.00    0.00       1         deepnum::clarith::TEST_GROUP_CppUTestGroupRatioTest::TEST_GROUP_CppUTestGroupRatioTest() [99]
+-----------------------------------------------
+                0.00    0.00       1/1           deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::~TEST_RatioTest_ComparisonMatch_Test() [103]
+[100]    0.0    0.00    0.00       1         deepnum::clarith::TEST_GROUP_CppUTestGroupRatioTest::~TEST_GROUP_CppUTestGroupRatioTest() [100]
+-----------------------------------------------
+                0.00    0.00       1/1           deepnum::clarith::TEST_RatioTest_ComparisonMatch_TestShell::createTest() [104]
+[101]    0.0    0.00    0.00       1         deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::TEST_RatioTest_ComparisonMatch_Test() [101]
+                0.00    0.00       1/1           deepnum::clarith::TEST_GROUP_CppUTestGroupRatioTest::TEST_GROUP_CppUTestGroupRatioTest() [99]
+-----------------------------------------------
+                0.00    0.00       1/1           UtestShell::runOneTestInCurrentProcess(TestPlugin*, TestResult&) [283]
+[102]    0.0    0.00    0.00       1         deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::~TEST_RatioTest_ComparisonMatch_Test() [102]
+                0.00    0.00       1/1           deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::~TEST_RatioTest_ComparisonMatch_Test() [103]
+-----------------------------------------------
+                0.00    0.00       1/1           deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::~TEST_RatioTest_ComparisonMatch_Test() [102]
+[103]    0.0    0.00    0.00       1         deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::~TEST_RatioTest_ComparisonMatch_Test() [103]
+                0.00    0.00       1/1           deepnum::clarith::TEST_GROUP_CppUTestGroupRatioTest::~TEST_GROUP_CppUTestGroupRatioTest() [100]
+-----------------------------------------------
+                0.00    0.00       1/1           UtestShell::runOneTestInCurrentProcess(TestPlugin*, TestResult&) [283]
+[104]    0.0    0.00    0.00       1         deepnum::clarith::TEST_RatioTest_ComparisonMatch_TestShell::createTest() [104]
+                0.00    0.00       1/1           deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::TEST_RatioTest_ComparisonMatch_Test() [101]
+-----------------------------------------------
+                0.00    0.00       1/1           __static_initialization_and_destruction_0(int, int) [98]
+[105]    0.0    0.00    0.00       1         deepnum::clarith::TEST_RatioTest_ComparisonMatch_TestShell::TEST_RatioTest_ComparisonMatch_TestShell() [105]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+  [97] _GLOBAL__sub_I__ZN7deepnum7clarith24externTestGroupRatioTestE [20] gsl::not_null<deepnum::clarith::strategy::Ratio*>::not_null<void>(deepnum::clarith::strategy::Ratio*) [93] deepnum::clarith::strategy::ExhaustionError::~ExhaustionError()
+  [30] getCurrentNewAllocator() [89] gsl::not_null<deepnum::clarith::strategy::Infinity*>::not_null<void>(deepnum::clarith::strategy::Infinity*) [6] deepnum::clarith::strategy::Ratio::Egest()
+  [46] crash_on_allocation_number(unsigned int) [90] gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Infinity*, void>(deepnum::clarith::strategy::Infinity*&&) [19] deepnum::clarith::strategy::Ratio::Ratio(unsigned int, unsigned int, bool)
+  [39] setCurrentNewAllocatorToDefault() [91] gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Infinity*, void>(gsl::not_null<deepnum::clarith::strategy::Infinity*> const&) [8] deepnum::clarith::strategy::Ratio::Ratio(int, int)
+  [98] __static_initialization_and_destruction_0(int, int) [22] gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Ratio*, void>(deepnum::clarith::strategy::Ratio*&&) [16] deepnum::clarith::strategy::Ratio::~Ratio()
+  [32] checkedMalloc(unsigned long) [11] gsl::not_null<deepnum::clarith::strategy::Strategy*>::not_null<deepnum::clarith::strategy::Ratio*, void>(gsl::not_null<deepnum::clarith::strategy::Ratio*> const&) [23] deepnum::clarith::strategy::Ratio::~Ratio()
+  [56] mem_leak_operator_new(unsigned long) [27] deepnum::clarith::reference_compare(int, int, int, int) [94] deepnum::clarith::strategy::Infinity::Egest()
+  [18] mem_leak_operator_delete(void*) [99] deepnum::clarith::TEST_GROUP_CppUTestGroupRatioTest::TEST_GROUP_CppUTestGroupRatioTest() [53] deepnum::clarith::strategy::Infinity::Infinity()
+  [21] mem_leak_operator_new_debug(unsigned long, char const*, int) [100] deepnum::clarith::TEST_GROUP_CppUTestGroupRatioTest::~TEST_GROUP_CppUTestGroupRatioTest() [61] deepnum::clarith::strategy::Infinity::~Infinity()
+  [44] TestResult::countCheck() [2] deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::testBody() [62] deepnum::clarith::strategy::Infinity::~Infinity()
+  [48] TestResult::countRun() [101] deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::TEST_RatioTest_ComparisonMatch_Test() [40] deepnum::clarith::strategy::Strategy::Strategy()
+  [49] UtestShell::getCurrent() [102] deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::~TEST_RatioTest_ComparisonMatch_Test() [35] deepnum::clarith::strategy::Strategy::~Strategy()
+  [37] UtestShell::assertLongsEqual(long, long, char const*, char const*, int, TestTerminator const&) [103] deepnum::clarith::TEST_RatioTest_ComparisonMatch_Test::~TEST_RatioTest_ComparisonMatch_Test() [17] gsl::not_null<deepnum::clarith::Number*>::get() const
+  [47] TestTerminator::TestTerminator() [104] deepnum::clarith::TEST_RatioTest_ComparisonMatch_TestShell::createTest() [25] gsl::not_null<deepnum::clarith::Number*>::operator deepnum::clarith::Number*() const
+  [50] MemoryLeakDetector::removeMemoryLeakInformationWithoutCheckingOrDeallocatingTheMemoryButDeallocatingTheAccountInformation(TestMemoryAllocator*, void*, bool) [105] deepnum::clarith::TEST_RatioTest_ComparisonMatch_TestShell::TEST_RatioTest_ComparisonMatch_TestShell() [14] gsl::not_null<deepnum::clarith::Number*>::operator->() const
+   [7] MemoryLeakDetector::allocMemory(TestMemoryAllocator*, unsigned long, char const*, int, bool) [52] deepnum::clarith::TEST_RatioTest_ComparisonMatch_TestShell::~TEST_RatioTest_ComparisonMatch_TestShell() [33] gsl::not_null<deepnum::clarith::strategy::Ratio*>::get() const
+   [5] MemoryLeakDetector::deallocMemory(TestMemoryAllocator*, void*, char const*, int, bool) [3] deepnum::clarith::Util::Compare(gsl::not_null<deepnum::clarith::Number*>, gsl::not_null<deepnum::clarith::Number*>, bool) [95] gsl::not_null<deepnum::clarith::strategy::Infinity*>::get() const
+  [28] MemoryLeakDetector::invalidateMemory(char*) [4] deepnum::clarith::Number::Egest() [36] gsl::not_null<deepnum::clarith::strategy::Strategy*>::get() const
+  [15] MemoryLeakDetector::checkForCorruption(MemoryLeakDetectorNode*, char const*, int, TestMemoryAllocator*, bool) [10] deepnum::clarith::Number::Number(gsl::not_null<deepnum::clarith::strategy::Strategy*>) [29] gsl::not_null<deepnum::clarith::strategy::Strategy*>::operator deepnum::clarith::strategy::Strategy*() const
+  [57] MemoryLeakDetector::matchingAllocation(TestMemoryAllocator*, TestMemoryAllocator*) [9] deepnum::clarith::Number::~Number() [54] deepnum::clarith::strategy::Ratio::GetNewStrategy() const
+  [43] MemoryLeakDetector::createMemoryLeakAccountingInformation(TestMemoryAllocator*, unsigned long, char*, bool) [45] deepnum::clarith::protocol::ViolationError::~ViolationError() [31] std::remove_reference<unsigned int&>::type&& std::move<unsigned int&>(unsigned int&)
+  [26] MemoryLeakDetector::allocateMemoryWithAccountingInformation(TestMemoryAllocator*, unsigned long, char const*, int, bool) [12] deepnum::clarith::protocol::Watcher::Watch(deepnum::clarith::protocol::Protocol) [13] std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<unsigned int> >, std::is_move_constructible<unsigned int>, std::is_move_assignable<unsigned int> >::value, void>::type std::swap<unsigned int>(unsigned int&, unsigned int&)
+  [51] TestMemoryAllocator::~TestMemoryAllocator() [34] deepnum::clarith::protocol::Watcher::Watcher() [41] deepnum::clarith::strategy::Ratio*&& std::forward<deepnum::clarith::strategy::Ratio*>(std::remove_reference<deepnum::clarith::strategy::Ratio*>::type&)
+  [42] NormalTestTerminator::NormalTestTerminator() [92] deepnum::clarith::strategy::ExhaustionError::ExhaustionError() [96] deepnum::clarith::strategy::Infinity*&& std::forward<deepnum::clarith::strategy::Infinity*>(std::remove_reference<deepnum::clarith::strategy::Infinity*>::type&)
+  [38] MemoryLeakWarningPlugin::getGlobalDetector() [55] deepnum::clarith::strategy::ExhaustionError::ExhaustionError(deepnum::clarith::strategy::ExhaustionError const&) [59] operator delete(void*, char const*, int)
+  [24] gsl::not_null<deepnum::clarith::Number*>::not_null<void>(deepnum::clarith::Number*) [58] deepnum::clarith::strategy::ExhaustionError::~ExhaustionError() [60] operator delete(void*, unsigned long)

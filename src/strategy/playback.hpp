@@ -46,23 +46,25 @@ namespace strategy
 class Playback : public Strategy
 {
  public:
+    virtual ~Playback();
+
     /**
      * Playback strategy constructor.
      * Construct a reducing strategy with an explicit sequence of messages.
      * Protocol::kEnd is not required at the end of sequence.
      * \param[in] sequence Protocol message sequence.
      */
-    explicit Playback(std::unique_ptr<std::forward_list<protocol::Protocol>> sequence);
+    explicit Playback(gsl::owner<std::forward_list<protocol::Protocol>*> sequence);
 
     /**
      * \throw protocol::ViolationError
      */
     protocol::Protocol Egest() override;
 
-    std::unique_ptr<Strategy> GetNewStrategy() const override;
+    gsl::not_null<gsl::owner<Strategy*>> GetNewStrategy() const override;
 
  private:
-    std::unique_ptr<std::forward_list<protocol::Protocol>> sequence_;
+    std::forward_list<protocol::Protocol>* sequence_;
     protocol::Watcher watcher_;
 };
 

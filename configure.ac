@@ -39,6 +39,10 @@ LT_INIT
 AC_PROG_CXX
 AC_LANG([C++])
 
+AC_CHECK_HEADER([gsl/gsl], [], [
+    AC_MSG_ERROR([missing C++ Guidelines Support Library])
+])
+
 AC_MSG_CHECKING([whether to build documentation])
 AC_ARG_ENABLE(
     [doc],

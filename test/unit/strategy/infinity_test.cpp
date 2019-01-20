@@ -18,10 +18,11 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
+#include "strategy/infinity.hpp"
+
 #include <CppUTest/TestHarness.h>
 
 #include "protocol/protocol.hpp"
-#include "strategy/infinity.hpp"
 #include "strategy/unavailable_error.hpp"
 
 using deepnum::clarith::protocol::Protocol;
@@ -33,16 +34,16 @@ namespace clarith
 namespace strategy
 {
 
-TEST_GROUP(InfiniteTest)
+TEST_GROUP(InfinityTest)
 {
 };
 
-TEST(InfiniteTest, IsInfinity)
+TEST(InfinityTest, IsInfinity)
 {
     LONGS_EQUAL(Protocol::kEnd, Infinity().Egest());
 }
 
-TEST(InfiniteTest, DoesNotProvideNewStrategy)
+TEST(InfinityTest, DoesNotProvideNewStrategy)
 {
     CHECK_THROWS(UnavailableError, Infinity().GetNewStrategy());
 }

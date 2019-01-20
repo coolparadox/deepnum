@@ -18,12 +18,12 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include <CppUTestExt/MockSupport.h>
-
 #include "protocol/protocol.hpp"
 #include "strategy/strategy_mock.hpp"
 #include "strategy/exhaustion_error.hpp"
 #include "strategy/unavailable_error.hpp"
+
+#include <CppUTestExt/MockSupport.h>
 
 using deepnum::clarith::protocol::Protocol;
 
@@ -49,14 +49,14 @@ Protocol StrategyMock::Egest()
     return Protocol::kEnd;
 }
 
-std::unique_ptr<Strategy> StrategyMock::GetNewStrategy() const
+gsl::not_null<gsl::owner<Strategy*>> StrategyMock::GetNewStrategy() const
 {
     mock().actualCall("GetNewStrategy").onObject(this);
     if (!exhausted_)
     {
         throw UnavailableError();
     }
-    return std::make_unique<StrategyMock>();
+    return gsl::not_null<gsl::owner<StrategyMock*>>(new StrategyMock);
 }
 
 }  // namespace strategy

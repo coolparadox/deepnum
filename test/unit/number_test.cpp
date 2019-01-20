@@ -18,12 +18,15 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
+#include "number.hpp"
+
 #include <CppUTest/TestHarness.h>
 #include <CppUTestExt/MockSupport.h>
 
-#include "number.hpp"
+#include "strategy/infinity.hpp"
 #include "strategy/strategy_mock.hpp"
 
+using deepnum::clarith::strategy::Infinity;
 using deepnum::clarith::strategy::StrategyMock;
 
 namespace deepnum
@@ -41,18 +44,18 @@ TEST_GROUP(NumberTest)
 
 TEST(NumberTest, DelegatesEgestionToStrategy)
 {
-    StrategyMock* strategy { new StrategyMock(false) };
+    gsl::not_null<gsl::owner<StrategyMock*>> strategy { new StrategyMock(false) };
     mock().expectOneCall("Egest").onObject(strategy);
-    Number(std::unique_ptr<StrategyMock>(strategy)).Egest();
+    Number(strategy).Egest();
     mock().checkExpectations();
 }
 
 TEST(NumberTest, ReplacesStrategyOnExhaustion)
 {
-    StrategyMock* strategy { new StrategyMock(true) };
+    gsl::not_null<gsl::owner<StrategyMock*>> strategy { new StrategyMock(true) };
     mock().expectOneCall("GetNewStrategy").onObject(strategy);
     mock().ignoreOtherCalls();
-    Number(std::unique_ptr<StrategyMock>(strategy)).Egest();
+    Number(strategy).Egest();
     mock().checkExpectations();
 }
 

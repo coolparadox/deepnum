@@ -38,7 +38,7 @@ class StrategyMock : public Strategy
  public:
     StrategyMock(bool exhausted = false);
     protocol::Protocol Egest() override;
-    std::unique_ptr<Strategy> GetNewStrategy() const override;
+    gsl::not_null<gsl::owner<Strategy*>> GetNewStrategy() const override;
 
  private:
     bool exhausted_ { false };

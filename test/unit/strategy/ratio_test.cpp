@@ -18,14 +18,14 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include <CppUTest/TestHarness.h>
-
 #include "protocol/protocol.hpp"
 #include "strategy/exhaustion_error.hpp"
 #include "strategy/infinity.hpp"
 #include "strategy/ratio.hpp"
 #include "strategy/unavailable_error.hpp"
 #include "strategy/undefined_ratio_error.hpp"
+
+#include <CppUTest/TestHarness.h>
 
 using deepnum::clarith::protocol::Protocol;
 
@@ -139,16 +139,20 @@ TEST(RatioTest, DoesNotProvideNewStrategyOnNonInfiniteRatio)
 
 TEST(RatioTest, DegeneratesToInfinityOnInfiniteRatio1)
 {
-    TestableRatio ratio(1, 0, true);
-    CHECK_THROWS(ExhaustionError, ratio.Egest());
-    CHECK_TRUE(dynamic_cast<Infinity*>(ratio.GetNewStrategy().get()));
+    TestableRatio s1(1, 0, true);
+    CHECK_THROWS(ExhaustionError, s1.Egest());
+    Strategy* s2 = s1.GetNewStrategy();
+    CHECK_TRUE(dynamic_cast<Infinity*>(s2));
+    delete s2;
 }
 
 TEST(RatioTest, DegeneratesToInfinityOnInfiniteRatio2)
 {
-    TestableRatio ratio(std::numeric_limits<unsigned int>::max(), 0, true);
-    CHECK_THROWS(ExhaustionError, ratio.Egest());
-    CHECK_TRUE(dynamic_cast<Infinity*>(ratio.GetNewStrategy().get()));
+    TestableRatio s1(std::numeric_limits<unsigned int>::max(), 0, true);
+    CHECK_THROWS(ExhaustionError, s1.Egest());
+    Strategy* s2 = s1.GetNewStrategy();
+    CHECK_TRUE(dynamic_cast<Infinity*>(s2));
+    delete s2;
 }
 
 TEST(RatioTest, CanExpressAtLeastTwo1)

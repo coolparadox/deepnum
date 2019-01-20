@@ -19,12 +19,13 @@
  */
 
 #include <forward_list>
-#include <CppUTest/TestHarness.h>
 
 #include "number.hpp"
 #include "protocol/protocol.hpp"
 #include "strategy/playback.hpp"
 #include "util.hpp"
+
+#include <CppUTest/TestHarness.h>
 
 using deepnum::clarith::protocol::Protocol;
 using deepnum::clarith::strategy::Playback;
@@ -55,24 +56,24 @@ namespace clarith
 #define THREE K2,K1,TWO
 #define INFINITY KE
 
-#define NUMBER(SEQ) std::make_unique<Number>(std::make_unique<Playback>(std::unique_ptr<std::forward_list<Protocol>>(new std::forward_list<Protocol> { SEQ })))
-
+#define NUMBER(SEQ) gsl::not_null<gsl::owner<Number*>>(new Number(gsl::not_null<gsl::owner<Playback*>>(new Playback(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { SEQ })))))
+    
 #define VERIFY(PEDANTIC,NONPEDANTIC,A,B) LONGS_EQUAL(PEDANTIC,Util::Compare(A,B,true)); LONGS_EQUAL(NONPEDANTIC,Util::Compare(A,B));
 
-std::unique_ptr<Number> neg_infinity() { return NUMBER(NEG_INFINITY); }
-std::unique_ptr<Number> neg_three() { return NUMBER(NEG_THREE); }
-std::unique_ptr<Number> neg_two() { return NUMBER(NEG_TWO); }
-std::unique_ptr<Number> neg_one() { return NUMBER(NEG_ONE); }
-std::unique_ptr<Number> neg_one_half() { return NUMBER(NEG_ONE_HALF); }
-std::unique_ptr<Number> neg_one_third() { return NUMBER(NEG_ONE_THIRD); }
-std::unique_ptr<Number> neg_zero() { return NUMBER(NEG_ZERO); }
-std::unique_ptr<Number> zero() { return NUMBER(ZERO); }
-std::unique_ptr<Number> one_third() { return NUMBER(ONE_THIRD); }
-std::unique_ptr<Number> one_half() { return NUMBER(ONE_HALF); }
-std::unique_ptr<Number> one() { return NUMBER(ONE); }
-std::unique_ptr<Number> two() { return NUMBER(TWO); }
-std::unique_ptr<Number> three() { return NUMBER(THREE); }
-std::unique_ptr<Number> infinity() { return NUMBER(INFINITY); }
+gsl::not_null<gsl::owner<Number*>> neg_infinity() { return NUMBER(NEG_INFINITY); }
+gsl::not_null<gsl::owner<Number*>> neg_three() { return NUMBER(NEG_THREE); }
+gsl::not_null<gsl::owner<Number*>> neg_two() { return NUMBER(NEG_TWO); }
+gsl::not_null<gsl::owner<Number*>> neg_one() { return NUMBER(NEG_ONE); }
+gsl::not_null<gsl::owner<Number*>> neg_one_half() { return NUMBER(NEG_ONE_HALF); }
+gsl::not_null<gsl::owner<Number*>> neg_one_third() { return NUMBER(NEG_ONE_THIRD); }
+gsl::not_null<gsl::owner<Number*>> neg_zero() { return NUMBER(NEG_ZERO); }
+gsl::not_null<gsl::owner<Number*>> zero() { return NUMBER(ZERO); }
+gsl::not_null<gsl::owner<Number*>> one_third() { return NUMBER(ONE_THIRD); }
+gsl::not_null<gsl::owner<Number*>> one_half() { return NUMBER(ONE_HALF); }
+gsl::not_null<gsl::owner<Number*>> one() { return NUMBER(ONE); }
+gsl::not_null<gsl::owner<Number*>> two() { return NUMBER(TWO); }
+gsl::not_null<gsl::owner<Number*>> three() { return NUMBER(THREE); }
+gsl::not_null<gsl::owner<Number*>> infinity() { return NUMBER(INFINITY); }
 
 TEST_GROUP(UtilCompareTest)
 {

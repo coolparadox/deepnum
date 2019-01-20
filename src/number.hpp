@@ -23,7 +23,7 @@
 
 #include <config.h>
 
-#include <memory>
+#include <gsl/gsl>
 
 #if NUMBER_SANITY_CHECK
 #include "protocol/watcher.hpp"
@@ -45,17 +45,24 @@ class Strategy;
 }  // namespace strategy
 
 /**
- * Rational number in continued logarithm representation.
+ * Numerical value in continued logarithm representation.
  */
 class Number
 {
  public:
+
+    ~Number();
+    Number(const Number&) = delete;
+    Number& operator=(const Number&) = delete;
+    Number(Number&&) = default;
+    Number& operator=(Number&&) = default;
+
     /**
      * A Number is defined by means of a strategy (that may combine other
      * numbers).
      * \param[in] strategy Defining strategy.
      */
-    explicit Number(std::unique_ptr<strategy::Strategy> strategy);
+    explicit Number(gsl::not_null<gsl::owner<strategy::Strategy*>> strategy);
 
     /**
      * Extract Number information.
@@ -66,7 +73,7 @@ class Number
     protocol::Protocol Egest();
 
  private:
-    std::unique_ptr<strategy::Strategy> strategy_;
+    strategy::Strategy* strategy_;
 #if NUMBER_SANITY_CHECK
     protocol::Watcher watcher_;
 #endif

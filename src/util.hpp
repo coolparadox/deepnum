@@ -21,7 +21,7 @@
 #ifndef SRC_UTIL_HPP_
 #define SRC_UTIL_HPP_
 
-#include <memory>
+#include <gsl/gsl>
 
 namespace deepnum
 {
@@ -48,8 +48,8 @@ class Util
      *         +1 if n1 is greater than n2,
      *         0 otherwise.
      */
-    static int Compare(std::unique_ptr<Number> n1,
-                       std::unique_ptr<Number> n2,
+    static int Compare(gsl::not_null<gsl::owner<Number*>> n1,
+                       gsl::not_null<gsl::owner<Number*>> n2,
                        bool pedantic = false);
 
  private:

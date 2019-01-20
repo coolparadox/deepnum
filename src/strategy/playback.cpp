@@ -34,9 +34,18 @@ namespace clarith
 namespace strategy
 {
 
-Playback::Playback(std::unique_ptr<std::forward_list<Protocol>> sequence)
-        : sequence_(std::move(sequence))
+Playback::Playback(gsl::owner<std::forward_list<protocol::Protocol>*> sequence)
+        : sequence_(sequence)
 {
+    if (!sequence_)
+    {
+        sequence_ = new std::forward_list<protocol::Protocol>();
+    }
+}
+
+Playback::~Playback()
+{
+    delete sequence_;
 }
 
 Protocol Playback::Egest()
@@ -51,13 +60,13 @@ Protocol Playback::Egest()
     return watcher_.Watch(answer);
 }
 
-std::unique_ptr<Strategy> Playback::GetNewStrategy() const
+gsl::not_null<gsl::owner<Strategy*>> Playback::GetNewStrategy() const
 {
     if (!sequence_->empty())
     {
         throw UnavailableError();
     }
-    return std::unique_ptr<Infinity>(new Infinity());
+    return gsl::not_null<gsl::owner<Infinity*>>(new Infinity());
 }
 
 }  // namespace strategy

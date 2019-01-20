@@ -18,11 +18,11 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "number.hpp"
-
 #include "protocol/protocol.hpp"
 #include "strategy/exhaustion_error.hpp"
 #include "strategy/strategy.hpp"
+
+#include "number.hpp"
 
 using deepnum::clarith::protocol::Protocol;
 using deepnum::clarith::strategy::Strategy;
@@ -33,9 +33,14 @@ namespace deepnum
 namespace clarith
 {
 
-Number::Number(std::unique_ptr<Strategy> strategy)
-        : strategy_(std::move(strategy))
+Number::Number(gsl::not_null<gsl::owner<strategy::Strategy*>> strategy)
+        : strategy_(strategy)
 {
+}
+
+Number::~Number()
+{
+    delete strategy_;
 }
 
 Protocol Number::Egest()
@@ -50,7 +55,9 @@ Protocol Number::Egest()
     }
     catch (ExhaustionError)
     {
+        Strategy* aux = strategy_;
         strategy_ = strategy_->GetNewStrategy();
+        delete aux;
     }
     return Egest();
 }

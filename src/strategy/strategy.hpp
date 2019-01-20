@@ -21,7 +21,7 @@
 #ifndef SRC_STRATEGY_STRATEGY_HPP_
 #define SRC_STRATEGY_STRATEGY_HPP_
 
-#include <memory>
+#include <gsl/gsl>
 
 namespace deepnum
 {
@@ -43,7 +43,13 @@ namespace strategy
 class Strategy
 {
  public:
+
+    Strategy() = default;
     virtual ~Strategy() = default;
+    Strategy(const Strategy&) = delete;
+    Strategy& operator=(const Strategy&) = delete;
+    Strategy(Strategy&&) = default;
+    Strategy& operator=(Strategy&&) = default;
 
     /**
      * Extracts next Protocol message.
@@ -63,7 +69,7 @@ class Strategy
      * \throw UnavailableError
      * \see Egest
      */
-    virtual std::unique_ptr<Strategy> GetNewStrategy() const = 0;
+    virtual gsl::not_null<gsl::owner<Strategy*>> GetNewStrategy() const = 0;
 };
 
 }  // namespace strategy
