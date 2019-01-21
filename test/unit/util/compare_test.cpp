@@ -56,7 +56,7 @@ namespace clarith
 #define THREE K2,K1,TWO
 #define INFINITY KE
 
-#define NUMBER(SEQ) gsl::owner<Number*>(new Number(gsl::owner<Playback*>(new Playback(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { SEQ })))))
+#define NUMBER(SEQ) new Number(new Playback(new std::forward_list<Protocol> { SEQ }))
     
 #define VERIFY(PEDANTIC,NONPEDANTIC,A,B) LONGS_EQUAL(PEDANTIC,Util::Compare(A,B,true)); LONGS_EQUAL(NONPEDANTIC,Util::Compare(A,B));
 
