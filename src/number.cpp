@@ -20,11 +20,13 @@
 
 #include "protocol/protocol.hpp"
 #include "strategy/exhaustion_error.hpp"
+#include "strategy/infinity.hpp"
 #include "strategy/strategy.hpp"
 
 #include "number.hpp"
 
 using deepnum::clarith::protocol::Protocol;
+using deepnum::clarith::strategy::Infinity;
 using deepnum::clarith::strategy::Strategy;
 using deepnum::clarith::strategy::ExhaustionError;
 
@@ -33,9 +35,13 @@ namespace deepnum
 namespace clarith
 {
 
-Number::Number(gsl::not_null<gsl::owner<strategy::Strategy*>> strategy)
+Number::Number(gsl::owner<strategy::Strategy*> strategy)
         : strategy_(strategy)
 {
+    if (!strategy_)
+    {
+        strategy_ = new Infinity();
+    }
 }
 
 Number::~Number()

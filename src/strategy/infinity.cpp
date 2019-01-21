@@ -37,7 +37,7 @@ Protocol Infinity::Egest()
     return Protocol::kEnd;
 }
 
-gsl::not_null<gsl::owner<Strategy*>> Infinity::GetNewStrategy() const
+gsl::owner<Strategy*> Infinity::GetNewStrategy() const
 {
     throw UnavailableError{};
 }

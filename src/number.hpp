@@ -61,8 +61,9 @@ class Number
      * A Number is defined by means of a strategy (that may combine other
      * numbers).
      * \param[in] strategy Defining strategy.
+     * \pre strategy is not null.
      */
-    explicit Number(gsl::not_null<gsl::owner<strategy::Strategy*>> strategy);
+    explicit Number(gsl::owner<strategy::Strategy*> strategy);
 
     /**
      * Extract Number information.

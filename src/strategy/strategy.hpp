@@ -69,7 +69,7 @@ class Strategy
      * \throw UnavailableError
      * \see Egest
      */
-    virtual gsl::not_null<gsl::owner<Strategy*>> GetNewStrategy() const = 0;
+    virtual gsl::owner<Strategy*> GetNewStrategy() const = 0;
 };
 
 }  // namespace strategy

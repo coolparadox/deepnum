@@ -77,11 +77,11 @@ Protocol Ratio::Egest()
     return Protocol::kZero;
 }
 
-gsl::not_null<gsl::owner<Strategy*>> Ratio::GetNewStrategy() const
+gsl::owner<Strategy*> Ratio::GetNewStrategy() const
 {
     if (den_ != 0)
         throw UnavailableError();
-    return gsl::not_null<gsl::owner<Infinity*>>(new Infinity());
+    return gsl::owner<Infinity*>(new Infinity());
 }
 
 }  // namespace strategy

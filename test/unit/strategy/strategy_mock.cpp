@@ -49,14 +49,14 @@ Protocol StrategyMock::Egest()
     return Protocol::kEnd;
 }
 
-gsl::not_null<gsl::owner<Strategy*>> StrategyMock::GetNewStrategy() const
+gsl::owner<Strategy*> StrategyMock::GetNewStrategy() const
 {
     mock().actualCall("GetNewStrategy").onObject(this);
     if (!exhausted_)
     {
         throw UnavailableError();
     }
-    return gsl::not_null<gsl::owner<StrategyMock*>>(new StrategyMock);
+    return gsl::owner<StrategyMock*>(new StrategyMock);
 }
 
 }  // namespace strategy

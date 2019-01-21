@@ -45,7 +45,7 @@ class Infinity : public Strategy
 {
  public:
     protocol::Protocol Egest() override;
-    gsl::not_null<gsl::owner<Strategy*>> GetNewStrategy() const override;
+    gsl::owner<Strategy*> GetNewStrategy() const override;
 };
 
 }  // namespace strategy

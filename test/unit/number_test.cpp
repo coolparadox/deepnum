@@ -44,7 +44,7 @@ TEST_GROUP(NumberTest)
 
 TEST(NumberTest, DelegatesEgestionToStrategy)
 {
-    gsl::not_null<gsl::owner<StrategyMock*>> strategy { new StrategyMock(false) };
+    gsl::owner<StrategyMock*> strategy { new StrategyMock(false) };
     mock().expectOneCall("Egest").onObject(strategy);
     Number(strategy).Egest();
     mock().checkExpectations();
@@ -52,7 +52,7 @@ TEST(NumberTest, DelegatesEgestionToStrategy)
 
 TEST(NumberTest, ReplacesStrategyOnExhaustion)
 {
-    gsl::not_null<gsl::owner<StrategyMock*>> strategy { new StrategyMock(true) };
+    gsl::owner<StrategyMock*> strategy { new StrategyMock(true) };
     mock().expectOneCall("GetNewStrategy").onObject(strategy);
     mock().ignoreOtherCalls();
     Number(strategy).Egest();

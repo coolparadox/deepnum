@@ -60,8 +60,8 @@ TEST(RatioTest, ComparisonMatch)
             LONGS_EQUAL(
                     reference_compare(n1, d1, n2, d2),
                     Util::Compare(
-                            gsl::not_null<gsl::owner<Number*>>(new Number(gsl::not_null<gsl::owner<Ratio*>>(new Ratio(n1, d1)))),
-                            gsl::not_null<gsl::owner<Number*>>(new Number(gsl::not_null<gsl::owner<Ratio*>>(new Ratio(n2, d2))))
+                            gsl::owner<Number*>(new Number(gsl::owner<Ratio*>(new Ratio(n1, d1)))),
+                            gsl::owner<Number*>(new Number(gsl::owner<Ratio*>(new Ratio(n2, d2))))
                     )
             );
         }

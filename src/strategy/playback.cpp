@@ -60,13 +60,13 @@ Protocol Playback::Egest()
     return watcher_.Watch(answer);
 }
 
-gsl::not_null<gsl::owner<Strategy*>> Playback::GetNewStrategy() const
+gsl::owner<Strategy*> Playback::GetNewStrategy() const
 {
     if (!sequence_->empty())
     {
         throw UnavailableError();
     }
-    return gsl::not_null<gsl::owner<Infinity*>>(new Infinity());
+    return gsl::owner<Infinity*>(new Infinity());
 }
 
 }  // namespace strategy

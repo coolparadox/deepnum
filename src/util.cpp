@@ -30,8 +30,8 @@ namespace deepnum
 namespace clarith
 {
 
-int Util::Compare(gsl::not_null<gsl::owner<Number*>> n1,
-                  gsl::not_null<gsl::owner<Number*>> n2,
+int Util::Compare(gsl::owner<Number*> n1,
+                  gsl::owner<Number*> n2,
                   bool pedantic)
 {
     Protocol v1, v2;

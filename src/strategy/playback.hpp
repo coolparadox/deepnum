@@ -61,7 +61,7 @@ class Playback : public Strategy
      */
     protocol::Protocol Egest() override;
 
-    gsl::not_null<gsl::owner<Strategy*>> GetNewStrategy() const override;
+    gsl::owner<Strategy*> GetNewStrategy() const override;
 
  private:
     std::forward_list<protocol::Protocol>* sequence_;

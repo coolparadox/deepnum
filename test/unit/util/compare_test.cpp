@@ -56,24 +56,24 @@ namespace clarith
 #define THREE K2,K1,TWO
 #define INFINITY KE
 
-#define NUMBER(SEQ) gsl::not_null<gsl::owner<Number*>>(new Number(gsl::not_null<gsl::owner<Playback*>>(new Playback(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { SEQ })))))
+#define NUMBER(SEQ) gsl::owner<Number*>(new Number(gsl::owner<Playback*>(new Playback(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { SEQ })))))
     
 #define VERIFY(PEDANTIC,NONPEDANTIC,A,B) LONGS_EQUAL(PEDANTIC,Util::Compare(A,B,true)); LONGS_EQUAL(NONPEDANTIC,Util::Compare(A,B));
 
-gsl::not_null<gsl::owner<Number*>> neg_infinity() { return NUMBER(NEG_INFINITY); }
-gsl::not_null<gsl::owner<Number*>> neg_three() { return NUMBER(NEG_THREE); }
-gsl::not_null<gsl::owner<Number*>> neg_two() { return NUMBER(NEG_TWO); }
-gsl::not_null<gsl::owner<Number*>> neg_one() { return NUMBER(NEG_ONE); }
-gsl::not_null<gsl::owner<Number*>> neg_one_half() { return NUMBER(NEG_ONE_HALF); }
-gsl::not_null<gsl::owner<Number*>> neg_one_third() { return NUMBER(NEG_ONE_THIRD); }
-gsl::not_null<gsl::owner<Number*>> neg_zero() { return NUMBER(NEG_ZERO); }
-gsl::not_null<gsl::owner<Number*>> zero() { return NUMBER(ZERO); }
-gsl::not_null<gsl::owner<Number*>> one_third() { return NUMBER(ONE_THIRD); }
-gsl::not_null<gsl::owner<Number*>> one_half() { return NUMBER(ONE_HALF); }
-gsl::not_null<gsl::owner<Number*>> one() { return NUMBER(ONE); }
-gsl::not_null<gsl::owner<Number*>> two() { return NUMBER(TWO); }
-gsl::not_null<gsl::owner<Number*>> three() { return NUMBER(THREE); }
-gsl::not_null<gsl::owner<Number*>> infinity() { return NUMBER(INFINITY); }
+gsl::owner<Number*> neg_infinity() { return NUMBER(NEG_INFINITY); }
+gsl::owner<Number*> neg_three() { return NUMBER(NEG_THREE); }
+gsl::owner<Number*> neg_two() { return NUMBER(NEG_TWO); }
+gsl::owner<Number*> neg_one() { return NUMBER(NEG_ONE); }
+gsl::owner<Number*> neg_one_half() { return NUMBER(NEG_ONE_HALF); }
+gsl::owner<Number*> neg_one_third() { return NUMBER(NEG_ONE_THIRD); }
+gsl::owner<Number*> neg_zero() { return NUMBER(NEG_ZERO); }
+gsl::owner<Number*> zero() { return NUMBER(ZERO); }
+gsl::owner<Number*> one_third() { return NUMBER(ONE_THIRD); }
+gsl::owner<Number*> one_half() { return NUMBER(ONE_HALF); }
+gsl::owner<Number*> one() { return NUMBER(ONE); }
+gsl::owner<Number*> two() { return NUMBER(TWO); }
+gsl::owner<Number*> three() { return NUMBER(THREE); }
+gsl::owner<Number*> infinity() { return NUMBER(INFINITY); }
 
 TEST_GROUP(UtilCompareTest)
 {
