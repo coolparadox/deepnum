@@ -38,6 +38,14 @@ enum class Protocol;
 class Watcher
 {
  public:
+
+    Watcher() = default;
+    ~Watcher() = default;
+    Watcher(const Watcher&) = delete;
+    Watcher& operator=(const Watcher&) = delete;
+    Watcher(Watcher&&) = delete;
+    Watcher& operator=(Watcher&&) = delete;
+
     /**
      * Check one more message of a Protocol sequence for violation errors.
      * \param[in] message Next message of a Protocol sequence.

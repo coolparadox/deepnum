@@ -44,6 +44,13 @@ namespace strategy
 class Ratio : public Strategy
 {
  public:
+
+    virtual ~Ratio() = default;
+    Ratio(const Ratio&) = delete;
+    Ratio& operator=(const Ratio&) = delete;
+    Ratio(Ratio&&) = delete;
+    Ratio& operator=(Ratio&&) = delete;
+
     /**
      * Ratio strategy constructor.
      * Construct a strategy for reducing a ratio of integer numbers.

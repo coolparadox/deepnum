@@ -48,8 +48,8 @@ class Strategy
     virtual ~Strategy() = default;
     Strategy(const Strategy&) = delete;
     Strategy& operator=(const Strategy&) = delete;
-    Strategy(Strategy&&) = default;
-    Strategy& operator=(Strategy&&) = default;
+    Strategy(Strategy&&) = delete;
+    Strategy& operator=(Strategy&&) = delete;
 
     /**
      * Extracts next Protocol message.

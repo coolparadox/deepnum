@@ -46,6 +46,12 @@ namespace strategy
 class Playback : public Strategy
 {
  public:
+
+    Playback(const Playback&) = delete;
+    Playback& operator=(const Playback&) = delete;
+    Playback(Playback&&) = delete;
+    Playback& operator=(Playback&&) = delete;
+
     virtual ~Playback();
 
     /**

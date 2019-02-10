@@ -54,8 +54,8 @@ class Number
     ~Number();
     Number(const Number&) = delete;
     Number& operator=(const Number&) = delete;
-    Number(Number&&) = default;
-    Number& operator=(Number&&) = default;
+    Number(Number&&) = delete;
+    Number& operator=(Number&&) = delete;
 
     /**
      * A Number is defined by means of a strategy (that may combine other

@@ -44,6 +44,14 @@ namespace strategy
 class Zero : public Strategy
 {
  public:
+
+    Infinity() = default;
+    virtual ~Infinity() = default;
+    Infinity(const Infinity&) = delete;
+    Infinity& operator=(const Infinity&) = delete;
+    Infinity(Infinity&&) = delete;
+    Infinity& operator=(Infinity&&) = delete;
+
     protocol::Protocol Egest() override;
     gsl::owner<Strategy*> GetNewStrategy() const override;
 };
