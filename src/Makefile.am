@@ -27,6 +27,7 @@ libdn_clarith_la_SOURCES = \
 	protocol/violation_error.cpp \
 	protocol/watcher.cpp \
 	strategy/exhaustion_error.cpp \
+	strategy/homography.cpp \
 	strategy/playback.cpp \
 	strategy/ratio.cpp \
 	strategy/unavailable_error.cpp \
@@ -41,6 +42,7 @@ include_HEADERS = \
 	protocol/violation_error.hpp \
 	protocol/watcher.hpp \
 	strategy/exhaustion_error.hpp \
+	strategy/homography.hpp \
 	strategy/playback.hpp \
 	strategy/ratio.hpp \
 	strategy/unavailable_error.hpp \

@@ -25,6 +25,7 @@
 
 namespace deepnum
 {
+
 namespace clarith
 {
 
