@@ -45,11 +45,12 @@ class Homography : public Strategy
 {
  public:
 
-    ~Homography() = default;
     Homography(const Homography&) = delete;
     Homography& operator=(const Homography&) = delete;
     Homography(Homography&&) = delete;
     Homography& operator=(Homography&&) = delete;
+
+    ~Homography();
 
     /**
      * \param x Input, or null for positive infinity.
@@ -58,6 +59,7 @@ class Homography : public Strategy
      * \param d1 First order denominator coefficient.
      * \param d0 Independent denominator coefficient.
      * \see strategy::Homography
+     * \throws UndefinedRatioError
      */
     Homography(gsl::owner<Number*> x, int n1, int n0, int d1, int d0);
 

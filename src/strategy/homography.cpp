@@ -20,8 +20,10 @@
 
 #include "homography.hpp"
 
+#include "number.hpp"
 #include "protocol/protocol.hpp"
 #include "strategy/unavailable_error.hpp"
+#include "strategy/undefined_ratio_error.hpp"
 
 using deepnum::clarith::protocol::Protocol;
 
@@ -35,8 +37,22 @@ namespace strategy
 {
 
 Homography::Homography(gsl::owner<Number*> x, int n1, int n0, int d1, int d0)
+        : _x(x),
+          _n1(n1),
+          _n0(n0),
+          _d1(d1),
+          _d0(d0)
 {
-    // FIXME: implement me
+    if (n1 == 0 && n0 == 0 && d1 == 0 && d0 == 0)
+    {
+        delete _x;
+        throw UndefinedRatioError();
+    }
+}
+
+Homography::~Homography()
+{
+    delete _x;
 }
 
 protocol::Protocol Homography::Egest()

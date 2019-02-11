@@ -26,6 +26,7 @@ unit_tests_LDADD = @builddir@/../../src/.libs/libdn_clarith.la -lCppUTest -lCppU
 unit_tests_SOURCES = \
 	number_test.cpp \
 	protocol/watcher_test.cpp \
+	strategy/homography_test.cpp \
 	strategy/playback_test.cpp \
 	strategy/ratio_test.cpp \
 	strategy/strategy_mock.cpp \
