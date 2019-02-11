@@ -36,10 +36,9 @@ namespace strategy
 
 /**
  * First degree homographic transformation.
- * This strategy accepts a Number x as input and outputs a Number y where:
- *      n1 * x + n0
- * y = ------------- where n1, n0, d1, d0 are native signed integers.
- *      d1 * x + d0
+ * This strategy accepts a Number \f$x\f$ as input and outputs
+ * \f$y=\frac{n_1 x + n_0}{d_1 x + d_0}\f$ where
+ * \f$n_1\f$, \f$n_0\f$, \f$d_1\f$ and \f$d_0\f$ are signed integers.
  * \see Strategy
  */
 class Homography : public Strategy
@@ -58,7 +57,7 @@ class Homography : public Strategy
      * \param n0 Independent numerator coefficient.
      * \param d1 First order denominator coefficient.
      * \param d0 Independent denominator coefficient.
-     * \see Homograpy
+     * \see strategy::Homography
      */
     Homography(gsl::owner<Number*> x, int n1, int n0, int d1, int d0);
 
