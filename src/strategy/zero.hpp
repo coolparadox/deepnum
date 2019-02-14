@@ -45,12 +45,12 @@ class Zero : public Strategy
 {
  public:
 
-    Infinity() = default;
-    virtual ~Infinity() = default;
-    Infinity(const Infinity&) = delete;
-    Infinity& operator=(const Infinity&) = delete;
-    Infinity(Infinity&&) = delete;
-    Infinity& operator=(Infinity&&) = delete;
+    Zero() = default;
+    virtual ~Zero() = default;
+    Zero(const Zero&) = delete;
+    Zero& operator=(const Zero&) = delete;
+    Zero(Zero&&) = delete;
+    Zero& operator=(Zero&&) = delete;
 
     protocol::Protocol Egest() override;
     gsl::owner<Strategy*> GetNewStrategy() const override;

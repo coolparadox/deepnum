@@ -24,7 +24,7 @@
 
 #include "number.hpp"
 #include "protocol/protocol.hpp"
-#include "strategy/infinity.hpp"
+#include "strategy/zero.hpp"
 #include "strategy/ratio.hpp"
 #include "strategy/unavailable_error.hpp"
 #include "strategy/exhaustion_error.hpp"
@@ -43,11 +43,13 @@ namespace strategy
 
 #define UNITY(x) Homography(x, 1, 0, 0, 1)
 #define NEG_TWO new Number(new Ratio(-2, 1))
+#define ZERO new Number(new Ratio(0, 1))
 #define HALF new Number(new Ratio(1, 2))
 #define ONE new Number(new Ratio(1, 1))
 #define TWO new Number(new Ratio(2, 1))
 #define THREE new Number(new Ratio(3, 1))
 #define FOUR new Number(new Ratio(4, 1))
+#define INFINITY new Number(new Ratio(1, 0))
 
 TEST_GROUP(HomographyTest)
 {
@@ -63,27 +65,33 @@ TEST(HomographyTest, DoesNotProvideNewStrategyWhenNotExhausted)
     CHECK_THROWS(UnavailableError, UNITY(new Number(new Ratio(0, 1))).GetNewStrategy());
 }
 
-TEST(HomographyTest, DegeneratesToRatio)
+TEST(HomographyTest, DegeneratesToRatioOnEndOfInput)
 {
-    Homography s1 = UNITY(new Number(new Infinity()));
+    Homography s1 = UNITY(new Number(new Zero()));
     CHECK_THROWS(ExhaustionError, s1.Egest());
     Strategy* s2 = s1.GetNewStrategy();
     CHECK_TRUE(dynamic_cast<Ratio*>(s2));
     delete s2;
 }
 
-TEST(HomographyTest, NullInputIsInfinite)
+TEST(HomographyTest, DegeneratesOnDiscardedInput)
 {
-    CHECK_THROWS(ExhaustionError, UNITY(nullptr).Egest());
+    CHECK_THROWS(ExhaustionError, Homography(INFINITY, 0, 1, 0, 1).Egest());
+}
+
+TEST(HomographyTest, ZeroByZeroIsUndefined)
+{
+    CHECK_THROWS(UndefinedRatioError, Homography(ZERO, 1, 0, 0, 0).Egest());
 }
 
 TEST(HomographyTest, UnityFollowsInput)
 {
-    LONGS_EQUAL(Protocol::kTwo, UNITY(new Number(new Ratio(2, 1))).Egest());
-    LONGS_EQUAL(Protocol::kOne, UNITY(new Number(new Ratio(1, 1))).Egest());
-    LONGS_EQUAL(Protocol::kZero, UNITY(new Number(new Ratio(0, 1))).Egest());
-    LONGS_EQUAL(Protocol::kNeg, UNITY(new Number(new Ratio(-1, 1))).Egest());
-    CHECK_THROWS(ExhaustionError, UNITY(new Number(new Infinity())).Egest());
+    CHECK_THROWS(ExhaustionError, UNITY(new Number(new Zero())).Egest());
+    LONGS_EQUAL(Protocol::Amplify, UNITY(new Number(new Ratio(1, 2))).Egest());
+    LONGS_EQUAL(Protocol::Uncover, UNITY(new Number(new Ratio(1, 1))).Egest());
+    LONGS_EQUAL(Protocol::Turn, UNITY(new Number(new Ratio(2, 1))).Egest());
+    LONGS_EQUAL(Protocol::Reflect, UNITY(new Number(new Ratio(-1, 1))).Egest());
+    LONGS_EQUAL(Protocol::Ground, UNITY(new Number(new Ratio(-2, 1))).Egest());
 }
 
 TEST(HomographyTest, DoublesInput)
@@ -93,7 +101,7 @@ TEST(HomographyTest, DoublesInput)
 
 TEST(HomographyTest, HalvesInput)
 {
-    LONGS_EQUAL(0, Util::Compare(new Number(new Homography(TWO, 0, 1, 2, 0)), ONE));
+    LONGS_EQUAL(0, Util::Compare(new Number(new Homography(TWO, 1, 0, 0, 2)), ONE));
 }
 
 TEST(HomographyTest, AddsOneToInput)
