@@ -24,15 +24,16 @@ lib_LTLIBRARIES = libdn_clarith.la
 
 libdn_clarith_la_SOURCES = \
 	number.cpp \
-	util.cpp \
 	protocol/violation_error.cpp \
 	protocol/watcher.cpp \
 	strategy/exhaustion_error.cpp \
-	strategy/infinity.cpp \
-	strategy/playback.cpp \
-	strategy/ratio.cpp \
 	strategy/unavailable_error.cpp \
 	strategy/undefined_ratio_error.cpp
+
+# util.cpp
+# strategy/infinity.cpp
+# strategy/playback.cpp
+# strategy/ratio.cpp
 
 include_HEADERS = \
 	number.hpp \
@@ -41,10 +42,10 @@ include_HEADERS = \
 	protocol/violation_error.hpp \
 	protocol/watcher.hpp \
 	strategy/exhaustion_error.hpp \
-	strategy/infinity.hpp \
-	strategy/playback.hpp \
-	strategy/ratio.hpp \
 	strategy/unavailable_error.hpp \
 	strategy/undefined_ratio_error.hpp \
 	strategy/strategy.hpp
 
+# strategy/infinity.hpp
+# strategy/playback.hpp
+# strategy/ratio.hpp

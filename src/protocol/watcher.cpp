@@ -38,21 +38,26 @@ Protocol Watcher::Watch(Protocol message)
         previous_ = message;
         return message;
     }
-    if (previous_ == Protocol::kEnd && message != Protocol::kEnd)
+    if (previous_ == Protocol::End && message != Protocol::End)
     {
-        throw ViolationError("forbidden non final '$'");
+        throw ViolationError("forbidden non final '0'");
     }
-    if (message == Protocol::kNeg)
+    switch (message)
     {
-        throw ViolationError("forbidden non initial '-'");
-    }
-    if (previous_ != Protocol::kNeg && message == Protocol::kZero)
-    {
-        throw ViolationError("forbidden non initial '0'");
-    }
-    if (previous_ == Protocol::kTwo && message == Protocol::kEnd)
-    {
-        throw ViolationError("forbidden '2$' sequence");
+        case Protocol::End:
+            switch (previous_)
+            {
+                case Protocol::Amplify:
+                    throw ViolationError("forbidden '20' sequence");
+            }
+            break;
+        case Protocol::Turn:
+            throw ViolationError("forbidden non initial '/'");
+        case Protocol::Reflect:
+            throw ViolationError("forbidden non initial '-'");
+        case Protocol::Land:
+            throw ViolationError("forbidden non initial '-/'");
+
     }
     previous_ = message;
     return message;

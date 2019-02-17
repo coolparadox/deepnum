@@ -30,68 +30,78 @@ namespace protocol
 
 /**
  * Continued logarithm messages.
- * The set of messages is taken from Bill Gosper's continued log idea.
+ * The set of messages is a modified version of Bill Gosper's continued log idea.
  *
- * Before any message is known, a number is deemed to be completely unknown
+ * Before a number egests any message, it is deemed to be completely unknown
  * (i.e., it lies somewhere between negative infinity and positive infinity).
  *
  * Messages produced by reducing any given number are supposed to form a
  * coherent sequence where each message uncovers a new level of knowledge about
  * where the number lies in its formerly known range,
- * and then causes a change of this range as a side effect
- * of simple arithmetic transformations in the number.
- * Moreover, the math must converge in gradually decreasing the
- * "information pool" of the number
- * until there is no information left to be extracted.
+ * and then causes a change of this range as a side effect.
+ * Each egested message decreases the number's "information pool",
+ * until there are is no more information to be know about the number
+ * (i.e, is is zero).
  *
  * The above constraints can be boiled down
  * to the following protocol invariants:
- *   -# '$' is final.
- *   -# Any message other than '$' is not final.
- *   -# '-' may optionally happen only once as the first message.
- *   -# '0' may optionally happen only once before any occurrence of other
- *      messages besides '-'.
- *   -# '$' cannot follow '2'.
+ *   -# Message '0' is final.
+ *   -# Any message other than '0' is not final.
+ *   -# '/', '-' or '-/' can only happen as the first message.
+ *   -# '0' cannot follow '2'.
  *
  * Samples of reducing some numbers using this protocol:
- *   - _0_ = '0$'
- *   - _0.5_ = '021$'
- *   - _-3.14_ = '-2111211122111121$'
+ *   - _0_ = '0'
+ *   - _0.5_ = '210'
+ *   - _-3.14_ = '-/21112111221111210'
+ *
  */
 enum class Protocol
 {
 
     /**
-     * '$'.
-     * Number is positive infinity.
+     * '0'.
+     * Number is zero.
      */
-    kEnd,
+    End,
 
     /**
      * '2'.
-     * Number was at least two and was halved.
+     * Number was greater than zero but no greater than one half,
+     * and was doubled.
      */
-    kTwo,
+    Amplify,
 
     /**
      * '1'.
-     * Number was at least one but lesser than two,
-     * had one subtracted from itself and then was reciprocated.
+     * Number was greater than one half but no greater than one,
+     * was reciprocated
+     * and then had one subtracted from itself.
      */
-    kOne,
+    Uncover,
 
     /**
-     * '0'.
-     * Number was at least zero but lesser than one,
+     * '/'.
+     * Number was greater than one
      * and was reciprocated.
      */
-    kZero,
+    Turn,
 
     /**
      * '-'.
-     * Number was lesser than zero and was negated.
+     * Number was lesser than zero but no lesser than minus one,
+     * and was negated.
      */
-    kNeg,
+    Reflect,
+
+    /**
+     * '-/'.
+     * Number was lesser than minus one,
+     * was negated
+     * and then was reciprocated.
+     */
+    Land,
+
 };
 
 }  // namespace protocol

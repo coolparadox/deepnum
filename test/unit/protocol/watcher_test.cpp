@@ -37,105 +37,154 @@ TEST_GROUP(WatcherTest)
 
 TEST(WatcherTest, ReturnsCopyOfInput)
 {
-    LONGS_EQUAL(Protocol::kEnd, Watcher().Watch(Protocol::kEnd));
-    LONGS_EQUAL(Protocol::kTwo, Watcher().Watch(Protocol::kTwo));
-    LONGS_EQUAL(Protocol::kOne, Watcher().Watch(Protocol::kOne));
-    LONGS_EQUAL(Protocol::kZero, Watcher().Watch(Protocol::kZero));
-    LONGS_EQUAL(Protocol::kNeg, Watcher().Watch(Protocol::kNeg));
+    LONGS_EQUAL(Protocol::End, Watcher().Watch(Protocol::End));
+    LONGS_EQUAL(Protocol::Amplify, Watcher().Watch(Protocol::Amplify));
+    LONGS_EQUAL(Protocol::Uncover, Watcher().Watch(Protocol::Uncover));
+    LONGS_EQUAL(Protocol::Turn, Watcher().Watch(Protocol::Turn));
+    LONGS_EQUAL(Protocol::Reflect, Watcher().Watch(Protocol::Reflect));
+    LONGS_EQUAL(Protocol::Land, Watcher().Watch(Protocol::Land));
 }
 
-TEST(WatcherTest, ThrowsOnNonFinalEndMessage)
+TEST(WatcherTest, ThrowsOnNonFinalEnd)
 {
     {
         Watcher watcher;
-        watcher.Watch(Protocol::kEnd);
-        watcher.Watch(Protocol::kEnd);
+        watcher.Watch(Protocol::End);
+        watcher.Watch(Protocol::End);
     }
     {
         Watcher watcher;
-        watcher.Watch(Protocol::kEnd);
-        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::kTwo));
+        watcher.Watch(Protocol::End);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Amplify));
     }
     {
         Watcher watcher;
-        watcher.Watch(Protocol::kEnd);
-        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::kOne));
+        watcher.Watch(Protocol::End);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Uncover));
     }
     {
         Watcher watcher;
-        watcher.Watch(Protocol::kEnd);
-        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::kZero));
+        watcher.Watch(Protocol::End);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Turn));
     }
     {
         Watcher watcher;
-        watcher.Watch(Protocol::kEnd);
-        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::kNeg));
+        watcher.Watch(Protocol::End);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Reflect));
+    }{
+        Watcher watcher;
+        watcher.Watch(Protocol::End);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Land));
     }
 }
 
-TEST(WatcherTest, ThrowsOnNonInitialNegMessage)
-{
-    {
-        Watcher watcher;
-        watcher.Watch(Protocol::kEnd);
-        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::kNeg));
-    }
-    {
-        Watcher watcher;
-        watcher.Watch(Protocol::kTwo);
-        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::kNeg));
-    }
-    {
-        Watcher watcher;
-        watcher.Watch(Protocol::kOne);
-        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::kNeg));
-    }
-    {
-        Watcher watcher;
-        watcher.Watch(Protocol::kZero);
-        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::kNeg));
-    }
-    {
-        Watcher watcher;
-        watcher.Watch(Protocol::kNeg);
-        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::kNeg));
-    }
-}
-
-TEST(WatcherTest, ThrowsOnNonInitialZeroMessage)
-{
-    {
-        Watcher watcher;
-        watcher.Watch(Protocol::kEnd);
-        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::kZero));
-    }
-    {
-        Watcher watcher;
-        watcher.Watch(Protocol::kTwo);
-        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::kZero));
-    }
-    {
-        Watcher watcher;
-        watcher.Watch(Protocol::kOne);
-        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::kZero));
-    }
-    {
-        Watcher watcher;
-        watcher.Watch(Protocol::kZero);
-        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::kZero));
-    }
-    {
-        Watcher watcher;
-        watcher.Watch(Protocol::kNeg);
-        watcher.Watch(Protocol::kZero);
-    }
-}
-
-TEST(WatcherTest, ThrowsOnFinalTwoMessage)
+TEST(WatcherTest, ThrowsOnFinalZoom)
 {
     Watcher watcher;
-    watcher.Watch(Protocol::kTwo);
-    CHECK_THROWS(ViolationError, watcher.Watch(Protocol::kEnd));
+    watcher.Watch(Protocol::Amplify);
+    CHECK_THROWS(ViolationError, watcher.Watch(Protocol::End));
+}
+
+TEST(WatcherTest, ThrowsOnNonInitialTurn)
+{
+    {
+        Watcher watcher;
+        watcher.Watch(Protocol::End);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Turn));
+    }
+    {
+        Watcher watcher;
+        watcher.Watch(Protocol::Amplify);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Turn));
+    }
+    {
+        Watcher watcher;
+        watcher.Watch(Protocol::Uncover);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Turn));
+    }
+    {
+        Watcher watcher;
+        watcher.Watch(Protocol::Turn);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Turn));
+    }
+    {
+        Watcher watcher;
+        watcher.Watch(Protocol::Reflect);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Turn));
+    }
+    {
+        Watcher watcher;
+        watcher.Watch(Protocol::Land);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Turn));
+    }
+}
+
+TEST(WatcherTest, ThrowsOnNonInitialReflect)
+{
+    {
+        Watcher watcher;
+        watcher.Watch(Protocol::End);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Reflect));
+    }
+    {
+        Watcher watcher;
+        watcher.Watch(Protocol::Amplify);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Reflect));
+    }
+    {
+        Watcher watcher;
+        watcher.Watch(Protocol::Uncover);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Reflect));
+    }
+    {
+        Watcher watcher;
+        watcher.Watch(Protocol::Turn);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Reflect));
+    }
+    {
+        Watcher watcher;
+        watcher.Watch(Protocol::Reflect);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Reflect));
+    }
+    {
+        Watcher watcher;
+        watcher.Watch(Protocol::Land);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Reflect));
+    }
+}
+
+TEST(WatcherTest, ThrowsOnNonInitialLand)
+{
+    {
+        Watcher watcher;
+        watcher.Watch(Protocol::End);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Land));
+    }
+    {
+        Watcher watcher;
+        watcher.Watch(Protocol::Amplify);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Land));
+    }
+    {
+        Watcher watcher;
+        watcher.Watch(Protocol::Uncover);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Land));
+    }
+    {
+        Watcher watcher;
+        watcher.Watch(Protocol::Turn);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Land));
+    }
+    {
+        Watcher watcher;
+        watcher.Watch(Protocol::Reflect);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Land));
+    }
+    {
+        Watcher watcher;
+        watcher.Watch(Protocol::Land);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Land));
+    }
 }
 
 }  // namespace protocol
