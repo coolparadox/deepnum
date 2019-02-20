@@ -18,30 +18,38 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "infinity.hpp"
+#ifndef SRC_STRATEGY_ZERO_HPP_
+#define SRC_STRATEGY_ZERO_HPP_
 
-#include "protocol/protocol.hpp"
-#include "unavailable_error.hpp"
-
-using deepnum::clarith::protocol::Protocol;
+#include "strategy.hpp"
 
 namespace deepnum
 {
 namespace clarith
 {
+
+namespace protocol
+{
+enum class Protocol;
+}  // namespace protocol
+
 namespace strategy
 {
 
-Protocol Infinity::Egest()
+/**
+ * Zero.
+ * This strategy simply represents zero.
+ * \see Strategy
+ */
+class Zero : public Strategy
 {
-    return Protocol::kEnd;
-}
-
-gsl::owner<Strategy*> Infinity::GetNewStrategy() const
-{
-    throw UnavailableError{};
-}
+ public:
+    protocol::Protocol Egest() override;
+    gsl::owner<Strategy*> GetNewStrategy() const override;
+};
 
 }  // namespace strategy
 }  // namespace clarith
 }  // namespace deepnum
+
+#endif  // SRC_STRATEGY_ZERO_HPP_
