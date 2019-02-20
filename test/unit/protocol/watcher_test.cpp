@@ -78,7 +78,7 @@ TEST(WatcherTest, ThrowsOnNonFinalEnd)
     }
 }
 
-TEST(WatcherTest, ThrowsOnFinalZoom)
+TEST(WatcherTest, ThrowsOnFinalAmplify)
 {
     Watcher watcher;
     watcher.Watch(Protocol::Amplify);

@@ -22,7 +22,7 @@
 
 #include "protocol/protocol.hpp"
 #include "protocol/violation_error.hpp"
-#include "strategy/infinity.hpp"
+#include "strategy/zero.hpp"
 #include "strategy/playback.hpp"
 #include "strategy/exhaustion_error.hpp"
 #include "strategy/unavailable_error.hpp"
@@ -43,77 +43,91 @@ TEST_GROUP(PlaybackTest)
 {
 };
 
-TEST(PlaybackTest, ReachesInfinity)
+TEST(PlaybackTest, ReachesZero)
 {
     Playback s1(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> {}));
     CHECK_THROWS(ExhaustionError, s1.Egest());
     Strategy* s2 = s1.GetNewStrategy();
-    CHECK_TRUE(dynamic_cast<Infinity*>(s2));
+    CHECK_TRUE(dynamic_cast<Zero*>(s2));
     delete s2;
 }
 
 TEST(PlaybackTest, DoesNotOfferPrematureStrategy)
 {
-    CHECK_THROWS(UnavailableError, Playback(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::kZero })).GetNewStrategy());
+    CHECK_THROWS(UnavailableError, Playback(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::Uncover })).GetNewStrategy());
 }
 
-TEST(PlaybackTest, ReplaysTwo)
+TEST(PlaybackTest, ReplaysEnd)
 {
-    LONGS_EQUAL(Protocol::kTwo, Playback(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::kTwo })).Egest());
+    LONGS_EQUAL(Protocol::End, Playback(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::End })).Egest());
 }
 
-TEST(PlaybackTest, ReplaysOne)
+TEST(PlaybackTest, ReplaysAmplify)
 {
-    LONGS_EQUAL(Protocol::kOne, Playback(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::kOne })).Egest());
+    LONGS_EQUAL(Protocol::Amplify, Playback(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::Amplify })).Egest());
 }
 
-TEST(PlaybackTest, ReplaysZero)
+TEST(PlaybackTest, ReplaysUncover)
 {
-    LONGS_EQUAL(Protocol::kZero, Playback(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::kZero })).Egest());
+    LONGS_EQUAL(Protocol::Uncover, Playback(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::Uncover })).Egest());
 }
 
-TEST(PlaybackTest, ReplaysNegative)
+TEST(PlaybackTest, ReplaysTurn)
 {
-    LONGS_EQUAL(Protocol::kNeg, Playback(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::kNeg })).Egest());
+    LONGS_EQUAL(Protocol::Turn, Playback(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::Turn })).Egest());
 }
 
-TEST(PlaybackTest, DetectsViolationErrorOnNonFinalEndMessage)
+TEST(PlaybackTest, ReplaysReflect)
+{
+    LONGS_EQUAL(Protocol::Reflect, Playback(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::Reflect })).Egest());
+}
+
+TEST(PlaybackTest, ReplaysGround)
+{
+    LONGS_EQUAL(Protocol::Ground, Playback(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::Ground })).Egest());
+}
+
+TEST(PlaybackTest, ThrowsOnNonFinalEnd)
 {
     {
-        Playback strategy(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::kEnd, Protocol::kOne }));
-        LONGS_EQUAL(Protocol::kEnd, strategy.Egest());
+        Playback strategy(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::End, Protocol::Uncover }));
+        LONGS_EQUAL(Protocol::End, strategy.Egest());
         CHECK_THROWS(ViolationError, strategy.Egest());
     }
 }
 
-TEST(PlaybackTest, DetectsViolationErrorOnNonInitialNegMessage)
+TEST(PlaybackTest, ThrowsOnFinalAmplify)
 {
     {
-        Playback strategy(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::kOne, Protocol::kNeg }));
-        LONGS_EQUAL(Protocol::kOne, strategy.Egest());
+        Playback strategy(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::Amplify }));
+        LONGS_EQUAL(Protocol::Amplify, strategy.Egest());
         CHECK_THROWS(ViolationError, strategy.Egest());
     }
 }
 
-TEST(PlaybackTest, DetectsViolationErrorOnNonInitialZeroMessage)
+TEST(PlaybackTest, ThrowsOnNonInitialTurn)
 {
     {
-        Playback strategy(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::kOne, Protocol::kZero }));
-        LONGS_EQUAL(Protocol::kOne, strategy.Egest());
+        Playback strategy(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::Uncover, Protocol::Turn }));
+        LONGS_EQUAL(Protocol::Uncover, strategy.Egest());
         CHECK_THROWS(ViolationError, strategy.Egest());
     }
 }
 
-TEST(PlaybackTest, DetectsViolationErrorOnFinalTwoMessage)
+TEST(PlaybackTest, ThrowsOnNonInitialReflect)
 {
     {
-        Playback strategy(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::kTwo, Protocol::kEnd }));
-        LONGS_EQUAL(Protocol::kTwo, strategy.Egest());
+        Playback strategy(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::Uncover, Protocol::Reflect }));
+        LONGS_EQUAL(Protocol::Uncover, strategy.Egest());
         CHECK_THROWS(ViolationError, strategy.Egest());
     }
+}
+
+TEST(PlaybackTest, ThrowsOnNonInitialGround)
+{
     {
-        Playback strategy(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::kTwo }));
-        LONGS_EQUAL(Protocol::kTwo, strategy.Egest());
+        Playback strategy(gsl::owner<std::forward_list<Protocol>*>(new std::forward_list<Protocol> { Protocol::Uncover, Protocol::Ground }));
+        LONGS_EQUAL(Protocol::Uncover, strategy.Egest());
         CHECK_THROWS(ViolationError, strategy.Egest());
     }
 }

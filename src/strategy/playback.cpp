@@ -19,7 +19,7 @@
  */
 
 #include "protocol/protocol.hpp"
-#include "strategy/infinity.hpp"
+#include "strategy/zero.hpp"
 #include "strategy/exhaustion_error.hpp"
 #include "strategy/unavailable_error.hpp"
 
@@ -52,7 +52,7 @@ Protocol Playback::Egest()
 {
     if (sequence_->empty())
     {
-        watcher_.Watch(Protocol::kEnd);
+        watcher_.Watch(Protocol::End);
         throw ExhaustionError();
     }
     Protocol answer = sequence_->front();
@@ -66,7 +66,7 @@ gsl::owner<Strategy*> Playback::GetNewStrategy() const
     {
         throw UnavailableError();
     }
-    return gsl::owner<Infinity*>(new Infinity());
+    return new Zero();
 }
 
 }  // namespace strategy
