@@ -42,16 +42,13 @@ class Util
      *
      * \param[in] n1 First number.
      * \param[in] n2 Second number.
-     * \param[in] pedantic Distinguish between negative and positive zero.
      * \pre n1 not null.
      * \pre n2 not null.
      * \return -1 if n1 is lesser than n2,
      *         +1 if n1 is greater than n2,
      *         0 otherwise.
      */
-    static int Compare(gsl::owner<Number*> n1,
-                       gsl::owner<Number*> n2,
-                       bool pedantic = false);
+    static int Compare(gsl::owner<Number*> n1, gsl::owner<Number*> n2);
 
  private:
     Util();

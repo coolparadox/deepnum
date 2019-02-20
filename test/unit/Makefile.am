@@ -31,9 +31,8 @@ unit_tests_SOURCES = \
 	strategy/strategy_mock.cpp \
 	strategy/strategy_mock.hpp \
 	strategy/zero_test.cpp \
-	unit_tests.cpp
-
-# util/compare_test.cpp
+	unit_tests.cpp \
+	util/compare_test.cpp
 
 check: unit_tests
 	echo

@@ -30,52 +30,42 @@ namespace deepnum
 namespace clarith
 {
 
-int Util::Compare(gsl::owner<Number*> n1,
-                  gsl::owner<Number*> n2,
-                  bool pedantic)
+int Util::Compare(Number* n1, Number* n2)
 {
     Protocol v1, v2;
     int polarity = 1;
-    bool v1_may_be_zero = true;
-    bool v2_may_be_zero = true;
     while (true)
     {
         v1 = n1->Egest();
         v2 = n2->Egest();
-        if (!pedantic)
-        {
-            if (v1_may_be_zero && (v1 == Protocol::kOne || v1 == Protocol::kTwo || v1 == Protocol::kEnd)) { v1_may_be_zero = false; }
-            if (v2_may_be_zero && (v2 == Protocol::kOne || v2 == Protocol::kTwo || v2 == Protocol::kEnd)) { v2_may_be_zero = false; }
-        }
-        if (v1 == Protocol::kEnd && v2 == Protocol::kEnd) { goto RETURN_ZERO; }
+        if (v1 == Protocol::End && v2 == Protocol::End) { goto RETURN_ZERO; }
         if (v1 != v2) { break; }
-        if (v1 == Protocol::kNeg || v1 == Protocol::kOne || v1 == Protocol::kZero) { polarity *= -1; }
+        if (v1 == Protocol::Uncover || v1 == Protocol::Turn || v1 == Protocol::Reflect) { polarity *= -1; }
     }
-    if (v1 == Protocol::kNeg)
-    {
-        if (!pedantic && v2_may_be_zero && n1->Egest() == Protocol::kZero && n1->Egest() == Protocol::kEnd && n2->Egest() == Protocol::kEnd) { goto RETURN_ZERO; }
-        goto RETURN_NEG_POLARITY;
-    }
-    if (v2 == Protocol::kNeg)
-    {
-        if (!pedantic && v1_may_be_zero && n2->Egest() == Protocol::kZero && n2->Egest() == Protocol::kEnd && n1->Egest() == Protocol::kEnd) { goto RETURN_ZERO; }
-        goto RETURN_POS_POLARITY;
-    }
-    if (v1 == Protocol::kZero) { goto RETURN_NEG_POLARITY; }
-    if (v2 == Protocol::kZero) { goto RETURN_POS_POLARITY; }
-    if (v1 == Protocol::kOne) { goto RETURN_NEG_POLARITY; }
-    if (v2 == Protocol::kOne) { goto RETURN_POS_POLARITY; }
-    if (v1 == Protocol::kTwo) { goto RETURN_NEG_POLARITY; }
 
-RETURN_POS_POLARITY:
-    delete n1;
-    delete n2;
-    return polarity;
+    if (v1 == Protocol::Ground) { goto RETURN_NEG_POLARITY; }
+    if (v2 == Protocol::Ground) { goto RETURN_POS_POLARITY; }
+
+    if (v1 == Protocol::Reflect) { goto RETURN_NEG_POLARITY; }
+    if (v2 == Protocol::Reflect) { goto RETURN_POS_POLARITY; }
+
+    if (v1 == Protocol::Turn) { goto RETURN_POS_POLARITY; }
+    if (v2 == Protocol::Turn) { goto RETURN_NEG_POLARITY; }
+
+    if (v1 == Protocol::Uncover) { goto RETURN_POS_POLARITY; }
+    if (v2 == Protocol::Uncover) { goto RETURN_NEG_POLARITY; }
+
+    if (v1 == Protocol::Amplify) { goto RETURN_POS_POLARITY; }
 
 RETURN_NEG_POLARITY:
     delete n1;
     delete n2;
     return -polarity;
+
+RETURN_POS_POLARITY:
+    delete n1;
+    delete n2;
+    return polarity;
 
 RETURN_ZERO:
     delete n1;

@@ -31,9 +31,8 @@ libdn_clarith_la_SOURCES = \
 	strategy/ratio.cpp \
 	strategy/unavailable_error.cpp \
 	strategy/undefined_ratio_error.cpp \
-	strategy/zero.cpp
-
-# util.cpp
+	strategy/zero.cpp \
+	util.cpp
 
 include_HEADERS = \
 	number.hpp \
