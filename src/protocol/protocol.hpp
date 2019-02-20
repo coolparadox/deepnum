@@ -40,8 +40,8 @@ namespace protocol
  * where the number lies in its formerly known range,
  * and then causes a change of this range as a side effect.
  * Each egested message decreases the number's "information pool",
- * until there are is no more information to be know about the number
- * (i.e, is is zero).
+ * until there is no more information to be know about the number
+ * (i.e, it is zero).
  *
  * The above constraints can be boiled down
  * to the following protocol invariants:
