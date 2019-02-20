@@ -23,10 +23,9 @@
 #include <CppUTest/TestHarness.h>
 #include <CppUTestExt/MockSupport.h>
 
-#include "strategy/infinity.hpp"
+#include "strategy/zero.hpp"
 #include "strategy/strategy_mock.hpp"
 
-using deepnum::clarith::strategy::Infinity;
 using deepnum::clarith::strategy::StrategyMock;
 
 namespace deepnum

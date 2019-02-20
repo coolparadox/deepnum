@@ -46,7 +46,7 @@ Protocol StrategyMock::Egest()
     {
         throw ExhaustionError();
     }
-    return Protocol::kEnd;
+    return Protocol::End;
 }
 
 gsl::owner<Strategy*> StrategyMock::GetNewStrategy() const
