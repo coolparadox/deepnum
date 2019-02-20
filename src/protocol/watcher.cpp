@@ -55,7 +55,7 @@ Protocol Watcher::Watch(Protocol message)
             throw ViolationError("forbidden non initial '/'");
         case Protocol::Reflect:
             throw ViolationError("forbidden non initial '-'");
-        case Protocol::Land:
+        case Protocol::Ground:
             throw ViolationError("forbidden non initial '-/'");
 
     }

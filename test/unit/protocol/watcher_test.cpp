@@ -42,7 +42,7 @@ TEST(WatcherTest, ReturnsCopyOfInput)
     LONGS_EQUAL(Protocol::Uncover, Watcher().Watch(Protocol::Uncover));
     LONGS_EQUAL(Protocol::Turn, Watcher().Watch(Protocol::Turn));
     LONGS_EQUAL(Protocol::Reflect, Watcher().Watch(Protocol::Reflect));
-    LONGS_EQUAL(Protocol::Land, Watcher().Watch(Protocol::Land));
+    LONGS_EQUAL(Protocol::Ground, Watcher().Watch(Protocol::Ground));
 }
 
 TEST(WatcherTest, ThrowsOnNonFinalEnd)
@@ -74,7 +74,7 @@ TEST(WatcherTest, ThrowsOnNonFinalEnd)
     }{
         Watcher watcher;
         watcher.Watch(Protocol::End);
-        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Land));
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Ground));
     }
 }
 
@@ -114,7 +114,7 @@ TEST(WatcherTest, ThrowsOnNonInitialTurn)
     }
     {
         Watcher watcher;
-        watcher.Watch(Protocol::Land);
+        watcher.Watch(Protocol::Ground);
         CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Turn));
     }
 }
@@ -148,42 +148,42 @@ TEST(WatcherTest, ThrowsOnNonInitialReflect)
     }
     {
         Watcher watcher;
-        watcher.Watch(Protocol::Land);
+        watcher.Watch(Protocol::Ground);
         CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Reflect));
     }
 }
 
-TEST(WatcherTest, ThrowsOnNonInitialLand)
+TEST(WatcherTest, ThrowsOnNonInitialGround)
 {
     {
         Watcher watcher;
         watcher.Watch(Protocol::End);
-        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Land));
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Ground));
     }
     {
         Watcher watcher;
         watcher.Watch(Protocol::Amplify);
-        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Land));
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Ground));
     }
     {
         Watcher watcher;
         watcher.Watch(Protocol::Uncover);
-        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Land));
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Ground));
     }
     {
         Watcher watcher;
         watcher.Watch(Protocol::Turn);
-        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Land));
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Ground));
     }
     {
         Watcher watcher;
         watcher.Watch(Protocol::Reflect);
-        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Land));
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Ground));
     }
     {
         Watcher watcher;
-        watcher.Watch(Protocol::Land);
-        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Land));
+        watcher.Watch(Protocol::Ground);
+        CHECK_THROWS(ViolationError, watcher.Watch(Protocol::Ground));
     }
 }
 

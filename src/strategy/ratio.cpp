@@ -21,7 +21,7 @@
 #include "ratio.hpp"
 
 #include "exhaustion_error.hpp"
-#include "infinity.hpp"
+#include "zero.hpp"
 #include "protocol/protocol.hpp"
 #include "unavailable_error.hpp"
 #include "undefined_ratio_error.hpp"
@@ -47,41 +47,59 @@ Ratio::Ratio(unsigned int num, unsigned int den, bool positive)
           positive_(positive)
 {
     if (num_ == 0 && den_ == 0)
+    {
         throw UndefinedRatioError();
+    }
 }
 
 Protocol Ratio::Egest()
 {
+    if (num_ == 0)
+    {
+        throw ExhaustionError();
+    }
     if (!positive_)
     {
         positive_ = true;
-        return Protocol::kNeg;
-    }
-    if (den_ == 0)
-        throw ExhaustionError();
-    if (num_ / 2 >= den_)
-    {
-        if (num_ % 2)
-            den_ *= 2;
+        if (num_ > den_)
+        {
+            std::swap(num_, den_);
+            return Protocol::Ground;
+        }
         else
-            num_ /= 2;
-        return Protocol::kTwo;
+        {
+            return Protocol::Reflect;
+        }
     }
-    if (num_ >= den_)
+    if (num_ > den_)
     {
-        num_ -= den_;
         std::swap(num_, den_);
-        return Protocol::kOne;
+        return Protocol::Turn;
     }
-    std::swap(num_, den_);
-    return Protocol::kZero;
+    if (num_ > den_ / 2)
+    {
+        std::swap(num_, den_);
+        num_ -= den_;
+        return Protocol::Uncover;
+    }
+    if (den_ % 2 == 0)
+    {
+        den_ /= 2;
+    }
+    else
+    {
+        num_ *= 2;
+    }
+    return Protocol::Amplify;
 }
 
 gsl::owner<Strategy*> Ratio::GetNewStrategy() const
 {
-    if (den_ != 0)
+    if (num_ != 0)
+    {
         throw UnavailableError();
-    return gsl::owner<Infinity*>(new Infinity());
+    }
+    return new Zero();
 }
 
 }  // namespace strategy

@@ -20,7 +20,7 @@
 
 #include "protocol/protocol.hpp"
 #include "strategy/exhaustion_error.hpp"
-#include "strategy/infinity.hpp"
+#include "strategy/zero.hpp"
 #include "strategy/ratio.hpp"
 #include "strategy/unavailable_error.hpp"
 #include "strategy/undefined_ratio_error.hpp"
@@ -132,86 +132,68 @@ TEST(RatioTest, ThrowsOnUndefinedRatio)
     CHECK_THROWS(UndefinedRatioError, TestableRatio(0, 0, true));
 }
 
-TEST(RatioTest, DoesNotProvideNewStrategyOnNonInfiniteRatio)
+TEST(RatioTest, DoesNotProvideNewStrategyOnNonZeroRatio)
 {
-    CHECK_THROWS(UnavailableError, TestableRatio(0, 1, true).GetNewStrategy());
+    CHECK_THROWS(UnavailableError, TestableRatio(1, 1, true).GetNewStrategy());
 }
 
-TEST(RatioTest, DegeneratesToInfinityOnInfiniteRatio1)
+TEST(RatioTest, DegeneratesToZero1)
 {
-    TestableRatio s1(1, 0, true);
+    TestableRatio s1(0, 1, true);
     CHECK_THROWS(ExhaustionError, s1.Egest());
     Strategy* s2 = s1.GetNewStrategy();
-    CHECK_TRUE(dynamic_cast<Infinity*>(s2));
+    CHECK_TRUE(dynamic_cast<Zero*>(s2));
     delete s2;
 }
 
-TEST(RatioTest, DegeneratesToInfinityOnInfiniteRatio2)
+TEST(RatioTest, DegeneratesToZero2)
 {
-    TestableRatio s1(std::numeric_limits<unsigned int>::max(), 0, true);
+    TestableRatio s1(0, std::numeric_limits<unsigned int>::max(), true);
     CHECK_THROWS(ExhaustionError, s1.Egest());
     Strategy* s2 = s1.GetNewStrategy();
-    CHECK_TRUE(dynamic_cast<Infinity*>(s2));
+    CHECK_TRUE(dynamic_cast<Zero*>(s2));
     delete s2;
 }
 
-TEST(RatioTest, CanExpressAtLeastTwo1)
+TEST(RatioTest, CanExpressOneHalf1)
 {
-    LONGS_EQUAL(Protocol::kTwo, TestableRatio(2, 1, true).Egest());
+    LONGS_EQUAL(Protocol::Amplify, TestableRatio(1, 2, true).Egest());
 }
 
-TEST(RatioTest, CanExpressAtLeastTwo2)
+TEST(RatioTest, CanExpressOneHalf2)
 {
-    LONGS_EQUAL(Protocol::kTwo,
-                TestableRatio(std::numeric_limits<unsigned int>::max(),
-                      std::numeric_limits<unsigned int>::max() / 2,
+    LONGS_EQUAL(Protocol::Amplify,
+                TestableRatio(std::numeric_limits<unsigned int>::max() / 2,
+                      std::numeric_limits<unsigned int>::max(),
                       true).Egest());
 }
 
-TEST(RatioTest, CanExpressAtLeastOne1)
+TEST(RatioTest, CanExpressOne1)
 {
-    LONGS_EQUAL(Protocol::kOne, TestableRatio(1, 1, true).Egest());
+    LONGS_EQUAL(Protocol::Uncover, TestableRatio(1, 1, true).Egest());
 }
 
-TEST(RatioTest, CanExpressAtLeastOne2)
+TEST(RatioTest, CanExpressOne2)
 {
-    LONGS_EQUAL(Protocol::kOne,
+    LONGS_EQUAL(Protocol::Uncover,
                 TestableRatio(std::numeric_limits<unsigned int>::max(),
                       std::numeric_limits<unsigned int>::max(),
                       true).Egest());
 }
 
-TEST(RatioTest, CanExpressAtLeastZero)
+TEST(RatioTest, CanExpressTwo)
 {
-    LONGS_EQUAL(Protocol::kZero, TestableRatio(0, 1, true).Egest());
+    LONGS_EQUAL(Protocol::Turn, TestableRatio(2, 1, true).Egest());
 }
 
-TEST(RatioTest, CanExpressAtLeastZero2)
+TEST(RatioTest, CanExpressMinusOne)
 {
-    LONGS_EQUAL(Protocol::kZero,
-                TestableRatio(0, std::numeric_limits<unsigned int>::max(),
-                      true).Egest());
+    LONGS_EQUAL(Protocol::Reflect, TestableRatio(1, 1, false).Egest());
 }
 
-TEST(RatioTest, CanExpressNegative)
+TEST(RatioTest, CanExpressMinusTwo)
 {
-    LONGS_EQUAL(Protocol::kNeg, TestableRatio(1, 1, false).Egest());
-}
-
-TEST(RatioTest, CanExpressNegativeInfinity1)
-{
-    LONGS_EQUAL(Protocol::kNeg, TestableRatio(1, 0, false).Egest());
-}
-
-TEST(RatioTest, CanExpressNegativeInfinity2)
-{
-    LONGS_EQUAL(Protocol::kNeg, TestableRatio(
-            std::numeric_limits<unsigned int>::max(), 0, false) .Egest());
-}
-
-TEST(RatioTest, CanExpressNegativeZero)
-{
-    LONGS_EQUAL(Protocol::kNeg, TestableRatio(0, 1, false).Egest());
+    LONGS_EQUAL(Protocol::Ground, TestableRatio(2, 1, false).Egest());
 }
 
 }  // namespace strategy
