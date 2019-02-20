@@ -18,7 +18,7 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "strategy/infinity.hpp"
+#include "strategy/zero.hpp"
 
 #include <CppUTest/TestHarness.h>
 
@@ -34,18 +34,18 @@ namespace clarith
 namespace strategy
 {
 
-TEST_GROUP(InfinityTest)
+TEST_GROUP(ZeroTest)
 {
 };
 
-TEST(InfinityTest, IsInfinity)
+TEST(ZeroTest, IsZero)
 {
-    LONGS_EQUAL(Protocol::kEnd, Infinity().Egest());
+    LONGS_EQUAL(Protocol::End, Zero().Egest());
 }
 
-TEST(InfinityTest, DoesNotProvideNewStrategy)
+TEST(ZeroTest, DoesNotProvideNewStrategy)
 {
-    CHECK_THROWS(UnavailableError, Infinity().GetNewStrategy());
+    CHECK_THROWS(UnavailableError, Zero().GetNewStrategy());
 }
 
 }  // namespace strategy
