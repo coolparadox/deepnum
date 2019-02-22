@@ -69,11 +69,16 @@ class Homography : public Strategy
 
  private:
 
-    protocol::Protocol OutputRange() const;
+    static protocol::Protocol CanEgest(int min_n, int min_d, int max_n, int max_d);
+    static bool IsBetweenZeroAndOne(int n, int d);
+    static void MinMax(int* min_n, int* min_d, int* max_n, int* max_d, int n, int d);
+    protocol::Protocol Egest(protocol::Protocol output);
+    void Ingest(protocol::Protocol input);
+    static int Compare(int n0, int d0, int n1, int d1);
 
     Number* _x;
     int _n1, _n0, _d1, _d0;
-    bool _primed;
+    bool _exhausted;
 };
 
 }  // namespace strategy

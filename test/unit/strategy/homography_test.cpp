@@ -43,8 +43,9 @@ namespace strategy
 
 #define UNITY(x) Homography(x, 1, 0, 0, 1)
 #define NEG_TWO new Number(new Ratio(-2, 1))
-#define ZERO new Number(new Ratio(0, 1))
-#define HALF new Number(new Ratio(1, 2))
+#define NEG_ONE new Number(new Ratio(-1, 1))
+#define ZERO new Number(new Zero())
+#define ONE_HALF new Number(new Ratio(1, 2))
 #define ONE new Number(new Ratio(1, 1))
 #define TWO new Number(new Ratio(2, 1))
 #define THREE new Number(new Ratio(3, 1))
@@ -67,31 +68,60 @@ TEST(HomographyTest, DoesNotProvideNewStrategyWhenNotExhausted)
 
 TEST(HomographyTest, DegeneratesToRatioOnEndOfInput)
 {
-    Homography s1 = UNITY(new Number(new Zero()));
+    Homography s1 = UNITY(ZERO);
     CHECK_THROWS(ExhaustionError, s1.Egest());
     Strategy* s2 = s1.GetNewStrategy();
     CHECK_TRUE(dynamic_cast<Ratio*>(s2));
     delete s2;
 }
 
-TEST(HomographyTest, DegeneratesOnDiscardedInput)
+TEST(HomographyTest, DegeneratesToRatioOnDiscardedInput)
 {
-    CHECK_THROWS(ExhaustionError, Homography(INFINITY, 0, 1, 0, 1).Egest());
+    Homography s1(TWO, 0, 1, 0, 1);
+    CHECK_THROWS(ExhaustionError, s1.Egest());
+    Strategy* s2 = s1.GetNewStrategy();
+    CHECK_TRUE(dynamic_cast<Ratio*>(s2));
+    delete s2;
+}
+
+TEST(HomographyTest, DegeneratesToRatioOnDegeneratedHomography1)
+{
+    Homography s1(TWO, 3, 2, 3, 2);
+    CHECK_THROWS(ExhaustionError, s1.Egest());
+    Strategy* s2 = s1.GetNewStrategy();
+    CHECK_TRUE(dynamic_cast<Ratio*>(s2));
+    delete s2;
+}
+
+TEST(HomographyTest, DegeneratesToRatioOnDegeneratedHomography2)
+{
+    Homography s1(TWO, 3, 0, 2, 0);
+    CHECK_THROWS(ExhaustionError, s1.Egest());
+    Strategy* s2 = s1.GetNewStrategy();
+    CHECK_TRUE(dynamic_cast<Ratio*>(s2));
+    delete s2;
 }
 
 TEST(HomographyTest, ZeroByZeroIsUndefined)
 {
-    CHECK_THROWS(UndefinedRatioError, Homography(ZERO, 1, 0, 0, 0).Egest());
+    CHECK_THROWS(UndefinedRatioError, Util::Compare(ZERO, new Number(new Homography(ZERO, 1, 0, 0, 0))));
+    CHECK_THROWS(UndefinedRatioError, Util::Compare(ZERO, new Number(new Homography(ZERO, 0, 0, 1, 0))));
+}
+
+TEST(HomographyTest, OneByZeroIsInfinity)
+{
+    LONGS_EQUAL(0, Util::Compare(INFINITY, new Number(new Homography(ONE, 1, 0, 0, 0))));
+    LONGS_EQUAL(0, Util::Compare(INFINITY, new Number(new Homography(ZERO, 0, 1, 1, 0))));
 }
 
 TEST(HomographyTest, UnityFollowsInput)
 {
-    CHECK_THROWS(ExhaustionError, UNITY(new Number(new Zero())).Egest());
-    LONGS_EQUAL(Protocol::Amplify, UNITY(new Number(new Ratio(1, 2))).Egest());
-    LONGS_EQUAL(Protocol::Uncover, UNITY(new Number(new Ratio(1, 1))).Egest());
-    LONGS_EQUAL(Protocol::Turn, UNITY(new Number(new Ratio(2, 1))).Egest());
-    LONGS_EQUAL(Protocol::Reflect, UNITY(new Number(new Ratio(-1, 1))).Egest());
-    LONGS_EQUAL(Protocol::Ground, UNITY(new Number(new Ratio(-2, 1))).Egest());
+    CHECK_THROWS(ExhaustionError, UNITY(ZERO).Egest());
+    LONGS_EQUAL(Protocol::Amplify, UNITY(ONE_HALF).Egest());
+    LONGS_EQUAL(Protocol::Uncover, UNITY(ONE).Egest());
+    LONGS_EQUAL(Protocol::Turn, UNITY(TWO).Egest());
+    LONGS_EQUAL(Protocol::Reflect, UNITY(NEG_ONE).Egest());
+    LONGS_EQUAL(Protocol::Ground, UNITY(NEG_TWO).Egest());
 }
 
 TEST(HomographyTest, DoublesInput)
@@ -116,13 +146,15 @@ TEST(HomographyTest, SubstractsOneFromInput)
 
 TEST(HomographyTest, ReciprocatesInput)
 {
-    LONGS_EQUAL(0, Util::Compare(new Number(new Homography(TWO, 0, 1, 1, 0)), HALF));
+    LONGS_EQUAL(0, Util::Compare(new Number(new Homography(TWO, 0, 1, 1, 0)), ONE_HALF));
 }
 
 TEST(HomographyTest, NegatesInput)
 {
     LONGS_EQUAL(0, Util::Compare(new Number(new Homography(TWO, -1, 0, 0, 1)), NEG_TWO));
 }
+
+// FIXME: add overflow tests
 
 }  // namespace strategy
 }  // namespace clarith
