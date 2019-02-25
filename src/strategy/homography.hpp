@@ -73,7 +73,6 @@ class Homography : public Strategy
     static bool IsBetweenZeroAndOne(int n, int d);
     static void MinMax(int* min_n, int* min_d, int* max_n, int* max_d, int n, int d);
     protocol::Protocol Egest(protocol::Protocol output);
-    void Ingest(protocol::Protocol input);
     static int Compare(int n0, int d0, int n1, int d1);
 
     Number* _x;

@@ -92,7 +92,93 @@ protocol::Protocol Homography::Egest()
     do
     {
 
-        Ingest(_x->Egest());
+        // Ingest
+        Protocol input = _x->Egest();
+        switch (input)
+        {
+            case Protocol::End:
+                _exhausted = true;
+                throw ExhaustionError();
+            case Protocol::Amplify:
+                /*
+                 * x2 = 2x1 => x1 = x2/2
+                 *
+                 * (n1x1+n0)/(d1x1+d0)
+                 * = (n1(x2/2)+n0)/(d1(x2/2)+d0)
+                 * = ((n1/2)x2+n0)/((d1/2)x2+d0)
+                 * = (n1x2+2n0)/(d1x2+2d0)
+                 */
+                if (_n1 % 2 || _d1 % 2)
+                {
+                    // FIXME: overflow
+                    _n0 *= 2;
+                    _d0 *= 2;
+                }
+                else
+                {
+                    _n1 /= 2;
+                    _d1 /= 2;
+                }
+                break;
+            case Protocol::Uncover:
+                /*
+                 * x2 = 1/x1-1 => 1/x1 = x2+1 => x1 = 1/(x2+1)
+                 *
+                 * (n1x1+n0)/(d1x1+d0)
+                 * = (n1(1/(x2+1))+n0)/(d1(1/(x2+1)+d0)
+                 * = (n1+n0(x2+1))/(d1+d0(x2+1))
+                 * = (n1+n0x2+n0)/(d1+d0x2+d0)
+                 * = (n0x2+(n1+n0))/(d0x2+(d1+d0))
+                 */
+                // FIXME: performance?
+                std::swap(_n1, _n0);
+                std::swap(_d1, _d0);
+                // FIXME: overflow
+                _n0 += _n1;
+                _d0 += _d1;
+                break;
+            case Protocol::Turn:
+                /*
+                 * x2 = 1/x1 => x1 = 1/x2
+                 *
+                 * (n1x1+n0)/(d1x1+d0)
+                 * = (n1(1/x2)+n0)/(d1(1/x2)+d0)
+                 * = (n1+n0x2)/(d1+d0x2)
+                 * = (n0x2+n1)/(d0x2+d1)
+                 */
+                std::swap(_n1, _n0);
+                std::swap(_d1, _d0);
+                break;
+            case Protocol::Reflect:
+                /*
+                 * x2 = -x1 => x1 = -x2
+                 *
+                 * (n1x1+n0)/(d1x1+d0)
+                 * = (n1(-x2)+n0)/(d1(-x2)+d0)
+                 * = ((-n1)x2+n0)/((-d1)x2+d0)
+                 * = (n1x2+(-n0))/(d1x2+(-d0))
+                 */
+                _n0 *= -1;
+                _d0 *= -1;
+                break;
+            case Protocol::Ground:
+                /*
+                 * x2 = -1/x1 => x1 = -1/x2
+                 *
+                 * (n1x1+n0)/(d1x1+d0)
+                 * = (n1(-1/x2)+n0)/(d1(-1/x2)+d0)
+                 * = (-n1+n0x2)/(-d1+d0x2)
+                 * = (n0x2+(-n1))/(d0x2+(-d1))
+                 */
+                // FIXME: performance?
+                std::swap(_n1, _n0);
+                std::swap(_d1, _d0);
+                _n0 *= -1;
+                _d0 *= -1;
+                break;
+            default:
+                throw std::logic_error("unhandled protocol message");
+        }
 
         // value at 0
         min_n = max_n = _n0;
@@ -148,7 +234,7 @@ Protocol Homography::CanEgest(int min_n, int min_d, int max_n, int max_d)
 {
     // End is reserved as negative for egestion.
     // FIXME: superfluous assertion?
-    assert(min_n != 0 && max_n != 0);
+    assert(min_n != 0 || max_n != 0);
 
     // FIXME: superfluous assertion?
     assert(Compare(min_n, min_d, max_n, max_d) <= 0);
@@ -229,95 +315,6 @@ Protocol Homography::Egest(Protocol output)
             throw std::logic_error("unhandled protocol message");
     }
     return output;
-}
-
-void Homography::Ingest(Protocol input)
-{
-    switch (input)
-    {
-        case Protocol::End:
-            _exhausted = true;
-            throw ExhaustionError();
-        case Protocol::Amplify:
-            /*
-             * x2 = 2x1 => x1 = x2/2
-             *
-             * (n1x1+n0)/(d1x1+d0)
-             * = (n1(x2/2)+n0)/(d1(x2/2)+d0)
-             * = ((n1/2)x2+n0)/((d1/2)x2+d0)
-             * = (n1x2+2n0)/(d1x2+2d0)
-             */
-            if (_n1 % 2 || _d1 % 2)
-            {
-                // FIXME: overflow
-                _n0 *= 2;
-                _d0 *= 2;
-            }
-            else
-            {
-                _n1 /= 2;
-                _d1 /= 2;
-            }
-            break;
-        case Protocol::Uncover:
-            /*
-             * x2 = 1/x1-1 => 1/x1 = x2+1 => x1 = 1/(x2+1)
-             *
-             * (n1x1+n0)/(d1x1+d0)
-             * = (n1(1/(x2+1))+n0)/(d1(1/(x2+1)+d0)
-             * = (n1+n0(x2+1))/(d1+d0(x2+1))
-             * = (n1+n0x2+n0)/(d1+d0x2+d0)
-             * = (n0x2+(n1+n0))/(d0x2+(d1+d0))
-             */
-            // FIXME: performance?
-            std::swap(_n1, _n0);
-            std::swap(_d1, _d0);
-            // FIXME: overflow
-            _n0 += _n1;
-            _d0 += _d1;
-            break;
-        case Protocol::Turn:
-            /*
-             * x2 = 1/x1 => x1 = 1/x2
-             *
-             * (n1x1+n0)/(d1x1+d0)
-             * = (n1(1/x2)+n0)/(d1(1/x2)+d0)
-             * = (n1+n0x2)/(d1+d0x2)
-             * = (n0x2+n1)/(d0x2+d1)
-             */
-            std::swap(_n1, _n0);
-            std::swap(_d1, _d0);
-            break;
-        case Protocol::Reflect:
-            /*
-             * x2 = -x1 => x1 = -x2
-             *
-             * (n1x1+n0)/(d1x1+d0)
-             * = (n1(-x2)+n0)/(d1(-x2)+d0)
-             * = ((-n1)x2+n0)/((-d1)x2+d0)
-             * = (n1x2+(-n0))/(d1x2+(-d0))
-             */
-            _n0 *= -1;
-            _d0 *= -1;
-            break;
-        case Protocol::Ground:
-            /*
-             * x2 = -1/x1 => x1 = -1/x2
-             *
-             * (n1x1+n0)/(d1x1+d0)
-             * = (n1(-1/x2)+n0)/(d1(-1/x2)+d0)
-             * = (-n1+n0x2)/(-d1+d0x2)
-             * = (n0x2+(-n1))/(d0x2+(-d1))
-             */
-            // FIXME: performance?
-            std::swap(_n1, _n0);
-            std::swap(_d1, _d0);
-            _n0 *= -1;
-            _d0 *= -1;
-            break;
-        default:
-            throw std::logic_error("unhandled protocol message");
-    }
 }
 
 Strategy* Homography::GetNewStrategy() const
