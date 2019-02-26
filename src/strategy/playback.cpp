@@ -25,6 +25,8 @@
 
 #include "playback.hpp"
 
+#include "tracelog.h"
+
 using deepnum::clarith::protocol::Protocol;
 
 namespace deepnum
@@ -37,6 +39,7 @@ namespace strategy
 Playback::Playback(gsl::owner<std::forward_list<protocol::Protocol>*> sequence)
         : sequence_(sequence)
 {
+    tracelog(sequence);
     if (!sequence_)
     {
         sequence_ = new std::forward_list<protocol::Protocol>();
@@ -45,6 +48,7 @@ Playback::Playback(gsl::owner<std::forward_list<protocol::Protocol>*> sequence)
 
 Playback::~Playback()
 {
+    tracelog("");
     delete sequence_;
 }
 

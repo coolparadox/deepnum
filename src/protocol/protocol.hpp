@@ -21,6 +21,12 @@
 #ifndef SRC_PROTOCOL_PROTOCOL_HPP_
 #define SRC_PROTOCOL_PROTOCOL_HPP_
 
+#include <config.h>
+
+#if TRACE
+#include <iostream>
+#endif  // TRACE
+
 namespace deepnum
 {
 namespace clarith
@@ -103,6 +109,10 @@ enum class Protocol
     Ground,
 
 };
+
+#if TRACE
+std::ostream& operator<<(std::ostream& os, const Protocol& message);
+#endif  // TRACE
 
 }  // namespace protocol
 }  // namespace clarith

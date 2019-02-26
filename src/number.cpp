@@ -24,8 +24,9 @@
 
 #include "number.hpp"
 
+#include "tracelog.h"
+
 using deepnum::clarith::protocol::Protocol;
-// using deepnum::clarith::strategy::Infinity;
 using deepnum::clarith::strategy::Strategy;
 using deepnum::clarith::strategy::ExhaustionError;
 
@@ -37,14 +38,12 @@ namespace clarith
 Number::Number(gsl::owner<strategy::Strategy*> strategy)
         : strategy_(strategy)
 {
-    // if (!strategy_)
-    // {
-        // strategy_ = new Infinity();
-    // }
+    tracelog("strategy " << strategy_);
 }
 
 Number::~Number()
 {
+    tracelog("");
     delete strategy_;
 }
 
@@ -52,16 +51,20 @@ Protocol Number::Egest()
 {
     try
     {
+        Protocol answer = strategy_->Egest();
+        tracelog("got " << answer << " from " << strategy_);
 #if NUMBER_SANITY_CHECK
-        return watcher_.Watch(strategy_->Egest());
+        return watcher_.Watch(answer);
 #else
-        return strategy_->Egest();
+        return answer;
 #endif
     }
     catch (ExhaustionError)
     {
+        tracelog(strategy_ << " exhausted");
         Strategy* aux = strategy_;
         strategy_ = strategy_->GetNewStrategy();
+        tracelog("new strategy " << strategy_);
         delete aux;
     }
     return Egest();

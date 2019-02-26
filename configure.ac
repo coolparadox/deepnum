@@ -68,6 +68,18 @@ AS_VAR_IF([ac_enable_doc], [yes], [
     AC_CONFIG_FILES([Doxyfile])
 ])
 
+AC_MSG_CHECKING([whether to trace execution to std::clog])
+AC_ARG_ENABLE(
+    [trace],
+    [AS_HELP_STRING([--enable-trace], [instrument library and trace execution to std::clog [default=no]])],
+    [ac_enable_trace=$enableval],
+    [ac_enable_trace=no]
+)
+AC_MSG_RESULT([$ac_enable_trace])
+trace_to_clog=0
+AS_VAR_IF([ac_enable_trace], [yes], [trace_to_clog=1])
+AC_DEFINE_UNQUOTED([TRACE], [$trace_to_clog], [Define to 1 to trace execution to std::clog.])
+
 test_wanted='no'
 
 AC_MSG_CHECKING([whether to build unit tests])

@@ -18,8 +18,6 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "homography.hpp"
-
 #include <cassert>
 #include <stdexcept>
 
@@ -30,6 +28,10 @@
 #include "strategy/ratio.hpp"
 #include "strategy/unavailable_error.hpp"
 #include "strategy/undefined_ratio_error.hpp"
+
+#include "homography.hpp"
+
+#include "tracelog.h"
 
 using deepnum::clarith::protocol::Protocol;
 
@@ -71,10 +73,12 @@ Homography::Homography(Number* x, int n1, int n0, int d1, int d0)
     }
     // FIXME: normalize signs?
     // FIXME: normalize coefficients?
+    tracelog(_x << " " << _n1 << " " << _n0 << " " << _d1 << " " << _d0 << " " << _primed << " " << _exhausted);
 }
 
 Homography::~Homography()
 {
+    tracelog("");
     delete _x;
 }
 
@@ -84,10 +88,10 @@ protocol::Protocol Homography::Egest()
     {
         throw ExhaustionError();
     }
-    if (_primed)
+    if (!_primed)
     {
         _primed = true;
-        Ingest(_x->Egest());
+        Ingest();
     }
 
     int min_n;
@@ -108,24 +112,38 @@ protocol::Protocol Homography::Egest()
 
         // zero location
         if (IsBetweenZeroAndOne(-_n0, _n1)) {
-
             MinMax(&min_n, &min_d, &max_n, &max_d, 0, 1);
-
         }
 
         // pole location
         if (IsBetweenZeroAndOne(-_d0, _d1))
         {
-
-            max_n = 1;
-            max_d = 0;
-
+            /*
+             * n1(-d0/d1)+n0
+             * = -n1d0/d1+n0d1/d1
+             * = (n0d1-n1d0)/d1
+             */
+            int sign = Compare(_n0*_d1-_n1*_d0, _d1, 0, 1);
+            if (sign < 0)
+            {
+                min_n = -1;
+                min_d = 0;
+            }
+            else if (sign > 0)
+            {
+                max_n = 1;
+                max_d = 0;
+            }
+            else
+            {
+                throw std::logic_error("coincident pole and zero");
+            }
         }
 
         output = CanEgest(min_n, min_d, max_n, max_d);
         if (output == Protocol::End)
         {
-            Ingest(_x->Egest());
+            Ingest();
         }
 
     } while (output == Protocol::End);
@@ -173,6 +191,7 @@ Protocol Homography::CanEgest(int min_n, int min_d, int max_n, int max_d)
 
 Protocol Homography::Egest(Protocol output)
 {
+    tracelog(output);
     switch (output)
     {
         case Protocol::Amplify:
@@ -236,6 +255,7 @@ Protocol Homography::Egest(Protocol output)
         default:
             throw std::logic_error("unhandled protocol message");
     }
+    tracelog(_n1 << " " << _n0 << " " << _d1 << " " << _d0);
     return output;
 }
 
@@ -256,8 +276,10 @@ int Homography::Compare(int n0, int d0, int n1, int d1)
     return (p0 > p1) - (p0 < p1);
 }
 
-void Homography::Ingest(protocol::Protocol input)
+void Homography::Ingest()
 {
+    Protocol input = _x->Egest();
+    tracelog("got " << input << " from " << _x);
     switch (input)
     {
         case Protocol::End:
@@ -343,6 +365,7 @@ void Homography::Ingest(protocol::Protocol input)
         default:
             throw std::logic_error("unhandled protocol message");
     }
+    tracelog(_n1 << " " << _n0 << " " << _d1 << " " << _d0);
 }
 
 }  // namespace strategy

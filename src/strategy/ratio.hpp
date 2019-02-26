@@ -45,11 +45,12 @@ class Ratio : public Strategy
 {
  public:
 
-    virtual ~Ratio() = default;
     Ratio(const Ratio&) = delete;
     Ratio& operator=(const Ratio&) = delete;
     Ratio(Ratio&&) = delete;
     Ratio& operator=(Ratio&&) = delete;
+
+    virtual ~Ratio();
 
     /**
      * Ratio strategy constructor.

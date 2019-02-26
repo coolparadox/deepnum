@@ -74,7 +74,7 @@ class Homography : public Strategy
     static void MinMax(int* min_n, int* min_d, int* max_n, int* max_d, int n, int d);
     protocol::Protocol Egest(protocol::Protocol output);
     static int Compare(int n0, int d0, int n1, int d1);
-    void Ingest(protocol::Protocol input);
+    void Ingest();
 
     Number* _x;
     int _n1, _n0, _d1, _d0;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Rafael Lorandi <coolparadox@gmail.com>
+ * Copyright 2019 Rafael Lorandi <coolparadox@gmail.com>
  *
  * This file is part of dn-clarith, a library for performing arithmetic
  * in continued logarithm representation.
@@ -18,42 +18,21 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "protocol/protocol.hpp"
-#include "unavailable_error.hpp"
+#ifndef SRC_TRACELOG_H_
+#define SRC_TRACELOG_H_
 
-#include "zero.hpp"
+#include <config.h>
 
-#include "tracelog.h"
+#if TRACE
 
-using deepnum::clarith::protocol::Protocol;
+#include <iostream>
 
-namespace deepnum
-{
-namespace clarith
-{
-namespace strategy
-{
+#define tracelog(X) std::clog << "\n" << this << "." << __FUNCTION__ << ": " << X
 
-Zero::Zero()
-{
-    tracelog("");
-}
+#else  // TRACE
 
-Zero::~Zero()
-{
-    tracelog("");
-}
+#define tracelog(X) ((void) 0)
 
-Protocol Zero::Egest()
-{
-    return Protocol::End;
-}
+#endif  // TRACE
 
-gsl::owner<Strategy*> Zero::GetNewStrategy() const
-{
-    throw UnavailableError{};
-}
-
-}  // namespace strategy
-}  // namespace clarith
-}  // namespace deepnum
+#endif  // SRC_TRACELOG_H_

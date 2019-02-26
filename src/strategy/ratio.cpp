@@ -18,13 +18,15 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "ratio.hpp"
-
 #include "exhaustion_error.hpp"
 #include "zero.hpp"
 #include "protocol/protocol.hpp"
 #include "unavailable_error.hpp"
 #include "undefined_ratio_error.hpp"
+
+#include "ratio.hpp"
+
+#include "tracelog.h"
 
 using deepnum::clarith::protocol::Protocol;
 
@@ -35,10 +37,16 @@ namespace clarith
 namespace strategy
 {
 
+Ratio::~Ratio()
+{
+    tracelog("");
+}
+
 Ratio::Ratio(int num, int den)
         : Ratio(num >= 0 ? num : -num, den >= 0 ? den : -den,
                 (num >= 0 && den >= 0) || (num < 0 && den < 0))
 {
+    tracelog(num << " " << den);
 }
 
 Ratio::Ratio(unsigned int num, unsigned int den, bool positive)
@@ -46,6 +54,7 @@ Ratio::Ratio(unsigned int num, unsigned int den, bool positive)
           den_(den),
           positive_(positive)
 {
+    tracelog(num << " " << den << " " << positive);
     if (num_ == 0 && den_ == 0)
     {
         throw UndefinedRatioError();
@@ -54,6 +63,7 @@ Ratio::Ratio(unsigned int num, unsigned int den, bool positive)
 
 Protocol Ratio::Egest()
 {
+    tracelog(num_ << " " << den_ << " " << positive_);
     if (num_ == 0)
     {
         throw ExhaustionError();

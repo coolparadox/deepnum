@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Rafael Lorandi <coolparadox@gmail.com>
+ * Copyright 2019 Rafael Lorandi <coolparadox@gmail.com>
  *
  * This file is part of dn-clarith, a library for performing arithmetic
  * in continued logarithm representation.
@@ -18,42 +18,50 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "protocol/protocol.hpp"
-#include "unavailable_error.hpp"
+#include "protocol.hpp"
 
-#include "zero.hpp"
-
-#include "tracelog.h"
-
-using deepnum::clarith::protocol::Protocol;
+#if TRACE
+#include <stdexcept>
+#endif  // TRACE
 
 namespace deepnum
 {
 namespace clarith
 {
-namespace strategy
+namespace protocol
 {
 
-Zero::Zero()
+#if TRACE
+std::ostream& operator<<(std::ostream& os, const Protocol& message)
 {
-    tracelog("");
+    switch (message)
+    {
+        case Protocol::End:
+            os << "End";
+            break;
+        case Protocol::Amplify:
+            os << "Amplify";
+            break;
+        case Protocol::Uncover:
+            os << "Uncover";
+            break;
+        case Protocol::Turn:
+            os << "Turn";
+            break;
+        case Protocol::Reflect:
+            os << "Reflect";
+            break;
+        case Protocol::Ground:
+            os << "Ground";
+            break;
+        default:
+            throw std::logic_error("unknown Protocol message");
+    }
+    return os;
 }
+#endif  // TRACE
 
-Zero::~Zero()
-{
-    tracelog("");
-}
-
-Protocol Zero::Egest()
-{
-    return Protocol::End;
-}
-
-gsl::owner<Strategy*> Zero::GetNewStrategy() const
-{
-    throw UnavailableError{};
-}
-
-}  // namespace strategy
+}  // namespace protocol
 }  // namespace clarith
 }  // namespace deepnum
+

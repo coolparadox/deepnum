@@ -24,6 +24,7 @@ lib_LTLIBRARIES = libdn_clarith.la
 
 libdn_clarith_la_SOURCES = \
 	number.cpp \
+	protocol/protocol.cpp \
 	protocol/violation_error.cpp \
 	protocol/watcher.cpp \
 	strategy/exhaustion_error.cpp \
@@ -37,6 +38,7 @@ libdn_clarith_la_SOURCES = \
 
 include_HEADERS = \
 	number.hpp \
+	tracelog.h \
 	util.hpp \
 	protocol/protocol.hpp \
 	protocol/violation_error.hpp \

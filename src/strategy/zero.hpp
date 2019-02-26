@@ -45,13 +45,13 @@ class Zero : public Strategy
 {
  public:
 
-    Zero() = default;
-    virtual ~Zero() = default;
     Zero(const Zero&) = delete;
     Zero& operator=(const Zero&) = delete;
     Zero(Zero&&) = delete;
     Zero& operator=(Zero&&) = delete;
 
+    Zero();
+    virtual ~Zero();
     protocol::Protocol Egest() override;
     gsl::owner<Strategy*> GetNewStrategy() const override;
 };
