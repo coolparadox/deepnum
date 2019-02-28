@@ -46,6 +46,7 @@ Zero::~Zero()
 
 Protocol Zero::Egest()
 {
+    tracelog("egesting " << Protocol::End);
     return Protocol::End;
 }
 

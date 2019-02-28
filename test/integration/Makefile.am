@@ -24,6 +24,7 @@ bin_PROGRAMS = integration_tests
 integration_tests_CPPFLAGS = -I@srcdir@/../../src
 integration_tests_LDADD = @builddir@/../../src/.libs/libdn_clarith.la -lCppUTest -lCppUTestExt
 integration_tests_SOURCES = \
+	homography_test.cpp \
 	integration_tests.cpp \
 	ratio_test.cpp
 

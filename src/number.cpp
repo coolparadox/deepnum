@@ -49,10 +49,11 @@ Number::~Number()
 
 Protocol Number::Egest()
 {
+    tracelog("querying " << strategy_);
     try
     {
         Protocol answer = strategy_->Egest();
-        tracelog("got " << answer << " from " << strategy_);
+        tracelog("forwarding " << answer << " from " << strategy_);
 #if NUMBER_SANITY_CHECK
         return watcher_.Watch(answer);
 #else

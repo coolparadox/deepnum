@@ -23,6 +23,8 @@
 
 #include "util.hpp"
 
+#include "tracelog.h"
+
 using deepnum::clarith::protocol::Protocol;
 
 namespace deepnum
@@ -32,12 +34,17 @@ namespace clarith
 
 int Util::Compare(Number* n1, Number* n2)
 {
+    traceloc("comparing " << n1 << " and " << n2);
     Protocol v1, v2;
     int polarity = 1;
     while (true)
     {
+        traceloc("querying " << n1);
         v1 = n1->Egest();
+        traceloc("got " << v1 << " from " << n1);
+        traceloc("querying " << n2);
         v2 = n2->Egest();
+        traceloc("got " << v2 << " from " << n2);
         if (v1 == Protocol::End && v2 == Protocol::End) { goto RETURN_ZERO; }
         if (v1 != v2) { break; }
         if (v1 == Protocol::Uncover || v1 == Protocol::Turn || v1 == Protocol::Reflect) { polarity *= -1; }
@@ -60,16 +67,19 @@ int Util::Compare(Number* n1, Number* n2)
 RETURN_NEG_POLARITY:
     delete n1;
     delete n2;
+    traceloc(n1 << " is " << (polarity < 0 ? "greater" : "lesser") << " than " << n2);
     return -polarity;
 
 RETURN_POS_POLARITY:
     delete n1;
     delete n2;
+    traceloc(n1 << " is " << (polarity > 0 ? "greater" : "lesser") << " than " << n2);
     return polarity;
 
 RETURN_ZERO:
     delete n1;
     delete n2;
+    traceloc(n1 << " is equal to " << n2);
     return 0;
 
 }

@@ -63,9 +63,10 @@ Ratio::Ratio(unsigned int num, unsigned int den, bool positive)
 
 Protocol Ratio::Egest()
 {
-    tracelog(num_ << " " << den_ << " " << positive_);
+    Protocol answer;
     if (num_ == 0)
     {
+        tracelog("end of data");
         throw ExhaustionError();
     }
     if (!positive_)
@@ -74,23 +75,27 @@ Protocol Ratio::Egest()
         if (num_ > den_)
         {
             std::swap(num_, den_);
-            return Protocol::Ground;
+            answer = Protocol::Ground;
+            goto egest_end;
         }
         else
         {
-            return Protocol::Reflect;
+            answer = Protocol::Reflect;
+            goto egest_end;
         }
     }
     if (num_ > den_)
     {
         std::swap(num_, den_);
-        return Protocol::Turn;
+        answer = Protocol::Turn;
+        goto egest_end;
     }
     if (num_ > den_ / 2)
     {
         std::swap(num_, den_);
         num_ -= den_;
-        return Protocol::Uncover;
+        answer = Protocol::Uncover;
+        goto egest_end;
     }
     if (den_ % 2 == 0)
     {
@@ -100,7 +105,10 @@ Protocol Ratio::Egest()
     {
         num_ *= 2;
     }
-    return Protocol::Amplify;
+    answer = Protocol::Amplify;
+egest_end:
+    tracelog("egesting " << answer << ", new state " << num_ << " " << den_ << " " << positive_);
+    return answer;
 }
 
 gsl::owner<Strategy*> Ratio::GetNewStrategy() const

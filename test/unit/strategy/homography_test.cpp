@@ -41,7 +41,9 @@ namespace clarith
 namespace strategy
 {
 
-#define UNITY(x) Homography(x, 1, 0, 0, 1)
+#define UNITY1(x) Homography(x, 1, 0, 0, 1)
+#define UNITY2(x) Homography(x, -1, 0, 0, -1)
+#define NEG_INFINITY new Number(new Ratio(-1, 0))
 #define NEG_TWO new Number(new Ratio(-2, 1))
 #define NEG_ONE new Number(new Ratio(-1, 1))
 #define ZERO new Number(new Zero())
@@ -56,19 +58,19 @@ TEST_GROUP(HomographyTest)
 {
 };
 
-TEST(HomographyTest, SanitizesConstructorParameters)
+TEST(HomographyTest, ForbidsUndefinedHomography)
 {
     CHECK_THROWS(UndefinedRatioError, Homography(ONE, 0, 0, 0, 0));
 }
 
 TEST(HomographyTest, DoesNotProvideNewStrategyWhenNotExhausted)
 {
-    CHECK_THROWS(UnavailableError, UNITY(new Number(new Ratio(0, 1))).GetNewStrategy());
+    CHECK_THROWS(UnavailableError, UNITY1(new Number(new Ratio(0, 1))).GetNewStrategy());
 }
 
 TEST(HomographyTest, DegeneratesToRatioOnEndOfInput)
 {
-    Homography s1 = UNITY(ZERO);
+    Homography s1 = UNITY1(ZERO);
     CHECK_THROWS(ExhaustionError, s1.Egest());
     Strategy* s2 = s1.GetNewStrategy();
     CHECK_TRUE(dynamic_cast<Ratio*>(s2));
@@ -84,74 +86,243 @@ TEST(HomographyTest, DegeneratesToRatioOnDiscardedInput)
     delete s2;
 }
 
-TEST(HomographyTest, DegeneratesToRatioOnDegeneratedHomography1)
+TEST(HomographyTest, XByXIsOneAtOne)
 {
-    Homography s1(TWO, 3, 2, 3, 2);
-    CHECK_THROWS(ExhaustionError, s1.Egest());
-    Strategy* s2 = s1.GetNewStrategy();
-    CHECK_TRUE(dynamic_cast<Ratio*>(s2));
-    delete s2;
+    LONGS_EQUAL(0, Util::Compare(ONE, new Number(new Homography(ONE, 1, 0, 1, 0))));
+    LONGS_EQUAL(0, Util::Compare(ONE, new Number(new Homography(ONE, -1, 0, -1, 0))));
 }
 
-TEST(HomographyTest, DegeneratesToRatioOnDegeneratedHomography2)
+TEST(HomographyTest, XByXIsUndefinedAtZero)
 {
-    Homography s1(TWO, 3, 0, 2, 0);
-    CHECK_THROWS(ExhaustionError, s1.Egest());
-    Strategy* s2 = s1.GetNewStrategy();
-    CHECK_TRUE(dynamic_cast<Ratio*>(s2));
-    delete s2;
+
+    {
+        Number* z = ZERO;
+        Number* h = new Number(new Homography(ZERO, 1, 0, 1, 0));
+        CHECK_THROWS(UndefinedRatioError, Util::Compare(z, h));
+        delete z;
+        delete h;
+    }
+    
+    {
+        Number* z = ZERO;
+        Number* h = new Number(new Homography(ZERO, -1, 0, -1, 0));
+        CHECK_THROWS(UndefinedRatioError, Util::Compare(z, h));
+        delete z;
+        delete h;
+    }
 }
 
-TEST(HomographyTest, ZeroByZeroIsUndefined)
+TEST(HomographyTest, XByZeroIsUndefinedAtZero)
 {
-    CHECK_THROWS(UndefinedRatioError, Util::Compare(ZERO, new Number(new Homography(ZERO, 1, 0, 0, 0))));
-    CHECK_THROWS(UndefinedRatioError, Util::Compare(ZERO, new Number(new Homography(ZERO, 0, 0, 1, 0))));
+
+    {
+        Number* z = ZERO;
+        Number* h = new Number(new Homography(ZERO, 1, 0, 0, 0));
+        CHECK_THROWS(UndefinedRatioError, Util::Compare(z, h));
+        delete z;
+        delete h;
+    }
+
+    {
+        Number* z = ZERO;
+        Number* h = new Number(new Homography(ZERO, -1, 0, 0, 0));
+        CHECK_THROWS(UndefinedRatioError, Util::Compare(z, h));
+        delete z;
+        delete h;
+    }
+
 }
 
-TEST(HomographyTest, OneByZeroIsInfinity)
+TEST(HomographyTest, ZeroByXIsUndefinedAtZero)
+{
+
+    {
+        Number* z = ZERO;
+        Number* h = new Number(new Homography(ZERO, 0, 0, 1, 0));
+        CHECK_THROWS(UndefinedRatioError, Util::Compare(z, h));
+        delete z;
+        delete h;
+    }
+    
+    {
+        Number* z = ZERO;
+        Number* h = new Number(new Homography(ZERO, 0, 0, -1, 0));
+        CHECK_THROWS(UndefinedRatioError, Util::Compare(z, h));
+        delete z;
+        delete h;
+    }
+
+}
+
+TEST(HomographyTest, XByZeroIsInfinityAtOne)
 {
     LONGS_EQUAL(0, Util::Compare(INFINITY, new Number(new Homography(ONE, 1, 0, 0, 0))));
-    LONGS_EQUAL(0, Util::Compare(INFINITY, new Number(new Homography(ZERO, 0, 1, 1, 0))));
 }
 
-TEST(HomographyTest, UnityFollowsInput)
+TEST(HomographyTest, MinusXByZeroIsMinusInfinityAtOne)
 {
-    CHECK_THROWS(ExhaustionError, UNITY(ZERO).Egest());
-    LONGS_EQUAL(Protocol::Amplify, UNITY(ONE_HALF).Egest());
-    LONGS_EQUAL(Protocol::Uncover, UNITY(ONE).Egest());
-    LONGS_EQUAL(Protocol::Turn, UNITY(TWO).Egest());
-    LONGS_EQUAL(Protocol::Reflect, UNITY(NEG_ONE).Egest());
-    LONGS_EQUAL(Protocol::Ground, UNITY(NEG_TWO).Egest());
+    LONGS_EQUAL(0, Util::Compare(NEG_INFINITY, new Number(new Homography(ONE, -1, 0, 0, 0))));
 }
 
-TEST(HomographyTest, DoublesInput)
+TEST(HomographyTest, XByZeroIsMinusInfinityAtMinusOne)
+{
+    LONGS_EQUAL(0, Util::Compare(NEG_INFINITY, new Number(new Homography(NEG_ONE, 1, 0, 0, 0))));
+}
+
+TEST(HomographyTest, MinusXByZeroIsInfinityAtMinusOne)
+{
+    LONGS_EQUAL(0, Util::Compare(INFINITY, new Number(new Homography(NEG_ONE, -1, 0, 0, 0))));
+}
+
+TEST(HomographyTest, OneByXIsUndefinedAtZero)
+{
+    // lim(1/x) when x approaches 0 differs according to approaching side
+
+    {
+        Number* z = INFINITY;
+        Number* h = new Number(new Homography(ZERO, 0, 1, 1, 0));
+        CHECK_THROWS(UndefinedRatioError, Util::Compare(z, h));
+        delete z;
+        delete h;
+    }
+    
+    {
+        Number* z = INFINITY;
+        Number* h = new Number(new Homography(ZERO, 0, -1, -1, 0));
+        CHECK_THROWS(UndefinedRatioError, Util::Compare(z, h));
+        delete z;
+        delete h;
+    }
+
+}
+
+TEST(HomographyTest, XIsZeroAtZero)
+{
+    LONGS_EQUAL(0, Util::Compare(ZERO, new Number(new UNITY1(ZERO))));
+    LONGS_EQUAL(0, Util::Compare(ZERO, new Number(new UNITY2(ZERO))));
+}
+
+TEST(HomographyTest, XIsOneHalfAtOneHalf)
+{
+    LONGS_EQUAL(0, Util::Compare(ONE_HALF, new Number(new UNITY1(ONE_HALF))));
+    LONGS_EQUAL(0, Util::Compare(ONE_HALF, new Number(new UNITY2(ONE_HALF))));
+}
+
+TEST(HomographyTest, XIsOneAtOne)
+{
+    LONGS_EQUAL(0, Util::Compare(ONE, new Number(new UNITY1(ONE))));
+    LONGS_EQUAL(0, Util::Compare(ONE, new Number(new UNITY2(ONE))));
+}
+
+TEST(HomographyTest, XIsTwoAtTwo)
+{
+    LONGS_EQUAL(0, Util::Compare(TWO, new Number(new UNITY1(TWO))));
+    LONGS_EQUAL(0, Util::Compare(TWO, new Number(new UNITY2(TWO))));
+}
+
+TEST(HomographyTest, XIsMinusOneAtMinusOne)
+{
+    LONGS_EQUAL(0, Util::Compare(NEG_ONE, new Number(new UNITY1(NEG_ONE))));
+    LONGS_EQUAL(0, Util::Compare(NEG_ONE, new Number(new UNITY2(NEG_ONE))));
+}
+
+TEST(HomographyTest, XIsMinusTwoAtMinusTwo)
+{
+    LONGS_EQUAL(0, Util::Compare(NEG_TWO, new Number(new UNITY1(NEG_TWO))));
+    LONGS_EQUAL(0, Util::Compare(NEG_TWO, new Number(new UNITY2(NEG_TWO))));
+}
+
+TEST(HomographyTest, XDoubledIsFourAtTwo)
 {
     LONGS_EQUAL(0, Util::Compare(new Number(new Homography(TWO, 2, 0, 0, 1)), FOUR));
+    LONGS_EQUAL(0, Util::Compare(new Number(new Homography(TWO, -2, 0, 0, -1)), FOUR));
 }
 
-TEST(HomographyTest, HalvesInput)
+TEST(HomographyTest, XHalvedIsOneAtTwo)
 {
     LONGS_EQUAL(0, Util::Compare(new Number(new Homography(TWO, 1, 0, 0, 2)), ONE));
+    LONGS_EQUAL(0, Util::Compare(new Number(new Homography(TWO, -1, 0, 0, -2)), ONE));
 }
 
-TEST(HomographyTest, AddsOneToInput)
+TEST(HomographyTest, XPlusOneIsThreeAtTwo)
 {
     LONGS_EQUAL(0, Util::Compare(new Number(new Homography(TWO, 1, 1, 0, 1)), THREE));
+    LONGS_EQUAL(0, Util::Compare(new Number(new Homography(TWO, -1, -1, 0, -1)), THREE));
 }
 
-TEST(HomographyTest, SubstractsOneFromInput)
+TEST(HomographyTest, XMinusOneIsOneAtTwo)
 {
     LONGS_EQUAL(0, Util::Compare(new Number(new Homography(TWO, 1, -1, 0, 1)), ONE));
+    LONGS_EQUAL(0, Util::Compare(new Number(new Homography(TWO, -1, 1, 0, -1)), ONE));
 }
 
-TEST(HomographyTest, ReciprocatesInput)
+TEST(HomographyTest, XReciprocatedIsOneHalfAtTwo)
 {
     LONGS_EQUAL(0, Util::Compare(new Number(new Homography(TWO, 0, 1, 1, 0)), ONE_HALF));
+    LONGS_EQUAL(0, Util::Compare(new Number(new Homography(TWO, 0, -1, -1, 0)), ONE_HALF));
 }
 
-TEST(HomographyTest, NegatesInput)
+TEST(HomographyTest, XNegatedIsMinusTwoAtTwo)
 {
     LONGS_EQUAL(0, Util::Compare(new Number(new Homography(TWO, -1, 0, 0, 1)), NEG_TWO));
+    LONGS_EQUAL(0, Util::Compare(new Number(new Homography(TWO, 1, 0, 0, -1)), NEG_TWO));
+}
+
+TEST(HomographyTest, XPlusOneIsInfinityAtInfinity)
+{
+    LONGS_EQUAL(0, Util::Compare(new Number(new Homography(INFINITY, 1, 1, 0, 1)), INFINITY));
+    LONGS_EQUAL(0, Util::Compare(new Number(new Homography(INFINITY, -1, -1, 0, -1)), INFINITY));
+}
+
+TEST(HomographyTest, XPlusOneIsMinusInfinityAtMinusInfinity)
+{
+     LONGS_EQUAL(0, Util::Compare(new Number(new Homography(NEG_INFINITY, 1, 1, 0, 1)), NEG_INFINITY));
+     LONGS_EQUAL(0, Util::Compare(new Number(new Homography(NEG_INFINITY, -1, -1, 0, -1)), NEG_INFINITY));
+}
+
+TEST(HomographyTest, XPlusOneReciprocatedIsZeroAtMinusInfinity)
+{
+    LONGS_EQUAL(0, Util::Compare(new Number(new Homography(NEG_INFINITY, 0, 1, 1, 1)), ZERO));
+    LONGS_EQUAL(0, Util::Compare(new Number(new Homography(NEG_INFINITY, 0, -1, -1, -1)), ZERO));
+}
+
+TEST(HomographyTest, XPlusOneReciprocatedIsZeroAtInfinity)
+{
+    LONGS_EQUAL(0, Util::Compare(new Number(new Homography(INFINITY, 0, 1, 1, 1)), ZERO));
+    LONGS_EQUAL(0, Util::Compare(new Number(new Homography(INFINITY, 0, -1, -1, -1)), ZERO));
+}
+
+TEST(HomographyTest, XPlusOneReciprocatedIsUndefinedAtMinusOne)
+{
+
+    {
+        Number* z = ZERO;
+        Number* h = new Number(new Homography(NEG_ONE, 0, 1, 1, 1));
+        CHECK_THROWS(UndefinedRatioError, Util::Compare(z, h));
+        delete z;
+        delete h;
+    }
+    
+    {
+        Number* z = ZERO;
+        Number* h = new Number(new Homography(NEG_ONE, 0, -1, -1, -1));
+        CHECK_THROWS(UndefinedRatioError, Util::Compare(z, h));
+        delete z;
+        delete h;
+    }
+
+}
+
+TEST(HomographyTest, XPlusOneOverXPlusOneIsOneAtMinusInfinity)
+{
+    LONGS_EQUAL(0, Util::Compare(new Number(new Homography(NEG_INFINITY, 1, 1, 1, 1)), ONE));
+    LONGS_EQUAL(0, Util::Compare(new Number(new Homography(NEG_INFINITY, -1, -1, -1, -1)), ONE));
+}
+
+TEST(HomographyTest, XPlusOneOverXPlusOneIsOneAtInfinity)
+{
+    LONGS_EQUAL(0, Util::Compare(new Number(new Homography(INFINITY, 1, 1, 1, 1)), ONE));
+    LONGS_EQUAL(0, Util::Compare(new Number(new Homography(INFINITY, -1, -1, -1, -1)), ONE));
 }
 
 // FIXME: add overflow tests

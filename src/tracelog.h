@@ -27,11 +27,15 @@
 
 #include <iostream>
 
-#define tracelog(X) std::clog << "\n" << this << "." << __FUNCTION__ << ": " << X
+#define tracelog(X) std::clog << this << "." << __FUNCTION__ << ": " << X << std::endl
+
+// For static methods
+#define traceloc(X) std::clog << "==(static)==." << __FUNCTION__ << ": " << X << std::endl
 
 #else  // TRACE
 
 #define tracelog(X) ((void) 0)
+#define traceloc(X) ((void) 0)
 
 #endif  // TRACE
 

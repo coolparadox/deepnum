@@ -47,33 +47,21 @@ namespace strategy
 Homography::Homography(Number* x, int n1, int n0, int d1, int d0)
         : _x(x), _n1(n1), _n0(n0), _d1(d1), _d0(d0),
         _primed(false),
-        _exhausted(false)
+        _exhausted(false),
+        _has_pole(d1)
 {
-    if (n1 == 0 && n0 == 0 && d1 == 0 && d0 == 0)
+    tracelog(x << " " << _n1 << " " << _n0 << " " << _d1 << " " << _d0);
+    if (!n1 && !n0 && !d1 && !d0)
     {
         delete _x;
         throw UndefinedRatioError();
     }
-    if (_n1 == 0 && _d1 == 0)
+    if (!_n1 && !_d1)
     {
+        // input is dropped
         _exhausted = true;
         return;
     }
-    if (_n1 == _d1 && _n0 == _d0)
-    {
-        _exhausted = true;
-        return;
-    }
-    if (_n0 == 0 && _d0 == 0)
-    {
-        _n0 = _n1;
-        _d0 = _d1;
-        _exhausted = true;
-        return;
-    }
-    // FIXME: normalize signs?
-    // FIXME: normalize coefficients?
-    tracelog(_x << " " << _n1 << " " << _n0 << " " << _d1 << " " << _d0 << " " << _primed << " " << _exhausted);
 }
 
 Homography::~Homography()
@@ -103,46 +91,65 @@ protocol::Protocol Homography::Egest()
     {
 
         // value at 0
-        min_n = max_n = _n0;
-        min_d = max_d = _d0;
+        if (_n0 || _d0)
+        {
+            min_n = max_n = _n0;
+            min_d = max_d = _d0;
+            tracelog("value at 0 is " << _n0 << " " << _d0);
+        }
+        else
+        {
+            tracelog("value at 0 is undefined");
+            min_n = -1;
+            max_n = 1;
+            min_d = max_d = 0;
+        }
 
         // value at 1
         // FIXME:: overflow
-        MinMax(&min_n, &min_d, &max_n, &max_d, _n1 + _n0, _d1 + _d0);
+        int n = _n1 + _n0;
+        int d = _d1 + _d0;
+        if (n || d)
+        {
+            tracelog("value at 1 is " << n << " " << d);
+            MinMax(&min_n, &min_d, &max_n, &max_d, n, d);
+            }
+        else
+        {
+            tracelog("value at 1 is undefined");
+            min_n = -1;
+            max_n = 1;
+            min_d = max_d = 0;
+        }
 
         // zero location
         if (IsBetweenZeroAndOne(-_n0, _n1)) {
+            tracelog("has a zero between 0 and 1");
             MinMax(&min_n, &min_d, &max_n, &max_d, 0, 1);
         }
 
         // pole location
         if (IsBetweenZeroAndOne(-_d0, _d1))
         {
-            /*
-             * n1(-d0/d1)+n0
-             * = -n1d0/d1+n0d1/d1
-             * = (n0d1-n1d0)/d1
-             */
-            int sign = Compare(_n0*_d1-_n1*_d0, _d1, 0, 1);
-            if (sign < 0)
-            {
-                min_n = -1;
-                min_d = 0;
-            }
-            else if (sign > 0)
-            {
-                max_n = 1;
-                max_d = 0;
-            }
-            else
-            {
-                throw std::logic_error("coincident pole and zero");
-            }
+            tracelog("has a pole between 0 and 1");
+            min_n = -1;
+            min_d = 0;
+            max_n = 1;
+            max_d = 0;
         }
+        tracelog("output range min " << min_n << " " << min_d << " max " << max_n << " " << max_d);
 
+        // Decide on egestion
+        if (min_n == max_n && min_d == max_d)
+        {
+            tracelog("min-max range is a point");
+            _exhausted = true;
+            throw ExhaustionError();
+        }
         output = CanEgest(min_n, min_d, max_n, max_d);
         if (output == Protocol::End)
         {
+            tracelog("need more input");
             Ingest();
         }
 
@@ -158,7 +165,7 @@ void Homography::MinMax(int* min_n, int* min_d, int* max_n, int* max_d, int n, i
         *min_n = n;
         *min_d = d;
     }
-    else if (Compare(n, d, *max_n, *max_d) > 0)
+    if (Compare(n, d, *max_n, *max_d) > 0)
     {
         *max_n = n;
         *max_d = d;
@@ -167,16 +174,18 @@ void Homography::MinMax(int* min_n, int* min_d, int* max_n, int* max_d, int n, i
 
 bool Homography::IsBetweenZeroAndOne(int n, int d)
 {
+    if (!n && !d)
+    {
+        return false;
+    }
     return Compare(n, d, 0, 1) >= 0 && Compare(n, d, 1, 1) <= 0;
 }
 
 Protocol Homography::CanEgest(int min_n, int min_d, int max_n, int max_d)
 {
     // End is reserved as negative for egestion.
-    // FIXME: superfluous assertion?
     assert(min_n != 0 || max_n != 0);
 
-    // FIXME: superfluous assertion?
     assert(Compare(min_n, min_d, max_n, max_d) <= 0);
 
     if (Compare(max_n, max_d, -1, 1) < 0) { return Protocol::Ground; }
@@ -191,7 +200,6 @@ Protocol Homography::CanEgest(int min_n, int min_d, int max_n, int max_d)
 
 Protocol Homography::Egest(Protocol output)
 {
-    tracelog(output);
     switch (output)
     {
         case Protocol::Amplify:
@@ -211,6 +219,7 @@ Protocol Homography::Egest(Protocol output)
                 _d1 /= 2;
                 _d0 /= 2;
             }
+            break;
         case Protocol:: Uncover:
             /*
              * 1/((n1x+n0)/(d1x+d0))-1
@@ -255,7 +264,7 @@ Protocol Homography::Egest(Protocol output)
         default:
             throw std::logic_error("unhandled protocol message");
     }
-    tracelog(_n1 << " " << _n0 << " " << _d1 << " " << _d0);
+    tracelog("egesting " << output << ", new state " << _n1 << " " << _n0 << " " << _d1 << " " << _d0);
     return output;
 }
 
@@ -268,21 +277,41 @@ Strategy* Homography::GetNewStrategy() const
     return new Ratio(_n0, _d0);
 }
 
-int Homography::Compare(int n0, int d0, int n1, int d1)
+int Homography::Compare(int n1, int d1, int n2, int d2)
 {
+    assert(n1 || d1);
+    assert(n2 || d2);
+    if (!d1) { n1 /= std::abs(n1); }
+    if (!d2) { n2 /= std::abs(n2); }
+    if (d1 < 0) { n1 *= -1; d1 *= -1; }
+    if (d2 < 0) { n2 *= -1; d2 *= -1; }
     // FIXME: overflow
-    int p0 = n0 * d1;
-    int p1 = n1 * d0;
-    return (p0 > p1) - (p0 < p1);
+    int c = d1 || d2 ? n1 * d2 - n2 * d1 : n1 - n2;
+    // traceloc("(" << n1 << "," << d1 << ") is " << (c > 0 ? "greater than" : (c < 0 ? "lesser than" : "equal to")) << " (" << n2 << "," << d2 << ")");
+    return (c > 0) - (c < 0);
 }
 
 void Homography::Ingest()
 {
+    tracelog("querying " << _x);
     Protocol input = _x->Egest();
-    tracelog("got " << input << " from " << _x);
     switch (input)
     {
         case Protocol::End:
+            tracelog("end of input");
+            if (!_d0)
+            {
+                tracelog("pole at 0");
+                if (_has_pole)
+                {
+                    tracelog("and pole is primal");
+                    throw UndefinedRatioError();
+                }
+                if (_d1 < 0)
+                {
+                    _n0 *= -1;
+                }
+            }
             _exhausted = true;
             throw ExhaustionError();
         case Protocol::Amplify:
@@ -344,8 +373,16 @@ void Homography::Ingest()
              * = ((-n1)x2+n0)/((-d1)x2+d0)
              * = (n1x2+(-n0))/(d1x2+(-d0))
              */
-            _n0 *= -1;
-            _d0 *= -1;
+            if (_n0 || _d0)
+            {
+                _n0 *= -1;
+                _d0 *= -1;
+            }
+            else
+            {
+                _n1 *= -1;
+                _d1 *= -1;
+            }
             break;
         case Protocol::Ground:
             /*
@@ -365,7 +402,7 @@ void Homography::Ingest()
         default:
             throw std::logic_error("unhandled protocol message");
     }
-    tracelog(_n1 << " " << _n0 << " " << _d1 << " " << _d0);
+    tracelog("ingesting " << input << " from " << _x << ", new state " << _n1 << " " << _n0 << " " << _d1 << " " << _d0);
 }
 
 }  // namespace strategy
