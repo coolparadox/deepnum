@@ -123,7 +123,7 @@ result_ratio_undefined:
     return answer;
 }
 
-#define RANGE 3
+#define RANGE 4
 
 TEST(HomographyTest, ComparisonMatch)
 {

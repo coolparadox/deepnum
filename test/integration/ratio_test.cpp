@@ -52,7 +52,7 @@ int reference_compare(int n1, int d1, int n2, int d2)
     return (c > 0) - (c < 0);
 }
 
-#define RANGE 5
+#define RANGE 25
 
 TEST(RatioTest, ComparisonMatch)
 {
