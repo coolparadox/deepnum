@@ -79,70 +79,20 @@ protocol::Protocol Homography::Egest()
     if (!_primed)
     {
         _primed = true;
+        // Input is completely unknown; make it lie between 0 and 1.
         Ingest();
     }
 
-    int min_n;
-    int min_d;
-    int max_n;
-    int max_d;
     Protocol output;
     do
     {
 
-        // value at 0
-        if (_n0 || _d0)
-        {
-            min_n = max_n = _n0;
-            min_d = max_d = _d0;
-            tracelog("value at 0 is " << _n0 << " " << _d0);
-        }
-        else
-        {
-            tracelog("value at 0 is undefined");
-            min_n = -1;
-            max_n = 1;
-            min_d = max_d = 0;
-        }
-
-        // value at 1
-        // FIXME:: overflow
-        int n = _n1 + _n0;
-        int d = _d1 + _d0;
-        if (n || d)
-        {
-            tracelog("value at 1 is " << n << " " << d);
-            MinMax(&min_n, &min_d, &max_n, &max_d, n, d);
-            }
-        else
-        {
-            tracelog("value at 1 is undefined");
-            min_n = -1;
-            max_n = 1;
-            min_d = max_d = 0;
-        }
-
-        // zero location
-        if (IsBetweenZeroAndOne(-_n0, _n1)) {
-            tracelog("has a zero between 0 and 1");
-            MinMax(&min_n, &min_d, &max_n, &max_d, 0, 1);
-        }
-
-        // pole location
-        if (IsBetweenZeroAndOne(-_d0, _d1))
-        {
-            tracelog("has a pole between 0 and 1");
-            min_n = -1;
-            min_d = 0;
-            max_n = 1;
-            max_d = 0;
-        }
-        tracelog("output range min " << min_n << " " << min_d << " max " << max_n << " " << max_d);
-
-        // Decide on egestion
+        int min_n, min_d, max_n, max_d;
+        DetectOutputRange(&min_n, &min_d, &max_n, &max_d);
+        tracelog("output range min " << *min_n << " " << *min_d << " max " << *max_n << " " << *max_d);
         if (min_n == max_n && min_d == max_d)
         {
-            tracelog("min-max range is a point");
+            tracelog("output range is a point");
             _exhausted = true;
             throw ExhaustionError();
         }
@@ -155,6 +105,55 @@ protocol::Protocol Homography::Egest()
 
     } while (output == Protocol::End);
     return Egest(output);
+
+}
+
+void Homography::DetectOutputRange(int* min_n, int* min_d, int* max_n, int* max_d)
+{
+
+    if (_n0 || _d0)
+    {
+        *min_n = *max_n = _n0;
+        *min_d = *max_d = _d0;
+        tracelog("output at 0 is " << _n0 << " " << _d0);
+    }
+    else
+    {
+        tracelog("output at 0 is undefined");
+        *min_n = -1;
+        *max_n = 1;
+        *min_d = *max_d = 0;
+    }
+
+    // FIXME:: overflow
+    int n = _n1 + _n0;
+    int d = _d1 + _d0;
+    if (n || d)
+    {
+        tracelog("output at 1 is " << n << " " << d);
+        MinMax(min_n, min_d, max_n, max_d, n, d);
+        }
+    else
+    {
+        tracelog("output at 1 is undefined");
+        *min_n = -1;
+        *max_n = 1;
+        *min_d = *max_d = 0;
+    }
+
+    if (IsBetweenZeroAndOne(-_n0, _n1)) {
+        tracelog("has a zero between 0 and 1");
+        MinMax(min_n, min_d, max_n, max_d, 0, 1);
+    }
+
+    if (IsBetweenZeroAndOne(-_d0, _d1))
+    {
+        tracelog("has a pole between 0 and 1");
+        *min_n = -1;
+        *min_d = 0;
+        *max_n = 1;
+        *max_d = 0;
+    }
 
 }
 

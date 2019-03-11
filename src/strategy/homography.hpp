@@ -69,6 +69,7 @@ class Homography : public Strategy
 
  private:
 
+    void DetectOutputRange(int* min_n, int* min_d, int* max_n, int* max_d);
     static protocol::Protocol CanEgest(int min_n, int min_d, int max_n, int max_d);
     static bool IsBetweenZeroAndOne(int n, int d);
     static void MinMax(int* min_n, int* min_d, int* max_n, int* max_d, int n, int d);
