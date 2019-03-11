@@ -88,7 +88,7 @@ protocol::Protocol Homography::Egest()
 
         int min_n, min_d, max_n, max_d;
         DetectOutputRange(&min_n, &min_d, &max_n, &max_d);
-        tracelog("output range min " << *min_n << " " << *min_d << " max " << *max_n << " " << *max_d);
+        tracelog("output range min " << min_n << " " << min_d << " max " << max_n << " " << max_d);
         if (min_n == max_n && min_d == max_d)
         {
             tracelog("output range is a point");
