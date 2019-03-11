@@ -18,7 +18,6 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include <cassert>
 #include <stdexcept>
 
 #include "number.hpp"
@@ -186,20 +185,12 @@ bool Homography::IsBetweenZeroAndOne(int n, int d)
 
 Protocol Homography::CanEgest(int min_n, int min_d, int max_n, int max_d)
 {
-    // FIXME: asserts
-
-    // End is reserved as negative for egestion.
-    assert(min_n != 0 || max_n != 0);
-
-    assert(Compare(min_n, min_d, max_n, max_d) <= 0);
-
+    // Precondition: min_n || max_n
     if (Compare(max_n, max_d, -1, 1) < 0) { return Protocol::Ground; }
     if (Compare(min_n, min_d, 1, 1) > 0) { return Protocol::Turn; }
     if (Compare(max_n, max_d, 0, 1) < 0 && Compare(min_n, min_d, -1, 1) >= 0) { return Protocol::Reflect; }
     if (Compare(min_n, min_d, 1, 2) > 0 && Compare(max_n, max_d, 1, 1) <= 0) { return Protocol::Uncover; }
     if (Compare(min_n, min_d, 0, 1) > 0 && Compare(max_n, max_d, 1, 2) <= 0) { return Protocol::Amplify; }
-
-    // Given range does not fit to any available egestion possibility.
     return Protocol::End;
 }
 
@@ -283,9 +274,8 @@ Strategy* Homography::GetNewStrategy() const
 
 int Homography::Compare(int n1, int d1, int n2, int d2)
 {
-    // FIXME: asserts
-    assert(n1 || d1);
-    assert(n2 || d2);
+    // Precondition: n1 || d1
+    // Precondition: n2 || d2
     if (!d1) { n1 = n1 > 0 ? 1 : -1; }
     else if (d1 < 0) { n1 *= -1; d1 *= -1; }
     if (!d2) { n2 = n2 > 0 ? 1 : -1; }
