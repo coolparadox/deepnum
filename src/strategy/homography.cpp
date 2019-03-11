@@ -132,7 +132,7 @@ void Homography::DetectOutputRange(int* min_n, int* min_d, int* max_n, int* max_
     {
         tracelog("output at 1 is " << n << " " << d);
         MinMax(min_n, min_d, max_n, max_d, n, d);
-        }
+    }
     else
     {
         tracelog("output at 1 is undefined");
@@ -159,6 +159,7 @@ void Homography::DetectOutputRange(int* min_n, int* min_d, int* max_n, int* max_
 
 void Homography::MinMax(int* min_n, int* min_d, int* max_n, int* max_d, int n, int d)
 {
+    // Assume min_n/min_d <= max_n/max_d
     if (Compare(n, d, *min_n, *min_d) < 0)
     {
         *min_n = n;
@@ -173,15 +174,20 @@ void Homography::MinMax(int* min_n, int* min_d, int* max_n, int* max_d, int n, i
 
 bool Homography::IsBetweenZeroAndOne(int n, int d)
 {
-    if (!n && !d)
-    {
+    if (!n && !d) {
         return false;
     }
-    return Compare(n, d, 0, 1) >= 0 && Compare(n, d, 1, 1) <= 0;
+    if (d < 0) {
+        n *= -1;
+        d *= -1;
+    }
+    return n >= 0 && n <= d;
 }
 
 Protocol Homography::CanEgest(int min_n, int min_d, int max_n, int max_d)
 {
+    // FIXME: asserts
+
     // End is reserved as negative for egestion.
     assert(min_n != 0 || max_n != 0);
 
@@ -226,7 +232,6 @@ Protocol Homography::Egest(Protocol output)
              * = (d1x+d0)/(n1x+n0)-(n1x+n0)/(n1x+n0)
              * = ((d1-n1)x+(d0-n0))/(n1x+n0)
              */
-            // FIXME: performance?
             std::swap(_n1, _d1);
             std::swap(_n0, _d0);
             // FIXME: overflow?
@@ -278,15 +283,15 @@ Strategy* Homography::GetNewStrategy() const
 
 int Homography::Compare(int n1, int d1, int n2, int d2)
 {
+    // FIXME: asserts
     assert(n1 || d1);
     assert(n2 || d2);
-    if (!d1) { n1 /= std::abs(n1); }
-    if (!d2) { n2 /= std::abs(n2); }
-    if (d1 < 0) { n1 *= -1; d1 *= -1; }
-    if (d2 < 0) { n2 *= -1; d2 *= -1; }
+    if (!d1) { n1 = n1 > 0 ? 1 : -1; }
+    else if (d1 < 0) { n1 *= -1; d1 *= -1; }
+    if (!d2) { n2 = n2 > 0 ? 1 : -1; }
+    else if (d2 < 0) { n2 *= -1; d2 *= -1; }
     // FIXME: overflow
     int c = d1 || d2 ? n1 * d2 - n2 * d1 : n1 - n2;
-    // traceloc("(" << n1 << "," << d1 << ") is " << (c > 0 ? "greater than" : (c < 0 ? "lesser than" : "equal to")) << " (" << n2 << "," << d2 << ")");
     return (c > 0) - (c < 0);
 }
 
