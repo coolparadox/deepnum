@@ -1,0 +1,6 @@
+y(x)=\frac{ax+b}{cx+d}\\
+z(y)=\frac{ey+f}{gy+h}\\
+z\centerdot{}y=\frac{e\left(\frac{ax+b}{cx+d}\right)+f}{g\left(\frac{ax+b}{cx+d}\right)+h}=\\
+=\frac{e(ax+b)+f(cx+d)}{g(ax+b)+h(cx+d)}=\\
+=\frac{aex+be+cfx+df}{agx+bg+chx+dh}=\\
+=\frac{(ae+cf)x+(be+df)}{(ag+ch)x+(bg+dh)}
