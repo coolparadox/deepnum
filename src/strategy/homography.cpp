@@ -18,6 +18,8 @@
  * along with dn-clarith.  If not, see <http://www.gnu.org/licenses/>
  */
 
+#include <cassert>
+#include <cmath>
 #include <stdexcept>
 
 #include "number.hpp"
@@ -27,6 +29,7 @@
 #include "strategy/ratio.hpp"
 #include "strategy/unavailable_error.hpp"
 #include "strategy/undefined_ratio_error.hpp"
+#include "util.hpp"
 
 #include "homography.hpp"
 
@@ -124,9 +127,11 @@ void Homography::DetectOutputRange(int* min_n, int* min_d, int* max_n, int* max_
         *min_d = *max_d = 0;
     }
 
-    // FIXME:: overflow
-    int n = _n1 + _n0;
-    int d = _d1 + _d0;
+    int n, d;
+    assert(!__builtin_add_overflow(_n1, _n0, &n));
+    assert(!__builtin_add_overflow(_d1, _d0, &d));
+    // int n = _n1 + _n0;
+    // int d = _d1 + _d0;
     if (n || d)
     {
         tracelog("output at 1 is " << n << " " << d);
@@ -158,7 +163,6 @@ void Homography::DetectOutputRange(int* min_n, int* min_d, int* max_n, int* max_
 
 void Homography::MinMax(int* min_n, int* min_d, int* max_n, int* max_d, int n, int d)
 {
-    // Assume min_n/min_d <= max_n/max_d
     if (Compare(n, d, *min_n, *min_d) < 0)
     {
         *min_n = n;
@@ -185,7 +189,7 @@ bool Homography::IsBetweenZeroAndOne(int n, int d)
 
 Protocol Homography::CanEgest(int min_n, int min_d, int max_n, int max_d)
 {
-    // Precondition: min_n || max_n
+    assert(min_n || max_n);
     if (Compare(max_n, max_d, -1, 1) < 0) { return Protocol::Ground; }
     if (Compare(min_n, min_d, 1, 1) > 0) { return Protocol::Turn; }
     if (Compare(max_n, max_d, 0, 1) < 0 && Compare(min_n, min_d, -1, 1) >= 0) { return Protocol::Reflect; }
@@ -206,9 +210,8 @@ Protocol Homography::Egest(Protocol output)
              */
             if (_d1 % 2 || _d0 % 2)
             {
-                // FIXME: overflow
-                _n1 *= 2;
-                _n0 *= 2;
+                assert(!__builtin_mul_overflow(_n1, 2, &_n1));
+                assert(!__builtin_mul_overflow(_n0, 2, &_n0));
             }
             else
             {
@@ -223,11 +226,10 @@ Protocol Homography::Egest(Protocol output)
              * = (d1x+d0)/(n1x+n0)-(n1x+n0)/(n1x+n0)
              * = ((d1-n1)x+(d0-n0))/(n1x+n0)
              */
+            assert(!__builtin_sub_overflow(_d1, _n1, &_d1));
+            assert(!__builtin_sub_overflow(_d0, _n0, &_d0));
             std::swap(_n1, _d1);
             std::swap(_n0, _d0);
-            // FIXME: overflow?
-            _n1 -= _d1;
-            _n0 -= _d0;
             break;
         case Protocol:: Turn:
             /*
@@ -242,8 +244,8 @@ Protocol Homography::Egest(Protocol output)
              * -((n1x+n0)/(d1x+d0))
              * = ((-n1)x+(-n0))/(d1x+d0)
              */
-            _n1 *= -1;
-            _n0 *= -1;
+            assert(!__builtin_mul_overflow(_n1, -1, &_n1));
+            assert(!__builtin_mul_overflow(_n0, -1, &_n0));
             break;
         case Protocol:: Ground:
             /*
@@ -251,10 +253,10 @@ Protocol Homography::Egest(Protocol output)
              * = -(d1x+d0)/(n1x+n0)
              * = ((-d1)x+(-d0))/(n1x+n0)
              */
+            assert(!__builtin_mul_overflow(_d1, -1, &_d1));
+            assert(!__builtin_mul_overflow(_d0, -1, &_d0));
             std::swap(_n1, _d1);
             std::swap(_n0, _d0);
-            _n1 *= -1;
-            _n0 *= -1;
             break;
         default:
             throw std::logic_error("unhandled protocol message");
@@ -274,15 +276,70 @@ Strategy* Homography::GetNewStrategy() const
 
 int Homography::Compare(int n1, int d1, int n2, int d2)
 {
-    // Precondition: n1 || d1
-    // Precondition: n2 || d2
-    if (!d1) { n1 = n1 > 0 ? 1 : -1; }
-    else if (d1 < 0) { n1 *= -1; d1 *= -1; }
-    if (!d2) { n2 = n2 > 0 ? 1 : -1; }
-    else if (d2 < 0) { n2 *= -1; d2 *= -1; }
-    // FIXME: overflow
-    int c = d1 || d2 ? n1 * d2 - n2 * d1 : n1 - n2;
+    assert(n1 || d1);
+    assert(n2 || d2);
+    int n1_ = n1;
+    int d1_ = d1;
+    int n2_ = n2;
+    int d2_ = d2;
+    if (!d1_)
+    {
+        n1_ = n1_ > 0 ? 1 : -1;
+    }
+    else if (d1_ < 0)
+    {
+        if (__builtin_mul_overflow(n1_, -1, &n1_))
+        {
+            goto compare_fallback;
+        }
+        if (__builtin_mul_overflow(d1_, -1, &d1_))
+        {
+            goto compare_fallback;
+        }
+    }
+    if (!d2_)
+    {
+        n2_ = n2_ > 0 ? 1 : -1;
+    }
+    else if (d2_ < 0)
+    {
+        if (__builtin_mul_overflow(n2_, -1, &n2_))
+        {
+            goto compare_fallback;
+        }
+        if (__builtin_mul_overflow(d2_, -1, &d2_))
+        {
+            goto compare_fallback;
+        }
+    }
+    int c;
+    if (d1_ || d2_)
+    {
+        int t1, t2;
+        if (__builtin_mul_overflow(n1_, d2_, &t1))
+        {
+            goto compare_fallback;
+        }
+        if (__builtin_mul_overflow(n2_, d1_, &t2))
+        {
+            goto compare_fallback;
+        }
+        if (__builtin_sub_overflow(t1, t2, &c))
+        {
+            goto compare_fallback;
+        }
+    }
+    else
+    {
+        if (__builtin_sub_overflow(n1_, n2_, &c))
+        {
+            goto compare_fallback;
+        }
+    }
     return (c > 0) - (c < 0);
+compare_fallback:
+    traceloc("integer overflow; fallbacking to Ratio comparison");
+    return Util::Compare(new Number(new Ratio(n1, d1)), new Number(new Ratio(n2, d2)));
 }
 
 void Homography::Ingest()
@@ -303,7 +360,7 @@ void Homography::Ingest()
                 }
                 if (_d1 < 0)
                 {
-                    _n0 *= -1;
+                    assert(!__builtin_mul_overflow(_n0, -1, &_n0));
                 }
             }
             _exhausted = true;
@@ -319,9 +376,8 @@ void Homography::Ingest()
              */
             if (_n1 % 2 || _d1 % 2)
             {
-                // FIXME: overflow
-                _n0 *= 2;
-                _d0 *= 2;
+                assert(!__builtin_mul_overflow(_n0, 2, &_n0));
+                assert(!__builtin_mul_overflow(_d0, 2, &_d0));
             }
             else
             {
@@ -339,12 +395,10 @@ void Homography::Ingest()
              * = (n1+n0x2+n0)/(d1+d0x2+d0)
              * = (n0x2+(n1+n0))/(d0x2+(d1+d0))
              */
-            // FIXME: performance?
+            assert(!__builtin_add_overflow(_n1, _n0, &_n1));
+            assert(!__builtin_add_overflow(_d1, _d0, &_d1));
             std::swap(_n1, _n0);
             std::swap(_d1, _d0);
-            // FIXME: overflow
-            _n0 += _n1;
-            _d0 += _d1;
             break;
         case Protocol::Turn:
             /*
@@ -369,29 +423,27 @@ void Homography::Ingest()
              */
             if (_n0 || _d0)
             {
-                _n0 *= -1;
-                _d0 *= -1;
+                assert(!__builtin_mul_overflow(_n0, -1, &_n0));
+                assert(!__builtin_mul_overflow(_d0, -1, &_d0));
             }
             else
             {
-                _n1 *= -1;
-                _d1 *= -1;
+                assert(!__builtin_mul_overflow(_n1, -1, &_n1));
+                assert(!__builtin_mul_overflow(_d1, -1, &_d1));
             }
             break;
         case Protocol::Ground:
             /*
              * x2 = -1/x1 => x1 = -1/x2
-             *
-             * (n1x1+n0)/(d1x1+d0)
              * = (n1(-1/x2)+n0)/(d1(-1/x2)+d0)
              * = (-n1+n0x2)/(-d1+d0x2)
              * = (n0x2+(-n1))/(d0x2+(-d1))
              */
             // FIXME: performance?
+            assert(!__builtin_mul_overflow(_n1, -1, &_n1));
+            assert(!__builtin_mul_overflow(_d1, -1, &_d1));
             std::swap(_n1, _n0);
             std::swap(_d1, _d0);
-            _n0 *= -1;
-            _d0 *= -1;
             break;
         default:
             throw std::logic_error("unhandled protocol message");
