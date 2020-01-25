@@ -1,0 +1,10 @@
+<map id="src/protocol/protocol.hpp" name="src/protocol/protocol.hpp">
+<area shape="rect" id="node2" href="$number_8cpp.html" title="src/number.cpp" alt="" coords="5,80,127,107"/>
+<area shape="rect" id="node3" href="$protocol_8cpp.html" title="src/protocol/protocol.cpp" alt="" coords="151,80,333,107"/>
+<area shape="rect" id="node4" href="$watcher_8cpp.html" title="src/protocol/watcher.cpp" alt="" coords="357,80,537,107"/>
+<area shape="rect" id="node5" href="$homography_8cpp.html" title="src/strategy/homography.cpp" alt="" coords="562,80,773,107"/>
+<area shape="rect" id="node6" href="$playback_8cpp.html" title="src/strategy/playback.cpp" alt="" coords="797,80,986,107"/>
+<area shape="rect" id="node7" href="$ratio_8cpp.html" title="src/strategy/ratio.cpp" alt="" coords="1010,80,1170,107"/>
+<area shape="rect" id="node8" href="$zero_8cpp.html" title="src/strategy/zero.cpp" alt="" coords="1195,80,1353,107"/>
+<area shape="rect" id="node9" href="$util_8cpp.html" title="src/util.cpp" alt="" coords="1378,80,1471,107"/>
+</map>

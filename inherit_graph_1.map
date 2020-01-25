@@ -1,0 +1,4 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node2" href="$classdeepnum_1_1clarith_1_1protocol_1_1ViolationError.html" title="Indicates that some Protocol rule was not honored. " alt="" coords="165,5,358,47"/>
+<area shape="rect" id="node3" href="$classdeepnum_1_1clarith_1_1strategy_1_1ExhaustionError.html" title="Indicates that a reducing strategy is no longer effective. " alt="" coords="164,71,359,112"/>
+</map>

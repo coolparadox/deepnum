@@ -1,0 +1,4 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node2" href="$classdeepnum_1_1clarith_1_1strategy_1_1UnavailableError.html" title="Indicates that a new strategy is not available. " alt="" coords="144,5,339,47"/>
+<area shape="rect" id="node3" href="$classdeepnum_1_1clarith_1_1strategy_1_1UndefinedRatioError.html" title="Indicates that a ratio of two numbers is nonsense (eg: 0/0). " alt="" coords="144,71,339,112"/>
+</map>
